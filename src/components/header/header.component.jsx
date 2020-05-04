@@ -1,31 +1,42 @@
 import React from "react";
-import CurrentUserContext from "../../contexts/user/user.context";
-import { Navbar, NavbarItems } from "./header.styles";
+import { UserContext } from "../../providers/user/user.provider";
+import { Navbar, NavbarFixed, NavbarItems } from "./header.styles";
+import { withRouter } from "react-router-dom";
 
-const Header = () => {
-  const user = React.useContext(CurrentUserContext);
-  console.log(user);
-  if (user.userName === null) {
+const Header = ({ match }) => {
+  const { ready, imageUrl, userName, profileUrl } = React.useContext(
+    UserContext
+  );
+
+  if (!ready) {
     return (
-      <Navbar>
-        <NavbarItems>
-          <a rel="noopener noreferrer" target="_blank" href="https://last.fm">
-            <img alt="last.fm" src="./images/lastfm.png" />
-          </a>
-        </NavbarItems>
-        <NavbarItems>Specify your last.fm username</NavbarItems>
-      </Navbar>
+      <NavbarFixed>
+        <Navbar>
+          <NavbarItems>
+            <a rel="noopener noreferrer" target="_blank" href="https://last.fm">
+              <img alt="last.fm" src="./images/lastfm.png" />
+            </a>
+          </NavbarItems>
+          <NavbarItems>
+            {match.isExact ? "Specify your last.fm username" : "Loading ..."}
+          </NavbarItems>
+        </Navbar>
+      </NavbarFixed>
     );
   } else {
     return (
-      <Navbar>
-        <NavbarItems>
-          <img alt="Avatar" src={user.imgUrl} />
-        </NavbarItems>
-        <NavbarItems>{user.userName}</NavbarItems>
-      </Navbar>
+      <NavbarFixed>
+        <Navbar>
+          <NavbarItems>
+            <a rel="noopener noreferrer" target="_blank" href={profileUrl}>
+              <img alt="Avatar" src={imageUrl} />
+            </a>
+          </NavbarItems>
+          <NavbarItems>{userName}</NavbarItems>
+        </Navbar>
+      </NavbarFixed>
     );
   }
 };
 
-export default Header;
+export default withRouter(Header);
