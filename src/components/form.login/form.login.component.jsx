@@ -37,12 +37,15 @@ const FormLogin = ({ history }) => {
           <FormInput
             name="username"
             type="username"
+            data-testid="username"
             onChange={handleChange}
             value={user.userName}
             required
           />
           <FormButton>
-            <button type="submit">Show my Top20</button>
+            <button data-testid="submit" type="submit">
+              Show my Top20
+            </button>
           </FormButton>
         </form>
         {errorMsg ? <ErrorDiv>{errorMsg}</ErrorDiv> : <div></div>}

@@ -1,73 +1,56 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
 import Header from "./header.component";
+
 import { UserContext } from "../../providers/user/user.provider";
+import { testUser, noUser } from "../../test.fixtures/user.fixture";
 
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
-const testUser = {
-  userName: "niall-byrne",
-  imageUrl:
-    "https://www.gravatar.com/avatar/1fb821f534ddff07eb74482127a00ebd?d=retro&r=g&s=100",
-  profileUrl: "https://www.last.fm/user/niall-byrne",
-  ready: true,
-};
-
-const noUser = {
-  userName: null,
-  imageUrl: null,
-  profileUrl: null,
-  ready: false,
-};
-
 describe("The Header Should Render Without Crashing", () => {
   let history;
+  let utils;
+  let initial = [testUser, noUser];
+  let paths = ["/niall-byrne", "/"];
+
   beforeEach(() => {
     history = createMemoryHistory();
+    utils = render(
+      <Router history={history}>
+        <UserContext.Provider value={initial.pop()}>
+          <Header />
+        </UserContext.Provider>
+      </Router>
+    );
+    history.push(paths.pop());
   });
 
   afterEach(cleanup);
 
   describe("When on The Root Page", () => {
-    beforeEach(() => {
-      history.push("/");
-    });
-
     it("renders without a user", () => {
-      const { getByText, getByAltText } = render(
-        <Router history={history}>
-          <UserContext.Provider value={noUser}>
-            <Header />
-          </UserContext.Provider>
-        </Router>
-      );
-      const link = getByAltText("last.fm").parentElement.getAttribute("href");
-      const src = getByAltText("last.fm").getAttribute("src");
+      const link = utils
+        .getByAltText("last.fm")
+        .parentElement.getAttribute("href");
+      const src = utils.getByAltText("last.fm").getAttribute("src");
       expect(link).toBe("https://last.fm");
       expect(src).toBe("./images/lastfm.png");
-      expect(getByText("Specify your last.fm username")).toBeInTheDocument();
+      expect(
+        utils.getByText("Specify your last.fm username")
+      ).toBeInTheDocument();
     });
   });
 
   describe("When on a User Page", () => {
-    beforeEach(() => {
-      history.push("/niall-byrne");
-    });
-
     it("renders with a user", () => {
-      const { getByText, getByAltText } = render(
-        <Router history={history}>
-          <UserContext.Provider value={testUser}>
-            <Header />
-          </UserContext.Provider>
-        </Router>
-      );
-      const link = getByAltText("Avatar").parentElement.getAttribute("href");
-      const src = getByAltText("Avatar").getAttribute("src");
-      expect(link).toBe(testUser.profileUrl);
-      expect(src).toBe(testUser.imageUrl);
-      expect(getByText(testUser.userName)).toBeInTheDocument();
+      const link = utils
+        .getByAltText("Avatar")
+        .parentElement.getAttribute("href");
+      const src = utils.getByAltText("Avatar").getAttribute("src");
+      expect(link).toBe(testUser.userProperties.profileUrl);
+      expect(src).toBe(testUser.userProperties.imageUrl);
+      expect(utils.getByText(testUser.userName)).toBeInTheDocument();
     });
   });
 });

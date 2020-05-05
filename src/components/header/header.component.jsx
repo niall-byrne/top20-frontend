@@ -4,11 +4,9 @@ import { Navbar, NavbarFixed, NavbarItems } from "./header.styles";
 import { withRouter } from "react-router-dom";
 
 const Header = ({ match }) => {
-  const { ready, imageUrl, userName, profileUrl } = React.useContext(
-    UserContext
-  );
+  const { userProperties, userName } = React.useContext(UserContext);
 
-  if (!ready) {
+  if (!userProperties.ready) {
     return (
       <NavbarFixed>
         <Navbar>
@@ -28,8 +26,12 @@ const Header = ({ match }) => {
       <NavbarFixed>
         <Navbar>
           <NavbarItems>
-            <a rel="noopener noreferrer" target="_blank" href={profileUrl}>
-              <img alt="Avatar" src={imageUrl} />
+            <a
+              rel="noopener noreferrer"
+              target="_blank"
+              href={userProperties.profileUrl}
+            >
+              <img alt="Avatar" src={userProperties.imageUrl} />
             </a>
           </NavbarItems>
           <NavbarItems>{userName}</NavbarItems>

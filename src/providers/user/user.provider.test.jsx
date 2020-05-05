@@ -20,15 +20,15 @@ describe("Check the Inital Provider State", () => {
         </UserContext.Consumer>
       </UserProvider>
     );
+    // Examine the Top Level State
+    expect(Object.keys(received).length).toBe(4);
+    // Examine the user state object
     expect(received.userName).toBe("");
     expect(received.setUserName).toBeInstanceOf(Function);
-    expect(received.imageUrl).toBe(null);
-    expect(received.setImageUrl).toBeInstanceOf(Function);
-    expect(received.profileUrl).toBe(null);
-    expect(received.setProfileUrl).toBeInstanceOf(Function);
-    expect(received.ready).toBe(false);
-    expect(received.toggleReady).toBeInstanceOf(Function);
-    expect(Object.keys(received).length).toBe(8);
+    // Examine the dispatch object
+    expect(received.dispatch).toBeInstanceOf(Function);
+    // Ensure the UserProperties Reducer is Attached
+    expect(received.userProperties).toBeTruthy();
   });
 });
 
@@ -38,23 +38,24 @@ describe("Mutate the Inital Provider State", () => {
     received = [];
   });
 
-  const TestHook = () => {
-    const { toggleReady, ready } = useContext(UserContext);
-    useEffect(() => {
-      if (!ready) toggleReady();
-      received.push(ready);
-    }, [toggleReady]);
-    return <div></div>;
-  };
+  it("should mutate userName as expected", () => {
+    const TestHook = () => {
+      const { setUserName, userName } = useContext(UserContext);
+      useEffect(() => {
+        setUserName("hello");
+        received.push(userName);
+      }, [setUserName, userName]);
+      return <div></div>;
+    };
 
-  it("should toggle the ready state appropriately", () => {
     render(
       <UserProvider>
         <TestHook />
       </UserProvider>
     );
-    expect(received[0]).toBe(false);
-    expect(received[1]).toBe(true);
+
+    expect(received[0]).toBe("");
+    expect(received[1]).toBe("hello");
     expect(received.length).toBe(2);
   });
 });

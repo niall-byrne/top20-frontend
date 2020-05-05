@@ -3,24 +3,25 @@ import Profile from "./profile.component";
 import WithSpinner from "../spinner/spinner.component";
 import WithBillboard from "../billboard/billboard.component";
 
+import UserTypes from "../../providers/user/user.actions";
 import { UserContext } from "../../providers/user/user.provider";
 
 const ProfileWithSpinner = WithBillboard(WithSpinner(Profile));
 
 const ProfileContainer = () => {
-  const { ready, toggleReady } = React.useContext(UserContext);
+  const { userProperties, dispatch } = React.useContext(UserContext);
 
   React.useEffect(() => {
-    const fetchUserDetails = async () => {
-      await setInterval(function () {
-        toggleReady();
+    const fetchUserDetails = () => {
+      setTimeout(function () {
+        dispatch({ type: UserTypes.ToggleReady });
       }, 3000);
     };
 
-    if (!ready) {
+    if (!userProperties.ready) {
       fetchUserDetails();
     }
-  }, [toggleReady]);
+  }, [dispatch, userProperties]);
 
   return <ProfileWithSpinner />;
 };

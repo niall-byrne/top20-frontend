@@ -1,31 +1,19 @@
-import React, { createContext, useState } from "react";
+import React, { useReducer, useState, createContext } from "react";
+import { UserReducer, InitialState } from "./user.reducer";
 
-export const UserContext = createContext({
-  userName: "",
-  imageUrl: null,
-  profileUrl: null,
-  ready: false,
-});
+export const UserContext = createContext({ ...InitialState, userName: "" });
 
 const UserProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
-  const [imageUrl, setImageUrl] = useState(null);
-  const [profileUrl, setProfileUrl] = useState(null);
-  const [ready, setReady] = useState(false);
-
-  const toggleReady = () => setReady(!ready);
+  const [userProperties, dispatch] = useReducer(UserReducer, InitialState);
 
   return (
     <UserContext.Provider
       value={{
-        toggleReady,
-        ready,
-        userName,
+        userProperties,
+        dispatch,
         setUserName,
-        imageUrl,
-        setImageUrl,
-        profileUrl,
-        setProfileUrl,
+        userName,
       }}
     >
       {children}

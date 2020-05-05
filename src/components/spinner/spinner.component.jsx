@@ -4,11 +4,11 @@ import { LoaderContainer } from "./spinner.styles";
 
 const WithSpinner = (WrappedComponent) => {
   const Spinner = ({ ...otherProps }) => {
-    const { ready } = React.useContext(UserContext);
+    const { userProperties } = React.useContext(UserContext);
     return (
       <div>
-        {!ready ? (
-          <LoaderContainer>
+        {!userProperties.ready ? (
+          <LoaderContainer data-testid="Spinner1">
             <div className="loader">Loading...</div>
           </LoaderContainer>
         ) : (
