@@ -21,7 +21,7 @@ const noUser = {
   ready: false,
 };
 
-describe("The Header Should Work On Root", () => {
+describe("The Header Should Render Without Crashing", () => {
   let history;
   beforeEach(() => {
     history = createMemoryHistory();
@@ -29,12 +29,12 @@ describe("The Header Should Work On Root", () => {
 
   afterEach(cleanup);
 
-  describe("renders correctly on the root page", () => {
+  describe("When on The Root Page", () => {
     beforeEach(() => {
       history.push("/");
     });
 
-    test("Renders without a user", () => {
+    it("renders without a user", () => {
       const { getByText, getByAltText } = render(
         <Router history={history}>
           <UserContext.Provider value={noUser}>
@@ -50,12 +50,12 @@ describe("The Header Should Work On Root", () => {
     });
   });
 
-  describe("renders correctly on a user page", () => {
+  describe("When on a User Page", () => {
     beforeEach(() => {
       history.push("/niall-byrne");
     });
 
-    test("Renders with a user", () => {
+    it("renders with a user", () => {
       const { getByText, getByAltText } = render(
         <Router history={history}>
           <UserContext.Provider value={testUser}>

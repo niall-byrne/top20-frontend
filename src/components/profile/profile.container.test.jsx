@@ -2,7 +2,7 @@ import React from "react";
 import { render, cleanup } from "@testing-library/react";
 import ProfileContainer from "./profile.container";
 
-describe("Check Profile Container", () => {
+describe("Check the Profile Container Component Renders Without Crashing", () => {
   afterEach(cleanup);
 
   it("should be wrapped in the billboard components", () => {

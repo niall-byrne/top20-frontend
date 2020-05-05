@@ -8,7 +8,7 @@ const mockFormLogin = FormLogin.mockImplementation(() => (
   <div>MockComponent</div>
 ));
 
-describe("Check Login", () => {
+describe("Check the Login Component Renders Without Crashing", () => {
   afterEach(cleanup);
 
   it("should be wrapped in the billboard components", () => {

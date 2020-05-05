@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { render, cleanup } from "@testing-library/react";
 import UserProvider, { UserContext } from "../../providers/user/user.provider";
 
-describe("Check Inital Provider State", () => {
+describe("Check the Inital Provider State", () => {
   afterEach(cleanup);
 
   it("should have the expected default values", () => {
@@ -32,7 +32,7 @@ describe("Check Inital Provider State", () => {
   });
 });
 
-describe("Mutate Inital Provider State", () => {
+describe("Mutate the Inital Provider State", () => {
   let received;
   beforeEach(() => {
     received = [];
