@@ -10,13 +10,13 @@ import { createMemoryHistory } from "history";
 
 describe("The FormLogin Component Should Render Without Crashing", () => {
   let history;
-  let util;
+  let utils;
   let initial = [testUser, noUser];
 
   beforeEach(() => {
     history = createMemoryHistory();
     history.push("/");
-    util = render(
+    utils = render(
       <Router history={history}>
         <UserContext.Provider value={initial.pop()}>
           <FormLogin />
@@ -29,26 +29,26 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
   describe("When initialized with defaults", () => {
     it("when loading", () => {
       // Check the input field renders with correct initial value
-      const input = util.getByTestId("username");
+      const input = utils.getByTestId("username");
       expect(input).toBeTruthy();
       expect(input.value).toBe("");
       // Check the other elements are present with correct text
-      expect(util.getByTestId("submit")).toBeTruthy();
-      expect(util.getByText("last.fm username:")).toBeInTheDocument();
-      expect(util.getByText("Show my Top20")).toBeInTheDocument();
+      expect(utils.getByTestId("submit")).toBeTruthy();
+      expect(utils.getByText("last.fm username:")).toBeInTheDocument();
+      expect(utils.getByText("Show my Top20")).toBeInTheDocument();
     });
   });
 
   describe("When initialized with data", () => {
     it("when loading", () => {
       // Check the input field renders with correct initial value
-      const input = util.getByTestId("username");
+      const input = utils.getByTestId("username");
       expect(input).toBeTruthy();
       expect(input.value).toBe("niall-byrne");
       // Check the other elements are present with correct text
-      expect(util.getByTestId("submit")).toBeTruthy();
-      expect(util.getByText("last.fm username:")).toBeInTheDocument();
-      expect(util.getByText("Show my Top20")).toBeInTheDocument();
+      expect(utils.getByTestId("submit")).toBeTruthy();
+      expect(utils.getByText("last.fm username:")).toBeInTheDocument();
+      expect(utils.getByText("Show my Top20")).toBeInTheDocument();
     });
   });
 });
