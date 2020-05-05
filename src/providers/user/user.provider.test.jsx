@@ -47,7 +47,7 @@ describe("Mutate Inital Provider State", () => {
     return <div></div>;
   };
 
-  it("should toggle the ready state appopriately", () => {
+  it("should toggle the ready state appropriately", () => {
     render(
       <UserProvider>
         <TestHook />
