@@ -1,3 +1,6 @@
+export const setUserNameMock = jest.fn();
+export const dispatchMock = jest.fn();
+
 export const testUser = {
   userProperties: {
     imageUrl:
@@ -8,8 +11,8 @@ export const testUser = {
     data: {},
   },
   userName: "niall-byrne",
-  setUserName: jest.fn(),
-  dispatch: jest.fn(),
+  setUserName: setUserNameMock,
+  dispatch: dispatchMock,
 };
 
 export const testUserWithoutImage = {
@@ -21,8 +24,8 @@ export const testUserWithoutImage = {
     data: {},
   },
   userName: "niall-byrne",
-  setUserName: jest.fn(),
-  dispatch: jest.fn(),
+  setUserName: setUserNameMock,
+  dispatch: dispatchMock,
 };
 
 export const noUser = {
@@ -34,8 +37,8 @@ export const noUser = {
     data: null,
   },
   userName: "",
-  setUserName: jest.fn(),
-  dispatch: jest.fn(),
+  setUserName: setUserNameMock,
+  dispatch: dispatchMock,
 };
 
 export const noUserError = {
@@ -47,8 +50,8 @@ export const noUserError = {
     data: null,
   },
   userName: "",
-  setUserName: jest.fn(),
-  dispatch: jest.fn(),
+  setUserName: setUserNameMock,
+  dispatch: dispatchMock,
 };
 
 export const userError = {
@@ -60,6 +63,6 @@ export const userError = {
     data: null,
   },
   userName: "errorUser",
-  setUserName: jest.fn(),
-  dispatch: jest.fn(),
+  setUserName: setUserNameMock,
+  dispatch: dispatchMock,
 };

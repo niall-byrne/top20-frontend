@@ -7,6 +7,7 @@ import {
   FormInput,
   FormButton,
 } from "./form.login.styles";
+import CustomButton from "../button/button.component";
 import { validateSubmit, validateChange } from "./form.login.validators";
 import { withRouter } from "react-router-dom";
 
@@ -43,9 +44,7 @@ const FormLogin = ({ history }) => {
             required
           />
           <FormButton>
-            <button data-testid="submit" type="submit">
-              Show my Top20
-            </button>
+            <CustomButton type="submit" testid="submit" text="Show my Top20" />
           </FormButton>
         </form>
         {errorMsg ? <ErrorDiv>{errorMsg}</ErrorDiv> : <div></div>}

@@ -27,7 +27,6 @@ const ProfileContainer = ({ match }) => {
 
   React.useEffect(() => {
     const success = (data) => {
-      setUserName(match.params.userName);
       dispatch({
         type: UserTypes.SuccessFetchUser,
         userName: match.params.userName,
@@ -40,6 +39,7 @@ const ProfileContainer = ({ match }) => {
     };
 
     const fetchUserDetails = () => {
+      setUserName(match.params.userName);
       dispatch({
         userName: match.params.userName,
         type: UserTypes.StartFetchUser,

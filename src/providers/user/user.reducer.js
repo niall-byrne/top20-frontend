@@ -17,6 +17,11 @@ const reducer = (state, action) => {
         ...state,
         ready: !state.ready,
       };
+    case UserActions.ClearError:
+      return {
+        ...state,
+        error: false,
+      };
     case UserActions.FailureFetchUser:
       return {
         ...state,
