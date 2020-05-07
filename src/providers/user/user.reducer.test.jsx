@@ -9,10 +9,12 @@ describe("Check The Reducer Functionality", () => {
 
   it("should have the expected default values", () => {
     const received = UserReducer(InitialState, { type: "NoAction" });
-    expect(Object.keys(received).length).toBe(3);
-    expect(received.ready).toBe(false);
+    expect(Object.keys(received).length).toBe(5);
+    expect(received.data).toBe(null);
+    expect(received.error).toBe(false);
     expect(received.imageUrl).toBe(null);
     expect(received.profileUrl).toBe(null);
+    expect(received.ready).toBe(false);
   });
 
   it("handles ToggleReady correctly", () => {
