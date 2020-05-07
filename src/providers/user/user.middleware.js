@@ -1,3 +1,6 @@
+// Intercepts Certain Reducer Actions to Call Asyncronous Logic
+// Encapsulates with logging
+
 import UserActions from "./user.actions";
 import withReducerLogger from "../../util/reducer.logger";
 

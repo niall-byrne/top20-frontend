@@ -1,3 +1,5 @@
+// Main User Reducer
+
 import UserActions from "./user.actions";
 import withMiddleware from "./user.middleware";
 

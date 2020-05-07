@@ -1,3 +1,5 @@
+// Provides State and Access to the User Reducer
+
 import React, { useReducer, useState, createContext } from "react";
 import { UserReducer, InitialState } from "./user.reducer";
 
