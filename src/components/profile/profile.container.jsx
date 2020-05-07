@@ -1,23 +1,31 @@
+// Wraps the Profile Component with:
+// - withSpinner
+// - withBillboard
+// - withRouter
+
 import React from "react";
 import Profile from "./profile.component";
-import WithSpinner from "../spinner/spinner.component";
-import WithBillboard from "../billboard/billboard.component";
+import { withRouter } from "react-router-dom";
+import withSpinner from "../spinner/spinner.component";
+import withBillboard from "../billboard/billboard.component";
+import { fetchProfile } from "./profile.async";
 
 import UserTypes from "../../providers/user/user.actions";
 import { UserContext } from "../../providers/user/user.provider";
 
-const ProfileWithSpinner = WithBillboard(WithSpinner(Profile));
+const ProfileWithSpinner = withBillboard(withSpinner(Profile));
 
-const ProfileContainer = () => {
+const ProfileContainer = ({ match }) => {
   const { userProperties, dispatch } = React.useContext(UserContext);
 
   React.useEffect(() => {
     const fetchUserDetails = () => {
-      setTimeout(function () {
-        dispatch({ type: UserTypes.ToggleReady });
-      }, 3000);
+      dispatch({
+        payload: match.params.userName,
+        type: UserTypes.StartFetchUser,
+        func: fetchProfile,
+      });
     };
-
     if (!userProperties.ready) {
       fetchUserDetails();
     }
@@ -26,4 +34,4 @@ const ProfileContainer = () => {
   return <ProfileWithSpinner />;
 };
 
-export default ProfileContainer;
+export default withRouter(ProfileContainer);

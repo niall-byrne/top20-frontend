@@ -1,3 +1,5 @@
+// Simple Logging Middleware for useReducer
+
 const jestRunning = () => {
   return process.env.JEST_WORKER_ID !== undefined;
 };

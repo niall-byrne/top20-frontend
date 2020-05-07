@@ -1,12 +1,12 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
+
 import Header from "./header.component";
 
 import { UserContext } from "../../providers/user/user.provider";
 import { testUser, noUser } from "../../test.fixtures/user.fixture";
-
-import { Router } from "react-router-dom";
-import { createMemoryHistory } from "history";
 
 describe("The Header Should Render Without Crashing", () => {
   let history;

@@ -1,7 +1,7 @@
 import React from "react";
 import { CenterDiv, ProfileDiv } from "./billboard.styles";
 
-const WithBillboard = (WrappedComponent) => {
+const withBillboard = (WrappedComponent) => {
   const Billboard = ({ ...otherProps }) => {
     return (
       <CenterDiv data-testid="billboard1">
@@ -14,4 +14,4 @@ const WithBillboard = (WrappedComponent) => {
   return Billboard;
 };
 
-export default WithBillboard;
+export default withBillboard;

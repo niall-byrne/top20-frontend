@@ -1,3 +1,5 @@
+// Validators for the Login Form
+
 export const validateSubmit = (data, success, reject) => {
   if (data.length < 1) {
     reject("You require a name.");

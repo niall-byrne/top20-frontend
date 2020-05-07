@@ -1,5 +1,5 @@
 import UserActions from "./user.actions";
-import withReducerLogger from "../../util/reducer.logger";
+import withMiddleware from "./user.middleware";
 
 export const InitialState = {
   imageUrl: null,
@@ -19,4 +19,4 @@ const reducer = (state, action) => {
   }
 };
 
-export const UserReducer = withReducerLogger(reducer, "UserReducer");
+export const UserReducer = withMiddleware(reducer, "UserReducer");

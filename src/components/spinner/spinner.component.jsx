@@ -1,3 +1,6 @@
+// Renders a Spinner Animation during Asyncronous Tasks
+// Controlled by the 'ready' property of the UserContext
+
 import React from "react";
 import { UserContext } from "../../providers/user/user.provider";
 import { LoaderContainer } from "./spinner.styles";

@@ -1,5 +1,5 @@
 {
-  "name": "top20",
+  "name": "top20-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
