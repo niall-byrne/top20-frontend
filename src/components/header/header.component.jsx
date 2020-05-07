@@ -3,6 +3,8 @@ import { UserContext } from "../../providers/user/user.provider";
 import { Navbar, NavbarFixed, NavbarItems } from "./header.styles";
 import { withRouter } from "react-router-dom";
 
+export const fallBackAvatar = "./images/lastfm.png";
+
 const Header = ({ match }) => {
   const { userProperties, userName } = React.useContext(UserContext);
 
@@ -12,11 +14,15 @@ const Header = ({ match }) => {
         <Navbar>
           <NavbarItems>
             <a rel="noopener noreferrer" target="_blank" href="https://last.fm">
-              <img alt="last.fm" src="./images/lastfm.png" />
+              <img alt="last.fm" src={fallBackAvatar} />
             </a>
           </NavbarItems>
           <NavbarItems>
-            {match.isExact ? "Specify your last.fm username" : "Loading ..."}
+            {userProperties.error
+              ? "No User Found"
+              : match.isExact
+              ? "Specify your last.fm username"
+              : "Loading ..."}
           </NavbarItems>
         </Navbar>
       </NavbarFixed>
@@ -31,7 +37,14 @@ const Header = ({ match }) => {
               target="_blank"
               href={userProperties.profileUrl}
             >
-              <img alt="Avatar" src={userProperties.imageUrl} />
+              <img
+                alt="Avatar"
+                src={
+                  userProperties.imageUrl !== ""
+                    ? userProperties.imageUrl
+                    : fallBackAvatar
+                }
+              />
             </a>
           </NavbarItems>
           <NavbarItems>{userName}</NavbarItems>

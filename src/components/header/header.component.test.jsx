@@ -3,15 +3,19 @@ import { render, cleanup } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
-import Header from "./header.component";
+import Header, { fallBackAvatar } from "./header.component";
 
 import { UserContext } from "../../providers/user/user.provider";
-import { testUser, noUser } from "../../test.fixtures/user.fixture";
+import {
+  testUserWithoutImage,
+  testUser,
+  noUser,
+} from "../../test.fixtures/user.fixture";
 
 describe("The Header Should Render Without Crashing", () => {
   let history;
   let utils;
-  let initial = [testUser, noUser];
+  let initial = [testUserWithoutImage, testUser, noUser];
   let paths = ["/niall-byrne", "/"];
 
   beforeEach(() => {
@@ -35,7 +39,7 @@ describe("The Header Should Render Without Crashing", () => {
         .parentElement.getAttribute("href");
       const src = utils.getByAltText("last.fm").getAttribute("src");
       expect(link).toBe("https://last.fm");
-      expect(src).toBe("./images/lastfm.png");
+      expect(src).toBe(fallBackAvatar);
       expect(
         utils.getByText("Specify your last.fm username")
       ).toBeInTheDocument();
@@ -50,6 +54,18 @@ describe("The Header Should Render Without Crashing", () => {
       const src = utils.getByAltText("Avatar").getAttribute("src");
       expect(link).toBe(testUser.userProperties.profileUrl);
       expect(src).toBe(testUser.userProperties.imageUrl);
+      expect(utils.getByText(testUser.userName)).toBeInTheDocument();
+    });
+  });
+
+  describe("When on a User Page, who has no image", () => {
+    it("renders with a user", () => {
+      const link = utils
+        .getByAltText("Avatar")
+        .parentElement.getAttribute("href");
+      const src = utils.getByAltText("Avatar").getAttribute("src");
+      expect(link).toBe(testUser.userProperties.profileUrl);
+      expect(src).toBe(fallBackAvatar);
       expect(utils.getByText(testUser.userName)).toBeInTheDocument();
     });
   });

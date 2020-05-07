@@ -12,6 +12,19 @@ export const testUser = {
   dispatch: jest.fn(),
 };
 
+export const testUserWithoutImage = {
+  userProperties: {
+    imageUrl: "",
+    profileUrl: "https://www.last.fm/user/niall-byrne",
+    ready: true,
+    error: false,
+    data: {},
+  },
+  userName: "niall-byrne",
+  setUserName: jest.fn(),
+  dispatch: jest.fn(),
+};
+
 export const noUser = {
   userProperties: {
     imageUrl: null,
