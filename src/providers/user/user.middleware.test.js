@@ -61,9 +61,12 @@ describe("Check The Reducer Middlware", () => {
     ]);
     expect(mockAsync.mock.calls.length).toBe(1);
     expect(mockAsync.mock.calls[0]).toEqual([
-      mockReducer,
       initialState,
-      mockPayload,
+      {
+        type: UserActions.StartFetchUser,
+        func: mockAsync,
+        payload: mockPayload,
+      },
     ]);
   });
 });

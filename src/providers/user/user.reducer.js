@@ -1,5 +1,4 @@
 // Main User Reducer
-
 import UserActions from "./user.actions";
 import withMiddleware from "./user.middleware";
 
@@ -17,6 +16,19 @@ const reducer = (state, action) => {
       return {
         ...state,
         ready: !state.ready,
+      };
+    case UserActions.FailureFetchUser:
+      return {
+        ...state,
+        error: true,
+      };
+    case UserActions.SuccessFetchUser:
+      return {
+        ...state,
+        profileUrl: `https://www.last.fm/user/${action.userName}`,
+        data: action.data,
+        error: false,
+        ready: true,
       };
     default:
       return state;

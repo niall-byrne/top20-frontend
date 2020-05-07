@@ -1,4 +1,4 @@
-// Actions for the User Reducer
+// Actions for the User
 
 const UserActions = {
   ToggleReady: "ToggleReady",

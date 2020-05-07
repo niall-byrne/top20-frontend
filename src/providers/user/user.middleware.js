@@ -4,15 +4,15 @@
 import UserActions from "./user.actions";
 import withReducerLogger from "../../util/reducer.logger";
 
-const withMiddleware = (reducer, name) => {
-  const dispatch = withReducerLogger(reducer, name);
+const withMiddleware = (originalReducer, name) => {
+  const reducer = withReducerLogger(originalReducer, name);
   const wrappedReducer = (state, action) => {
     switch (action.type) {
       case UserActions.StartFetchUser:
-        action.func(dispatch, state, action.payload);
-        return dispatch(state, action);
+        action.func(state, action);
+        return reducer(state, action);
       default:
-        return dispatch(state, action);
+        return reducer(state, action);
     }
   };
   return wrappedReducer;

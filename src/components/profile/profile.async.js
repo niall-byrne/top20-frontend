@@ -1,7 +1,5 @@
 // Asynchonous Tasks for the Profile Component
 
-import UserActions from "../../providers/user/user.actions";
-
 const backend =
   process.env.ENV === "production"
     ? process.env.REACT_APP_BACKEND_PROD
@@ -21,24 +19,16 @@ const postData = async (url = "", data = {}, success, failure) => {
   });
   const json = await response.json();
   if (response.status === 200) return success(json);
-  failure(json);
+  return failure(json);
 };
 
-export const fetchProfile = (dispatch, state, userName) => {
-  const success = (data) => {
-    dispatch(state, { type: UserActions.SuccessFetchUser, payload: data });
-  };
-
-  const failure = (data) => {
-    dispatch(state, { type: UserActions.FailureFetchUser, payload: data });
-  };
-
-  const response = postData(
+export const fetchProfile = (state, action) => {
+  postData(
     backend + "/lastfm/",
     {
-      username: userName,
+      username: action.userName,
     },
-    success,
-    failure
+    action.success,
+    action.failure
   );
 };
