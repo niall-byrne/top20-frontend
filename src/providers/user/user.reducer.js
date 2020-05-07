@@ -26,6 +26,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         profileUrl: `https://www.last.fm/user/${action.userName}`,
+        imageUrl: action.data.image,
         data: action.data,
         error: false,
         ready: true,
