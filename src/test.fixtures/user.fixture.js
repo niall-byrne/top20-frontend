@@ -61,3 +61,27 @@ export const userError = {
   },
   dispatch: dispatchMock,
 };
+
+export const userBeforeFetch = {
+  userProperties: {
+    userName: "niall-byrne",
+    imageUrl: "",
+    profileUrl: "",
+    ready: false,
+    error: false,
+    data: {},
+  },
+  dispatch: dispatchMock,
+};
+
+export const userBeforeFetchReady = {
+  userProperties: {
+    userName: "niall-byrne",
+    imageUrl: "",
+    profileUrl: "",
+    ready: true,
+    error: false,
+    data: {},
+  },
+  dispatch: dispatchMock,
+};
