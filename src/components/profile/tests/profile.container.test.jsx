@@ -62,8 +62,11 @@ describe("Check Profile Data Fetching", () => {
     expect(call.userName).toBe(providerState.userProperties.userName);
     expect(call.type).toBe("StartFetchUser");
     expect(call.func).toBeInstanceOf(Function);
+    expect(call.func.name).toBe("fetchProfile");
     expect(call.success).toBeInstanceOf(Function);
+    expect(call.success.name).toBe("success");
     expect(call.failure).toBeInstanceOf(Function);
+    expect(call.failure.name).toBe("failure");
   });
 
   it("when ready is true, no dispatch is made", () => {
