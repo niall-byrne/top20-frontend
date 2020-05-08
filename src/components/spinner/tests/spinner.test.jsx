@@ -1,9 +1,9 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
-import WithSpinner from "./spinner.component";
+import WithSpinner from "../spinner.component";
 
-import { UserContext } from "../../providers/user/user.provider";
-import { testUser, noUser } from "../../test.fixtures/user.fixture";
+import { UserContext } from "../../../providers/user/user.provider";
+import { testUser, noUser } from "../../../test.fixtures/user.fixture";
 
 const TestHook = () => <div>TestComponent</div>;
 

@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 export const fallBackAvatar = "./images/lastfm.png";
 
 const Header = ({ match }) => {
-  const { userProperties, userName } = React.useContext(UserContext);
+  const { userProperties } = React.useContext(UserContext);
 
   if (!userProperties.ready) {
     return (
@@ -47,7 +47,7 @@ const Header = ({ match }) => {
               />
             </a>
           </NavbarItems>
-          <NavbarItems>{userName}</NavbarItems>
+          <NavbarItems>{userProperties.userName}</NavbarItems>
         </Navbar>
       </NavbarFixed>
     );

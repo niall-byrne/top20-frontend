@@ -1,9 +1,9 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
-import FormLogin from "./form.login.component";
+import FormLogin from "../form.login.component";
 
-import { UserContext } from "../../providers/user/user.provider";
-import { testUser, noUser } from "../../test.fixtures/user.fixture";
+import { UserContext } from "../../../providers/user/user.provider";
+import { testUser, noUser } from "../../../test.fixtures/user.fixture";
 
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";

@@ -1,7 +1,7 @@
 // Renders an Error Message conditionally
 // Controlled by the 'error' property of the UserContext
 
-import React from "react";
+import React, { useContext } from "react";
 import UserTypes from "../../providers/user/user.actions";
 import { UserContext } from "../../providers/user/user.provider";
 import { ErrorContainer, CenteredContainer } from "./error.styles";
@@ -12,10 +12,17 @@ export const ErrorMessage = "Unable to load this user's data ...";
 
 const WithError = (WrappedComponent) => {
   const CustomError = ({ history, ...otherProps }) => {
-    const { userProperties, dispatch } = React.useContext(UserContext);
+    const { userProperties, dispatch } = useContext(UserContext);
+    let componentWillUnmount = false;
+
+    React.useEffect(() => {
+      return () => {
+        dispatch({ type: UserTypes.ToggleError });
+      };
+    }, [componentWillUnmount, dispatch]);
 
     const handleClick = (e) => {
-      dispatch({ type: UserTypes.ClearError });
+      componentWillUnmount = true;
       history.push("/");
     };
 

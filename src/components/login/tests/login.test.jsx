@@ -1,9 +1,9 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
-import Login from "./login.component";
-import FormLogin from "../form.login/form.login.component";
+import Login from "../login.component";
+import FormLogin from "../../form.login/form.login.component";
 
-jest.mock("../form.login/form.login.component");
+jest.mock("../../form.login/form.login.component");
 
 describe("Check the Login Component Renders Without Crashing", () => {
   afterEach(cleanup);

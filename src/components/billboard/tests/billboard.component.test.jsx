@@ -1,6 +1,6 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
-import WithBillboard from "./billboard.component";
+import WithBillboard from "../billboard.component";
 
 const TestHook = () => <div>TestComponent</div>;
 

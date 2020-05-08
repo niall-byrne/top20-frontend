@@ -3,8 +3,8 @@ import { render, cleanup } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
-import ProfileContainer from "./profile.container";
-import UserProvider from "../../providers/user/user.provider";
+import ProfileContainer from "../profile.container";
+import UserProvider from "../../../providers/user/user.provider";
 
 describe("Check the Profile Container Component Renders Without Crashing", () => {
   afterEach(cleanup);

@@ -1,8 +1,10 @@
 // Main User Reducer
 import UserActions from "./user.actions";
-import withMiddleware from "./user.middleware";
+import withMiddleware from "../../util/user.middleware";
+import reducerLoggingMiddleware from "../../util/reducer.logger";
 
 export const InitialState = {
+  userName: "",
   data: null,
   imageUrl: null,
   profileUrl: null,
@@ -10,26 +12,34 @@ export const InitialState = {
   error: false,
 };
 
-const reducer = (state, action) => {
+const userReducer = (state, action) => {
   switch (action.type) {
+    case UserActions.ToggleError:
+      return {
+        ...state,
+        error: !state.error,
+      };
     case UserActions.ToggleReady:
       return {
         ...state,
         ready: !state.ready,
       };
-    case UserActions.ClearError:
-      return {
-        ...state,
-        error: false,
-      };
+    case UserActions.StartFetchUser:
+      action.func(state, action);
+      return state;
     case UserActions.FailureFetchUser:
       return {
         ...state,
+        userName: action.userName,
+        profileUrl: null,
+        imageUrl: null,
+        data: null,
         error: true,
+        ready: false,
       };
     case UserActions.SuccessFetchUser:
       return {
-        ...state,
+        userName: action.userName,
         profileUrl: `https://www.last.fm/user/${action.userName}`,
         imageUrl: action.data.image,
         data: action.data,
@@ -41,4 +51,5 @@ const reducer = (state, action) => {
   }
 };
 
-export const UserReducer = withMiddleware(reducer, "UserReducer");
+const middlewares = [reducerLoggingMiddleware];
+export const UserReducer = withMiddleware(userReducer, middlewares);

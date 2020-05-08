@@ -8,8 +8,9 @@ const productionRunning = () => {
   return process.env.ENV === "production";
 };
 
-const withReducerLogger = (reducer, name) => {
+const reducerLoggingMiddleware = (reducer) => {
   let logging = true;
+  let name = reducer.name;
   if (jestRunning()) logging = false;
   if (productionRunning()) logging = false;
   const wrappedReducer = (state, action) => {
@@ -23,4 +24,4 @@ const withReducerLogger = (reducer, name) => {
   return wrappedReducer;
 };
 
-export default withReducerLogger;
+export default reducerLoggingMiddleware;

@@ -1,4 +1,4 @@
-import withReducer from "./reducer.logger.js";
+import withReducer from "../reducer.logger.js";
 
 describe("Check Logging Functionality", () => {
   const original_environment = process.env;
@@ -12,7 +12,8 @@ describe("Check Logging Functionality", () => {
     outputData = [];
     originalLogger = console["log"];
     console["log"] = jest.fn(storeLog);
-    reducer = withReducer((state, action) => state, "TestReducer");
+    const TestReducer = (state, action) => state;
+    reducer = withReducer(TestReducer);
   });
 
   afterEach(() => {

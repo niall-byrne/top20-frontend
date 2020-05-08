@@ -21,9 +21,7 @@ import { UserContext } from "../../providers/user/user.provider";
 const WrappedSpinner = withBillboard(withError(withSpinner(Profile)));
 
 const ProfileContainer = ({ match }) => {
-  const { userProperties, dispatch, setUserName } = React.useContext(
-    UserContext
-  );
+  const { userProperties, dispatch } = React.useContext(UserContext);
 
   React.useEffect(() => {
     const success = (data) => {
@@ -35,11 +33,13 @@ const ProfileContainer = ({ match }) => {
     };
 
     const failure = (_) => {
-      dispatch({ type: UserTypes.FailureFetchUser });
+      dispatch({
+        type: UserTypes.FailureFetchUser,
+        userName: match.params.userName,
+      });
     };
 
     const fetchUserDetails = () => {
-      setUserName(match.params.userName);
       dispatch({
         userName: match.params.userName,
         type: UserTypes.StartFetchUser,
@@ -48,6 +48,7 @@ const ProfileContainer = ({ match }) => {
         failure,
       });
     };
+
     if (!userProperties.ready) {
       fetchUserDetails();
     }

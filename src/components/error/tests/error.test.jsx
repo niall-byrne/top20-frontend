@@ -4,20 +4,20 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
-import WithError, { ErrorMessage } from "./error.component";
-import { UserContext } from "../../providers/user/user.provider";
+import WithError, { ErrorMessage } from "../error.component";
+import { UserContext } from "../../../providers/user/user.provider";
 import {
   dispatchMock,
   noUserError,
   userError,
-} from "../../test.fixtures/user.fixture";
+} from "../../../test.fixtures/user.fixture";
 
 const TestHook = () => <div>TestComponent</div>;
 
 describe("Check Error Rendering", () => {
   let utils;
   let history;
-  let initial = [userError, userError, noUserError];
+  let initial = [userError, userError, userError, noUserError];
 
   beforeEach(() => {
     dispatchMock.mockReset();
@@ -45,11 +45,17 @@ describe("Check Error Rendering", () => {
     expect(utils.getByTestId("Error2")).toBeTruthy();
   });
 
-  it("Test Click Event on Button", () => {
+  it("responds to a button press by changing the page", () => {
     expect(history.length).toBe(1);
     fireEvent.click(utils.getByTestId("Error2"));
-    expect(dispatchMock.mock.calls.length).toBe(1);
-    expect(dispatchMock.mock.calls[0][0]).toStrictEqual({ type: "ClearError" });
     expect(history.length).toBe(2);
+  });
+
+  it("calls the toggle error dispatch on cleanup", () => {
+    utils.unmount();
+    expect(dispatchMock.mock.calls.length).toBe(1);
+    expect(dispatchMock.mock.calls[0][0]).toStrictEqual({
+      type: "ToggleError",
+    });
   });
 });

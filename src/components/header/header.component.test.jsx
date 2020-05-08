@@ -54,7 +54,9 @@ describe("The Header Should Render Without Crashing", () => {
       const src = utils.getByAltText("Avatar").getAttribute("src");
       expect(link).toBe(testUser.userProperties.profileUrl);
       expect(src).toBe(testUser.userProperties.imageUrl);
-      expect(utils.getByText(testUser.userName)).toBeInTheDocument();
+      expect(
+        utils.getByText(testUser.userProperties.userName)
+      ).toBeInTheDocument();
     });
   });
 
@@ -66,7 +68,9 @@ describe("The Header Should Render Without Crashing", () => {
       const src = utils.getByAltText("Avatar").getAttribute("src");
       expect(link).toBe(testUser.userProperties.profileUrl);
       expect(src).toBe(fallBackAvatar);
-      expect(utils.getByText(testUser.userName)).toBeInTheDocument();
+      expect(
+        utils.getByText(testUser.userProperties.userName)
+      ).toBeInTheDocument();
     });
   });
 });

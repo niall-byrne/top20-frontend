@@ -1,7 +1,7 @@
 // Actions for the User
 
 const UserActions = {
-  ClearError: "ClearError",
+  ToggleError: "ToggleError",
   ToggleReady: "ToggleReady",
   StartFetchUser: "StartFetchUser",
   SuccessFetchUser: "SuccessFetchUser",

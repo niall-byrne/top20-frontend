@@ -12,14 +12,15 @@ import { validateSubmit, validateChange } from "./form.login.validators";
 import { withRouter } from "react-router-dom";
 
 const FormLogin = ({ history }) => {
-  const user = React.useContext(UserContext);
-  const [errorMsg, setErrorMsg] = React.useState(null);
+  const { userProperties } = React.useContext(UserContext);
+  const [userName, setUserName] = React.useState(userProperties.userName);
+  const [errorMsg, setErrorMsg] = React.useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const result = validateSubmit(user.userName, user.setUserName, setErrorMsg);
+    const result = validateSubmit(userName, setUserName, setErrorMsg);
     if (result) {
-      history.push(`/${user.userName}`);
+      history.push(`/${userName}`);
     }
   };
 
@@ -27,7 +28,7 @@ const FormLogin = ({ history }) => {
     if (errorMsg) {
       setErrorMsg(null);
     }
-    validateChange(e.currentTarget.value, user.setUserName, setErrorMsg);
+    validateChange(e.currentTarget.value, setUserName, setErrorMsg);
   };
 
   return (
@@ -40,7 +41,7 @@ const FormLogin = ({ history }) => {
             type="username"
             data-testid="username"
             onChange={handleChange}
-            value={user.userName}
+            value={userName}
             required
           />
           <FormButton>
