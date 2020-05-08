@@ -15,7 +15,18 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
-    "clean": "eslint --fix ./src; prettier --write \"./src/**/*.+(js|jsx|json|yml|yaml|css|scss|md|vue)\""
+    "clean": "eslint --fix ./src; prettier --write \"./src/**/*.+(js|jsx|json|yml|yaml|css|scss|md|vue)\"",
+    "coverage": "react-scripts test --coverage --coverageDirectory=coverage --watchAll=false"
+  },
+  "jest": {
+    "coverageReporters": [
+      "text",
+      "html"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/serviceWorker.js",
+      "src/setupTests.js"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
