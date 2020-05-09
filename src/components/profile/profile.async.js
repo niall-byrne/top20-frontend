@@ -2,8 +2,8 @@
 
 export const backend = () => {
   return process.env.ENV === "production"
-    ? process.env.REACT_APP_BACKEND_PROD
-    : process.env.REACT_APP_BACKEND_DEV;
+    ? process.env.REACT_APP_BACKEND
+    : "http://localhost:5000";
 };
 
 const postData = async (url, data, success, failure) => {
@@ -33,7 +33,7 @@ const postData = async (url, data, success, failure) => {
 
 export const fetchProfile = async (state, action) => {
   return await postData(
-    backend() + "/lastfm/",
+    process.env.REACT_APP_BACKEND + "/lastfm/",
     {
       username: action.userName,
     },

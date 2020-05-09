@@ -2,7 +2,6 @@ import UserActions from "../../../providers/user/user.actions";
 import { fetchProfile, backend } from "../profile.async";
 
 let mockFetchPromise;
-let mockDispatch;
 let success;
 let failure;
 let mockedFetch = jest.fn();
@@ -11,7 +10,6 @@ global.fetch = mockedFetch;
 describe("When fetchProfile is used", () => {
   afterEach(() => mockedFetch.mockReset());
   beforeEach(() => {
-    mockDispatch = jest.fn();
     mockedFetch.mockImplementation(() => mockFetchPromise);
   });
 
@@ -94,7 +92,7 @@ describe("When fetchProfile is used", () => {
 
   it("should handle a server error", async (done) => {
     mockedFetch.mockImplementation(() => {
-      throw "Server Error!";
+      throw new Error("Server Error!");
     });
     success = jest.fn();
     failure = jest.fn();
@@ -124,11 +122,11 @@ describe("Manage Environents", () => {
 
   it("uses the correct backend for the production environment", () => {
     process.env.ENV = "production";
-    expect(backend()).toBe(process.env.REACT_APP_BACKEND_PROD);
+    expect(backend()).toBe(process.env.REACT_APP_BACKEND);
   });
 
   it("uses the correct backend for the development environment", () => {
     process.env.ENV = "development";
-    expect(backend()).toBe(process.env.REACT_APP_BACKEND_DEV);
+    expect(backend()).toBe("http://localhost:5000");
   });
 });
