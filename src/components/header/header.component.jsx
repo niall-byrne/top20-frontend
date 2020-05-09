@@ -5,6 +5,12 @@ import { withRouter } from "react-router-dom";
 
 export const fallBackAvatar = "./images/lastfm.png";
 
+export const messages = {
+  noUser: "No User Found",
+  promptUser: "Specify your last.fm username",
+  loadingUser: "Loading ...",
+};
+
 const Header = ({ match }) => {
   const { userProperties } = React.useContext(UserContext);
 
@@ -19,10 +25,10 @@ const Header = ({ match }) => {
           </NavbarItems>
           <NavbarItems>
             {userProperties.error
-              ? "No User Found"
+              ? messages.noUser
               : match.isExact
-              ? "Specify your last.fm username"
-              : "Loading ..."}
+              ? messages.promptUser
+              : messages.loadingUser}
           </NavbarItems>
         </Navbar>
       </NavbarFixed>
