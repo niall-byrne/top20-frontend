@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render, cleanup, fireEvent } from "@testing-library/react";
 import FormLogin from "../form.login.component";
 
 import { UserContext } from "../../../providers/user/user.provider";
@@ -11,14 +11,25 @@ import { createMemoryHistory } from "history";
 describe("The FormLogin Component Should Render Without Crashing", () => {
   let history;
   let utils;
-  let initial = [testUser, noUser];
+  let setup = [
+    {
+      state: noUser,
+      path: "/",
+    },
+    {
+      state: testUser,
+      path: "/",
+    },
+  ];
+  let currentTest;
 
   beforeEach(() => {
+    currentTest = setup.shift();
     history = createMemoryHistory();
-    history.push("/");
+    history.push(currentTest.path);
     utils = render(
       <Router history={history}>
-        <UserContext.Provider value={initial.pop()}>
+        <UserContext.Provider value={currentTest.state}>
           <FormLogin />
         </UserContext.Provider>
       </Router>
@@ -50,5 +61,78 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
       expect(utils.getByText("last.fm username:")).toBeInTheDocument();
       expect(utils.getByText("Show my Top20")).toBeInTheDocument();
     });
+  });
+});
+
+describe("The FormLogin Component Should handle input correctly", () => {
+  let history;
+  let utils;
+  let setup = [
+    {
+      state: noUser,
+      path: "/",
+    },
+    {
+      state: testUser,
+      path: "/",
+    },
+    {
+      state: noUser,
+      path: "/",
+    },
+    {
+      state: noUser,
+      path: "/",
+    },
+  ];
+  let currentTest;
+
+  beforeEach(() => {
+    currentTest = setup.shift();
+    history = createMemoryHistory(currentTest.path);
+    utils = render(
+      <Router history={history}>
+        <UserContext.Provider value={currentTest.state}>
+          <FormLogin />
+        </UserContext.Provider>
+      </Router>
+    );
+  });
+  afterEach(cleanup);
+
+  it("should handle entered data correctly (no errors)", () => {
+    const input = utils.getByTestId("username");
+    fireEvent.change(input, { target: { value: "username" } });
+    expect(input.value).toBe("username");
+  });
+
+  it("should handle submitted data correctly (no errors)", () => {
+    expect(history.length).toBe(1);
+    const input = utils.getByTestId("username");
+    const submit = utils.getByTestId("submit");
+    expect(input.value).toBe("niall-byrne");
+    fireEvent.click(submit);
+    expect(history.length).toBe(2);
+  });
+
+  it("should handle submitted data correctly (with errors)", () => {
+    expect(history.length).toBe(1);
+    const input = utils.getByTestId("username");
+    const submit = utils.getByTestId("submit");
+    expect(input.value).toBe("");
+    fireEvent.click(submit);
+    expect(history.length).toBe(1);
+    expect(utils.getByTestId("error")).toBeTruthy();
+  });
+
+  it("should clear the error message on new input", () => {
+    expect(history.length).toBe(1);
+    const input = utils.getByTestId("username");
+    const submit = utils.getByTestId("submit");
+    expect(input.value).toBe("");
+    fireEvent.click(submit);
+    expect(utils.getByTestId("error")).toBeTruthy();
+    fireEvent.change(input, { target: { value: "username" } });
+    expect(utils.queryByTestId("error")).toBeFalsy();
   });
 });

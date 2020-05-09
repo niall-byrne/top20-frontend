@@ -48,7 +48,11 @@ const FormLogin = ({ history }) => {
             <CustomButton type="submit" testid="submit" text="Show my Top20" />
           </FormButton>
         </form>
-        {errorMsg ? <ErrorDiv>{errorMsg}</ErrorDiv> : <div></div>}
+        {errorMsg ? (
+          <ErrorDiv data-testid="error">{errorMsg}</ErrorDiv>
+        ) : (
+          <div></div>
+        )}
       </div>
     </FormDiv>
   );
