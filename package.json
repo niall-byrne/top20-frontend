@@ -12,11 +12,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "clean": "eslint --fix ./src; prettier --write \"./src/**/*.+(js|jsx|json|yml|yaml|css|scss|md|vue)\"",
-    "coverage": "react-scripts test --coverage --coverageDirectory=coverage --watchAll=false"
+    "coverage": "react-scripts test --env=jest-environment-jsdom-sixteen --coverage --coverageDirectory=coverage --watchAll=false"
   },
   "jest": {
     "coverageReporters": [
@@ -25,7 +25,8 @@
     ],
     "coveragePathIgnorePatterns": [
       "src/serviceWorker.js",
-      "src/setupTests.js"
+      "src/setupTests.js",
+      "src/test.fixtures/.*"
     ]
   },
   "eslintConfig": {
@@ -44,11 +45,12 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/dom": "^7.2.2",
+    "@testing-library/dom": "^7.5.1",
     "@testing-library/jest-dom": "^5.5.0",
-    "@testing-library/react": "^9.5.0",
+    "@testing-library/react": "^10.0.4",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-styled-components": "^7.0.2",
     "prettier": "^2.0.5"
   }

@@ -1,5 +1,5 @@
 import UserActions from "../../../providers/user/user.actions";
-import { fetchProfile } from "../profile.async";
+import { fetchProfile, backend } from "../profile.async";
 
 let mockFetchPromise;
 let mockDispatch;
@@ -112,5 +112,23 @@ describe("When fetchProfile is used", () => {
     expect(success.mock.calls.length).toBe(0);
     expect(failure.mock.calls[0][0]).toEqual({ userName: "" });
     done();
+  });
+});
+
+describe("Manage Environents", () => {
+  let originalEnvironment = process.env;
+  afterEach(() => {
+    process.env = originalEnvironment;
+  });
+  beforeEach(() => {});
+
+  it("uses the correct backend for the production environment", () => {
+    process.env.ENV = "production";
+    expect(backend()).toBe(process.env.REACT_APP_BACKEND_PROD);
+  });
+
+  it("uses the correct backend for the development environment", () => {
+    process.env.ENV = "development";
+    expect(backend()).toBe(process.env.REACT_APP_BACKEND_DEV);
   });
 });

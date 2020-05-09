@@ -1,11 +1,12 @@
 // Asynchonous Tasks for the Profile Component
 
-const backend =
-  process.env.ENV === "production"
+export const backend = () => {
+  return process.env.ENV === "production"
     ? process.env.REACT_APP_BACKEND_PROD
     : process.env.REACT_APP_BACKEND_DEV;
+};
 
-const postData = async (url = "", data = {}, success, failure) => {
+const postData = async (url, data, success, failure) => {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -30,9 +31,9 @@ const postData = async (url = "", data = {}, success, failure) => {
   }
 };
 
-export const fetchProfile = (state, action) => {
-  return postData(
-    backend + "/lastfm/",
+export const fetchProfile = async (state, action) => {
+  return await postData(
+    backend() + "/lastfm/",
     {
       username: action.userName,
     },

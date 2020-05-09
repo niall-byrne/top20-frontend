@@ -22,25 +22,26 @@ const WrappedSpinner = withBillboard(withError(withSpinner(Profile)));
 
 const ProfileContainer = ({ match }) => {
   const { userProperties, dispatch } = React.useContext(UserContext);
+  let useEffectTriggered = false; // Facilitates Testing Callbacks
 
   React.useEffect(() => {
-    const success = (data) => {
-      dispatch({
+    const success = async (data) => {
+      await dispatch({
         type: UserTypes.SuccessFetchUser,
         userName: match.params.userName,
         data: data.content,
       });
     };
 
-    const failure = (_) => {
-      dispatch({
+    const failure = async (_) => {
+      await dispatch({
         type: UserTypes.FailureFetchUser,
         userName: match.params.userName,
       });
     };
 
-    const fetchUserDetails = () => {
-      dispatch({
+    const fetchUserDetails = async () => {
+      await dispatch({
         userName: match.params.userName,
         type: UserTypes.StartFetchUser,
         func: fetchProfile,
@@ -49,7 +50,8 @@ const ProfileContainer = ({ match }) => {
       });
     };
 
-    if (!userProperties.ready) {
+    if (!useEffectTriggered && !userProperties.ready) {
+      useEffectTriggered = true;
       fetchUserDetails();
     }
   }, [dispatch, userProperties.ready, match.params.userName]);
