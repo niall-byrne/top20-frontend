@@ -26,7 +26,9 @@
     "coveragePathIgnorePatterns": [
       "src/serviceWorker.js",
       "src/setupTests.js",
-      "src/test.fixtures/.*"
+      "src/test.fixtures/.*",
+      "App.js",
+      "index.js"
     ]
   },
   "eslintConfig": {
