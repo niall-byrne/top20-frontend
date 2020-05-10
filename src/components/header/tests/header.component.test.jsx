@@ -3,16 +3,16 @@ import { render, cleanup } from "@testing-library/react";
 import { Router, Route } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
-import Header, { fallBackAvatar, messages } from "./header.component";
+import Header, { fallBackAvatar, messages } from "../header.component";
 
-import { UserContext } from "../../providers/user/user.provider";
+import { UserContext } from "../../../providers/user/user.provider";
 import {
   testUserWithoutImage,
   testUser,
   noUser,
   userError,
   userBeforeFetch,
-} from "../../test.fixtures/user.fixture";
+} from "../../../test.fixtures/user.fixture";
 
 describe("The Header Should Render Without Crashing", () => {
   let history;
