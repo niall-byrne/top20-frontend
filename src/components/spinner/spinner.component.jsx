@@ -6,7 +6,9 @@ import { UserContext } from "../../providers/user/user.provider";
 import { LoaderContainer } from "./spinner.styles";
 import Billboard from "../billboard/billboard.component";
 
-export const SpinnerMessage = "Loading...";
+export const messages = {
+  SpinnerMessage: "Loading...",
+};
 
 const WithSpinner = (WrappedComponent) => {
   const SpinnerContainer = ({ ...otherProps }) => {
@@ -16,7 +18,7 @@ const WithSpinner = (WrappedComponent) => {
         {!userProperties.ready ? (
           <Billboard>
             <LoaderContainer data-testid="Spinner1">
-              <div className="loader">{SpinnerMessage}</div>
+              <div className="loader">{messages.SpinnerMessage}</div>
             </LoaderContainer>
           </Billboard>
         ) : (

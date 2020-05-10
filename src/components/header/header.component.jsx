@@ -9,6 +9,8 @@ export const messages = {
   noUser: "No User Found",
   promptUser: "Specify your last.fm username",
   loadingUser: "Loading ...",
+  altLastFM: "last.fm",
+  altAvatar: "Avatar",
 };
 
 const Header = ({ match }) => {
@@ -20,7 +22,7 @@ const Header = ({ match }) => {
         <Navbar>
           <NavbarItems>
             <a rel="noopener noreferrer" target="_blank" href="https://last.fm">
-              <img alt="last.fm" src={fallBackAvatar} />
+              <img alt={messages.altLastFM} src={fallBackAvatar} />
             </a>
           </NavbarItems>
           <NavbarItems>
@@ -44,7 +46,7 @@ const Header = ({ match }) => {
               href={userProperties.profileUrl}
             >
               <img
-                alt="Avatar"
+                alt={messages.altAvatar}
                 src={
                   userProperties.imageUrl !== ""
                     ? userProperties.imageUrl

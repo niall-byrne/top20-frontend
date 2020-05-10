@@ -12,6 +12,11 @@ import CustomButton from "../button/button.component";
 import { validateSubmit, validateChange } from "./form.login.validators";
 import { withRouter } from "react-router-dom";
 
+export const messages = {
+  FormButtonMessage: "Show my Top20",
+  FormUsernameLabelMessage: "last.fm username",
+};
+
 const FormLogin = ({ history }) => {
   const { userProperties } = React.useContext(UserContext);
   const [userName, setUserName] = React.useState(userProperties.userName);
@@ -58,7 +63,7 @@ const FormLogin = ({ history }) => {
       <div>
         <form onSubmit={handleSubmit}>
           <FormInputGroup>
-            <FormLabel>last.fm username:</FormLabel>
+            <FormLabel>{messages.FormUsernameLabelMessage}</FormLabel>
             <FormInput
               autoFocus
               name="username"
@@ -71,7 +76,11 @@ const FormLogin = ({ history }) => {
             />
           </FormInputGroup>
           <FormButton>
-            <CustomButton type="submit" testid="submit" text="Show my Top20" />
+            <CustomButton
+              type="submit"
+              testid="submit"
+              text={messages.FormButtonMessage}
+            />
           </FormButton>
         </form>
         {errorMsg ? (

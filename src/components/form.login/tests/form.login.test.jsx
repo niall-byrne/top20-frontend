@@ -1,6 +1,6 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
-import FormLogin from "../form.login.component";
+import FormLogin, { messages } from "../form.login.component";
 
 import { UserContext } from "../../../providers/user/user.provider";
 import { testUser, noUser } from "../../../test.fixtures/user.fixture";
@@ -45,8 +45,10 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
       expect(input.value).toBe("");
       // Check the other elements are present with correct text
       expect(utils.getByTestId("submit")).toBeTruthy();
-      expect(utils.getByText("last.fm username:")).toBeInTheDocument();
-      expect(utils.getByText("Show my Top20")).toBeInTheDocument();
+      expect(
+        utils.getByText(messages.FormUsernameLabelMessage)
+      ).toBeInTheDocument();
+      expect(utils.getByText(messages.FormButtonMessage)).toBeInTheDocument();
     });
   });
 
@@ -58,8 +60,10 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
       expect(input.value).toBe("niall-byrne");
       // Check the other elements are present with correct text
       expect(utils.getByTestId("submit")).toBeTruthy();
-      expect(utils.getByText("last.fm username:")).toBeInTheDocument();
-      expect(utils.getByText("Show my Top20")).toBeInTheDocument();
+      expect(
+        utils.getByText(messages.FormUsernameLabelMessage)
+      ).toBeInTheDocument();
+      expect(utils.getByText(messages.FormButtonMessage)).toBeInTheDocument();
     });
   });
 });
