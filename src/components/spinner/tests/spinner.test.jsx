@@ -9,11 +9,13 @@ const TestHook = () => <div>TestComponent</div>;
 
 describe("Check Spinner Rendering", () => {
   let utils;
-  let initial = [noUser, testUser];
+  let state;
+  let setup = [testUser, noUser];
   beforeEach(() => {
+    state = setup.shift();
     const TestHookWithSpinner = WithSpinner(TestHook);
     utils = render(
-      <UserContext.Provider value={initial.pop()}>
+      <UserContext.Provider value={state}>
         <TestHookWithSpinner />
       </UserContext.Provider>
     );

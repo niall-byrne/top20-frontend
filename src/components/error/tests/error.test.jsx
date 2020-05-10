@@ -17,15 +17,17 @@ const TestHook = () => <div>TestComponent</div>;
 describe("Check Error Rendering", () => {
   let utils;
   let history;
-  let initial = [userError, userError, userError, noUserError];
+  let state;
+  let setup = [noUserError, userError, userError, userError];
 
   beforeEach(() => {
     dispatchMock.mockReset();
+    state = setup.shift();
     history = createMemoryHistory();
     const TestHookWithSpinner = WithError(TestHook);
     utils = render(
       <Router history={history}>
-        <UserContext.Provider value={initial.pop()}>
+        <UserContext.Provider value={state}>
           <TestHookWithSpinner />
         </UserContext.Provider>
       </Router>

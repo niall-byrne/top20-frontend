@@ -26,6 +26,7 @@ describe("Given a reducer and a stack of middleware", () => {
     const wrappedReducer = withMiddleware(mockReducer, middlewareStack);
     expect(mockMiddleware1.mock.calls.length).toBe(1);
     expect(mockMiddleware2.mock.calls.length).toBe(1);
+    expect(mockMiddleware3.mock.calls.length).toBe(1);
     expect(mockMiddleware1.mock.calls[0][0]).toBe(mockReducer);
     expect(mockMiddleware2.mock.calls[0][0].name).toBe("wrappedReducer");
     expect(mockMiddleware3.mock.calls[0][0].name).toBe("wrappedReducer");
