@@ -9,11 +9,15 @@ function App() {
   return (
     <div>
       <UserProvider>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route path="/:userName" component={Profile} />
-        </Switch>
+        <div className="flexbox">
+          <div>
+            <Header />
+            <Switch>
+              <Route exact path="/" component={Login} />
+              <Route path="/:userName" component={Profile} />
+            </Switch>
+          </div>
+        </div>
       </UserProvider>
     </div>
   );

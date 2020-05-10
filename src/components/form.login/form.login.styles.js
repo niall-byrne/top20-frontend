@@ -14,11 +14,13 @@ export const FormDiv = styled.div`
 export const FormLabel = styled.label`
   padding-right: 20px;
   font-size: 1.2em;
+  margin-bottom: 10px;
 `;
 
 export const FormInput = styled.input`
   padding-right: 20px;
   font-size: 1.2em;
+  margin-bottom: 10px;
 `;
 
 export const ErrorDiv = styled.div`
@@ -40,4 +42,12 @@ export const FormButton = styled.div`
   align-items: center;
   justify-content: center;
   padding-top: 30px;
+`;
+
+export const FormInputGroup = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;

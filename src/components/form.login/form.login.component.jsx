@@ -6,6 +6,7 @@ import {
   FormLabel,
   FormInput,
   FormButton,
+  FormInputGroup,
 } from "./form.login.styles";
 import CustomButton from "../button/button.component";
 import { validateSubmit, validateChange } from "./form.login.validators";
@@ -35,15 +36,18 @@ const FormLogin = ({ history }) => {
     <FormDiv>
       <div>
         <form onSubmit={handleSubmit}>
-          <FormLabel>last.fm username:</FormLabel>
-          <FormInput
-            name="username"
-            type="username"
-            data-testid="username"
-            onChange={handleChange}
-            value={userName}
-            required
-          />
+          <FormInputGroup>
+            <FormLabel>last.fm username:</FormLabel>
+            <FormInput
+              name="username"
+              type="username"
+              data-testid="username"
+              onChange={handleChange}
+              value={userName}
+              size={15}
+              required
+            />
+          </FormInputGroup>
           <FormButton>
             <CustomButton type="submit" testid="submit" text="Show my Top20" />
           </FormButton>
