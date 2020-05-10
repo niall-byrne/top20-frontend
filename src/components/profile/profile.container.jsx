@@ -1,6 +1,6 @@
-// Wraps the Profile Component with:
+// Wraps the Profile Component with conditional logic that handles:
+// - withError
 // - withSpinner
-// - withBillboard
 // - withRouter
 
 import React from "react";
@@ -13,11 +13,6 @@ import withError from "../error/error.component";
 import { fetchProfile } from "./profile.async";
 import UserTypes from "../../providers/user/user.actions";
 import { UserContext } from "../../providers/user/user.provider";
-
-// Encapsulate the Profile Component with:
-// - withSpinner
-// - withBillboard
-const WrappedSpinner = withError(withSpinner(Profile));
 
 const ProfileContainer = ({ match }) => {
   const { userProperties, dispatch } = React.useContext(UserContext);
@@ -58,9 +53,7 @@ const ProfileContainer = ({ match }) => {
   return <WrappedSpinner />;
 };
 
-// Encapsulate the Profile Container with
-// - withRouter
-// - withError
+const WrappedSpinner = withError(withSpinner(Profile));
 const WrappedProfileContainer = withRouter(ProfileContainer);
 
 export default WrappedProfileContainer;

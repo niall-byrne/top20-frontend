@@ -17,3 +17,9 @@ code {
   display: flex;
   flex-direction: row;
 }
+
+.section {
+  border: red;
+  border-style: solid;
+  border-width: 1px;
+}

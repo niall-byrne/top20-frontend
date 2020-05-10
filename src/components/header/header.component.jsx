@@ -1,6 +1,6 @@
 import React from "react";
 import { UserContext } from "../../providers/user/user.provider";
-import { Navbar, NavbarFixed, NavbarItems } from "./header.styles";
+import { Navbar, NavbarContainer, NavbarItems } from "./header.styles";
 import { withRouter } from "react-router-dom";
 
 export const fallBackAvatar = "./images/lastfm.png";
@@ -13,13 +13,15 @@ export const messages = {
   altAvatar: "Avatar",
 };
 
+export const NavBarHeight = "50px";
+
 const Header = ({ match }) => {
   const { userProperties } = React.useContext(UserContext);
 
   if (!userProperties.ready) {
     return (
-      <NavbarFixed>
-        <Navbar>
+      <NavbarContainer NavBarHeight={NavBarHeight}>
+        <Navbar NavBarHeight={NavBarHeight}>
           <NavbarItems>
             <a rel="noopener noreferrer" target="_blank" href="https://last.fm">
               <img alt={messages.altLastFM} src={fallBackAvatar} />
@@ -33,12 +35,12 @@ const Header = ({ match }) => {
               : messages.loadingUser}
           </NavbarItems>
         </Navbar>
-      </NavbarFixed>
+      </NavbarContainer>
     );
   } else {
     return (
-      <NavbarFixed>
-        <Navbar>
+      <NavbarContainer NavBarHeight={NavBarHeight}>
+        <Navbar NavBarHeight={NavBarHeight}>
           <NavbarItems>
             <a
               rel="noopener noreferrer"
@@ -57,7 +59,7 @@ const Header = ({ match }) => {
           </NavbarItems>
           <NavbarItems>{userProperties.userName}</NavbarItems>
         </Navbar>
-      </NavbarFixed>
+      </NavbarContainer>
     );
   }
 };

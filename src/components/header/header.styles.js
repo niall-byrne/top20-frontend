@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 // Add Media Queries to Adjust NavBar Size
 
-export const NavbarFixed = styled.div`
+export const NavbarContainer = styled.div`
   background-color: #c0c0c0;
   width: 100vw;
-  height: 50px;
-  position: fixed;
+  height: ${(props) => props.NavBarHeight};
+  position: absolute;
+  z-index: 10;
 `;
 
 export const NavbarItems = styled.div`
@@ -17,9 +18,10 @@ export const NavbarItems = styled.div`
 
 export const Navbar = styled.div`
   align-items: center;
-  display: grid;
-  grid-template-columns: 70px 1fr;
-  grid-template-rows: 50px;
+  display: flex;
+  align-items: center;
+  height: ${(props) => props.NavBarHeight};
+  z-index: 10;
 
   img {
     height: 40px;
