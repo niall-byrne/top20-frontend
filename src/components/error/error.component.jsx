@@ -7,8 +7,10 @@ import { UserContext } from "../../providers/user/user.provider";
 import { ErrorContainer, CenteredContainer } from "./error.styles";
 import CustomButton from "../button/button.component";
 import { withRouter } from "react-router-dom";
+import Billboard from "../billboard/billboard.component";
 
 export const ErrorMessage = "Unable to load this user's data ...";
+export const ButtonMessage = "Try Again";
 
 const WithError = (WrappedComponent) => {
   const CustomError = ({ history, ...otherProps }) => {
@@ -29,17 +31,19 @@ const WithError = (WrappedComponent) => {
     return (
       <div>
         {userProperties.error ? (
-          <ErrorContainer data-testid="Error1">
-            <div>{ErrorMessage}</div>
-            <CenteredContainer>
-              <CustomButton
-                action={handleClick}
-                type="button"
-                testid="Error2"
-                text="Try Again"
-              />
-            </CenteredContainer>
-          </ErrorContainer>
+          <Billboard>
+            <ErrorContainer data-testid="Error1">
+              <div>{ErrorMessage}</div>
+              <CenteredContainer>
+                <CustomButton
+                  action={handleClick}
+                  type="button"
+                  testid="Error2"
+                  text={ButtonMessage}
+                />
+              </CenteredContainer>
+            </ErrorContainer>
+          </Billboard>
         ) : (
           <WrappedComponent {...otherProps} />
         )}

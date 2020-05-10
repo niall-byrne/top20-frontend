@@ -16,22 +16,34 @@ describe("Check the Profile Container Component Renders Without Crashing", () =>
   afterEach(cleanup);
   let history;
   let utils;
+  let state;
+  let setup = [userBeforeFetchReady, userBeforeFetch];
   beforeEach(() => {
+    dispatchMock.mockReset();
+    state = setup.shift();
     history = createMemoryHistory();
     history.push("/");
     utils = render(
       <Router history={history}>
-        <UserContext.Provider value={userBeforeFetchReady}>
+        <UserContext.Provider value={state}>
           <ProfileContainer />
         </UserContext.Provider>
       </Router>
     );
   });
 
-  it("should be wrapped in the billboard components, but no dispatch", async (done) => {
+  it("has ready state, so the profile should be rendered without any dispatch", async (done) => {
+    expect(utils.queryByTestId("billboard1")).toBeFalsy();
+    expect(utils.queryByTestId("billboard2")).toBeFalsy();
+    await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(0));
+    done();
+  });
+
+  it("has not ready state, so the spinner should be rendered, on it's billboard", async (done) => {
     expect(utils.getByTestId("billboard1")).toBeTruthy();
     expect(utils.getByTestId("billboard2")).toBeTruthy();
-    await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(0));
+    expect(utils.getByTestId("Spinner1")).toBeTruthy();
+    await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(1));
     done();
   });
 });
@@ -39,16 +51,16 @@ describe("Check the Profile Container Component Renders Without Crashing", () =>
 describe("Check Profile Data Fetching", () => {
   let history;
   let utils;
-  let initial = [
+  let state = [
+    userBeforeFetch,
+    userBeforeFetch,
+    userBeforeFetch,
     userBeforeFetchReady,
-    userBeforeFetch,
-    userBeforeFetch,
-    userBeforeFetch,
   ];
   let providerState;
   beforeEach(() => {
     dispatchMock.mockReset();
-    providerState = initial.pop();
+    providerState = state.shift();
     history = createMemoryHistory();
     history.push(`/${providerState.userProperties.userName}`);
     utils = render(

@@ -4,23 +4,28 @@
 import React from "react";
 import { UserContext } from "../../providers/user/user.provider";
 import { LoaderContainer } from "./spinner.styles";
+import Billboard from "../billboard/billboard.component";
+
+export const SpinnerMessage = "Loading...";
 
 const WithSpinner = (WrappedComponent) => {
-  const Spinner = ({ ...otherProps }) => {
+  const SpinnerContainer = ({ ...otherProps }) => {
     const { userProperties } = React.useContext(UserContext);
     return (
       <div>
         {!userProperties.ready ? (
-          <LoaderContainer data-testid="Spinner1">
-            <div className="loader">Loading...</div>
-          </LoaderContainer>
+          <Billboard>
+            <LoaderContainer data-testid="Spinner1">
+              <div className="loader">{SpinnerMessage}</div>
+            </LoaderContainer>
+          </Billboard>
         ) : (
           <WrappedComponent {...otherProps} />
         )}
       </div>
     );
   };
-  return Spinner;
+  return SpinnerContainer;
 };
 
 export default WithSpinner;
