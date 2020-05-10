@@ -19,6 +19,10 @@ const FormLogin = ({ history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    doSubmit();
+  };
+
+  const doSubmit = () => {
     const result = validateSubmit(userName, setUserName, setErrorMsg);
     if (result) {
       history.push(`/${userName}`);
@@ -32,6 +36,23 @@ const FormLogin = ({ history }) => {
     validateChange(e.currentTarget.value, setUserName, setErrorMsg);
   };
 
+  const handleKeyDown = (e) => {
+    switch (e.keyCode) {
+      case 13:
+        doSubmit();
+        break;
+      default:
+        break;
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
+
   return (
     <FormDiv>
       <div>
@@ -39,6 +60,7 @@ const FormLogin = ({ history }) => {
           <FormInputGroup>
             <FormLabel>last.fm username:</FormLabel>
             <FormInput
+              autoFocus
               name="username"
               type="username"
               data-testid="username"

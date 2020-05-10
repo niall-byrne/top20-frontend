@@ -77,6 +77,10 @@ describe("The FormLogin Component Should handle input correctly", () => {
       path: "/",
     },
     {
+      state: testUser,
+      path: "/",
+    },
+    {
       state: noUser,
       path: "/",
     },
@@ -106,12 +110,21 @@ describe("The FormLogin Component Should handle input correctly", () => {
     expect(input.value).toBe("username");
   });
 
-  it("should handle submitted data correctly (no errors)", () => {
+  it("should handle submitted data correctly (click) (no errors)", () => {
     expect(history.length).toBe(1);
     const input = utils.getByTestId("username");
     const submit = utils.getByTestId("submit");
     expect(input.value).toBe("niall-byrne");
     fireEvent.click(submit);
+    expect(history.length).toBe(2);
+  });
+
+  it("should handle submitted data correctly (enter) (no errors)", () => {
+    expect(history.length).toBe(1);
+    const input = utils.getByTestId("username");
+    const submit = utils.getByTestId("submit");
+    expect(input.value).toBe("niall-byrne");
+    fireEvent.keyDown(submit, { key: "enter", keyCode: 13 });
     expect(history.length).toBe(2);
   });
 

@@ -24,8 +24,8 @@ const WithError = (WrappedComponent) => {
     }, [componentWillUnmount, dispatch]);
 
     const handleClick = (e) => {
-      componentWillUnmount = true;
       history.push("/");
+      componentWillUnmount = true;
     };
 
     return (
