@@ -16,6 +16,13 @@ jobs:
       - name: Sec Test
         run: |
           npm audit --audit-level=moderate
-      - name: Unit Tests
+      - name: Unit Tests and Coverage
         run: |
-          npm test
+          npm run coverage
+      - name: Report Job Status
+        if: always()
+        run: |
+          if [[ $status == "Failure" ]]; then curl -X POST -H 'Content-type: application/json' --data '{"text":"Top20 Frontend: build has failed!"}' "${WEBHOOK_URL}"; fi
+        env:
+          status: ${{job.status}}
+          WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}

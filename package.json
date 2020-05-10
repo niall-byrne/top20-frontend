@@ -29,7 +29,15 @@
       "src/test.fixtures/.*",
       "App.js",
       "index.js"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 100,
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
+      }
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
