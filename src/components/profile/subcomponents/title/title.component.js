@@ -1,5 +1,5 @@
 import React from "react";
-import { TitleDiv } from "./title.component.styles";
+import { TitleDiv } from "./title.styles";
 
 export const messages = {
   Title: "Select an album for details.",
