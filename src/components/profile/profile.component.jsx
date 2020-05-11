@@ -1,17 +1,16 @@
 // Displays the User Profile
 
 import React from "react";
-import Title from "./subcomponents/title/title.component";
-import { Drawer, Chart } from "./profile.styles";
+import { Drawer } from "./profile.styles";
 import { NavBarHeight } from "../header/header.component";
 
-//testing
-import Card from "./subcomponents/card/card.component";
+import Title from "./subcomponents/title/title.component";
+import Chart from "./subcomponents/chart/chart.component";
 
 const DrawerHeight = "33vh";
 const TitleHeight = "40px";
 
-const Profile = () => {
+const Profile = ({ data }) => {
   return (
     <div>
       <Drawer
@@ -21,20 +20,14 @@ const Profile = () => {
       >
         <div data-testid="Profile">Profile</div>
       </Drawer>
-      <Title TitleHeight={TitleHeight} />
+      <Title titleHeight={TitleHeight} />
       <Chart
-        className="section"
-        DrawerHeight={DrawerHeight}
-        NavBarHeight={NavBarHeight}
-        TitleHeight={TitleHeight}
+        drawerHeight={DrawerHeight}
+        navBarHeight={NavBarHeight}
+        titleHeight={TitleHeight}
+        data={data}
       >
         Chart Area
-        <Card
-          title="If these trees could talk"
-          number="1"
-          image="https://www.gravatar.com/avatar/1fb821f534ddff07eb74482127a00ebd?d=retro&r=g&s=100"
-          size="100"
-        />
       </Chart>
     </div>
   );

@@ -6,7 +6,7 @@ export const Card = styled.article`
   height: ${(props) => props.TileHeight}px;
   cursor: pointer;
   perspective: 1000px;
-  transition: all 0.5s ease-in-out;
+  margin: 2px;
 
   &:focus,
   &:hover {
@@ -16,6 +16,7 @@ export const Card = styled.article`
   &.flipped {
     & > div:first-of-type {
       // frontside of the card
+      transition: all 0.25s ease-in-out;
       transform: perspective(1000px) rotateY(-180deg);
     }
 
@@ -67,5 +68,5 @@ export const CardTitle = styled.div`
 `;
 
 export const CardText = styled.div`
-  font-size: 1em;
+  font-size: 2em;
 `;

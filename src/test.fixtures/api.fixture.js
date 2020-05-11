@@ -1,4 +1,211 @@
-const mockApiData = {
+export const mockApiData0 = {
+  topalbums: {
+    album: [],
+    "@attr": {
+      page: "1",
+      perPage: "50",
+      user: "niall-byrne",
+      total: "5742",
+      totalPages: "1",
+    },
+  },
+};
+
+export const mockApiData5 = {
+  topalbums: {
+    album: [
+      {
+        artist: {
+          url: "https://www.last.fm/music/Lights+&+Motion",
+          name: "Lights & Motion",
+          mbid: "9ce4b4f8-5801-4c95-a471-dcea403712c7",
+        },
+        "@attr": {
+          rank: "1",
+        },
+        image: [
+          {
+            size: "small",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/34s/d96f7a5670a9496dc9388b7e81153127.png",
+          },
+          {
+            size: "medium",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/64s/d96f7a5670a9496dc9388b7e81153127.png",
+          },
+          {
+            size: "large",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/174s/d96f7a5670a9496dc9388b7e81153127.png",
+          },
+          {
+            size: "extralarge",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/300x300/d96f7a5670a9496dc9388b7e81153127.png",
+          },
+        ],
+        playcount: "1693",
+        url: "https://www.last.fm/music/Lights+&+Motion/Reanimation",
+        name: "Reanimation",
+        mbid: "1027e6ab-1b2e-4635-96de-bc23dad44b1e",
+      },
+      {
+        artist: {
+          url: "https://www.last.fm/music/Bon+Iver",
+          name: "Bon Iver",
+          mbid: "437a0e49-c6ae-42f6-a6c1-84f25ed366bc",
+        },
+        "@attr": {
+          rank: "2",
+        },
+        image: [
+          {
+            size: "small",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/34s/408b8a78bc28423ba309a44a5fdd1a9b.png",
+          },
+          {
+            size: "medium",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/64s/408b8a78bc28423ba309a44a5fdd1a9b.png",
+          },
+          {
+            size: "large",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/174s/408b8a78bc28423ba309a44a5fdd1a9b.png",
+          },
+          {
+            size: "extralarge",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/300x300/408b8a78bc28423ba309a44a5fdd1a9b.png",
+          },
+        ],
+        playcount: "1471",
+        url: "https://www.last.fm/music/Bon+Iver/Bon+Iver",
+        name: "Bon Iver",
+        mbid: "52ee3840-a4a6-4d4d-9ce3-ca82453bd1f4",
+      },
+      {
+        artist: {
+          url: "https://www.last.fm/music/Plini",
+          name: "Plini",
+          mbid: "3f6c0aa1-a7a9-4ff2-9c50-e84d4b0de178",
+        },
+        "@attr": {
+          rank: "3",
+        },
+        image: [
+          {
+            size: "small",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/34s/9c099708529ef0d31f0a09c1f3c1f348.jpg",
+          },
+          {
+            size: "medium",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/64s/9c099708529ef0d31f0a09c1f3c1f348.jpg",
+          },
+          {
+            size: "large",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/174s/9c099708529ef0d31f0a09c1f3c1f348.jpg",
+          },
+          {
+            size: "extralarge",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/300x300/9c099708529ef0d31f0a09c1f3c1f348.jpg",
+          },
+        ],
+        playcount: "1191",
+        url: "https://www.last.fm/music/Plini/Handmade+Cities",
+        name: "Handmade Cities",
+        mbid: "7dc22510-b792-4d94-8b38-3b49c6500659",
+      },
+      {
+        artist: {
+          url: "https://www.last.fm/music/Helios",
+          name: "Helios",
+          mbid: "",
+        },
+        "@attr": {
+          rank: "4",
+        },
+        image: [
+          {
+            size: "small",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/34s/6e46d54d7ef6f164232867205f53a636.png",
+          },
+          {
+            size: "medium",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/64s/6e46d54d7ef6f164232867205f53a636.png",
+          },
+          {
+            size: "large",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/174s/6e46d54d7ef6f164232867205f53a636.png",
+          },
+          {
+            size: "extralarge",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/300x300/6e46d54d7ef6f164232867205f53a636.png",
+          },
+        ],
+        playcount: "1047",
+        url: "https://www.last.fm/music/Helios/Yume",
+        name: "Yume",
+        mbid: "621e9792-047e-4938-9029-b9b6baeff4b0",
+      },
+      {
+        artist: {
+          url: "https://www.last.fm/music/Maybeshewill",
+          name: "Maybeshewill",
+          mbid: "62495254-237e-4e9e-8ffb-31fede562cfd",
+        },
+        "@attr": {
+          rank: "5",
+        },
+        image: [
+          {
+            size: "small",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/34s/7b174955d1ef4e8cceb5774b3336440e.jpg",
+          },
+          {
+            size: "medium",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/64s/7b174955d1ef4e8cceb5774b3336440e.jpg",
+          },
+          {
+            size: "large",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/174s/7b174955d1ef4e8cceb5774b3336440e.jpg",
+          },
+          {
+            size: "extralarge",
+            "#text":
+              "https://lastfm.freetls.fastly.net/i/u/300x300/7b174955d1ef4e8cceb5774b3336440e.jpg",
+          },
+        ],
+        playcount: "1033",
+        url: "https://www.last.fm/music/Maybeshewill/Fair+Youth",
+        name: "Fair Youth",
+        mbid: "1a65cd55-1a03-4028-9067-e1e2a38f12a8",
+      },
+    ],
+    "@attr": {
+      page: "1",
+      perPage: "50",
+      user: "niall-byrne",
+      total: "5742",
+      totalPages: "115",
+    },
+  },
+};
+
+export const mockApiData = {
   topalbums: {
     album: [
       {
@@ -1819,5 +2026,3 @@ const mockApiData = {
     },
   },
 };
-
-export default mockApiData;

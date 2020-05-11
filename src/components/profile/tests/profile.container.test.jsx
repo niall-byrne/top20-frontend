@@ -4,7 +4,12 @@ import { Router, Route } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
 import ProfileContainer from "../profile.container";
+import Profile from "../profile.component";
+
 import { UserContext } from "../../../providers/user/user.provider";
+import { mockApiData } from "../../../test.fixtures/api.fixture";
+
+jest.mock("../profile.component");
 
 import {
   dispatchMock,
@@ -20,13 +25,14 @@ describe("Check the Profile Container Component Renders Without Crashing", () =>
   let setup = [userBeforeFetchReady, userBeforeFetch];
   beforeEach(() => {
     dispatchMock.mockReset();
+    Profile.mockImplementation(() => <div>MockComponent</div>);
     state = setup.shift();
     history = createMemoryHistory();
     history.push("/");
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={state}>
-          <ProfileContainer />
+          <ProfileContainer data={mockApiData} />
         </UserContext.Provider>
       </Router>
     );
@@ -60,6 +66,7 @@ describe("Check Profile Data Fetching", () => {
   let providerState;
   beforeEach(() => {
     dispatchMock.mockReset();
+    Profile.mockImplementation(() => <div>MockComponent</div>);
     providerState = state.shift();
     history = createMemoryHistory();
     history.push(`/${providerState.userProperties.userName}`);

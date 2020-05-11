@@ -50,7 +50,7 @@ const ProfileContainer = ({ match }) => {
     }
   }, [dispatch, userProperties.ready, match.params.userName]);
 
-  return <WrappedSpinner />;
+  return <WrappedSpinner data={userProperties} />;
 };
 
 const WrappedSpinner = withError(withSpinner(Profile));

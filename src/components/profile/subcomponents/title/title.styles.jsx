@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const TitleDiv = styled.div`
-  height: ${(props) => props.TitleHeight};
+  height: ${(props) => props.titleHeight};
   display: flex;
   align-items: center;
   justify-content: center;

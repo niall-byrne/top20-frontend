@@ -7,7 +7,7 @@ describe("Check the Title Component Renders Without Crashing", () => {
 
   let utils;
   beforeEach(() => {
-    utils = render(<Title />);
+    utils = render(<Title titleHeight="40px" />);
   });
 
   it("should contain the expected test", () => {

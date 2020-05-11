@@ -6,17 +6,11 @@ export const messages = {
   Back: "Back",
 };
 
-const FlipCard = ({ title, number, size, image }) => {
-  const [flipped, setFlipped] = useState(false);
-
-  const handleFlip = (event) => {
-    setFlipped(!flipped);
-    event.currentTarget.classList.toggle("flipped");
-  };
-
+const FlipCard = ({ title, number, size, image, flipper }) => {
+  const [flip, setFlip] = useState(null);
   return (
     <div>
-      <Card data-testid="FlipCard" TileHeight={size} onClick={handleFlip}>
+      <Card data-testid="FlipCard" TileHeight={size} onClick={flipper}>
         <CardFront>
           <CardTitle>
             <img alt={title} src={image} />

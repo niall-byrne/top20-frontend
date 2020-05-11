@@ -11,18 +11,3 @@ export const Drawer = styled.div`
   justify-items: center;
   width: calc(100vw - 2px);
 `;
-
-// Props:
-// NavBarHeight
-// TitleHeight
-// DrawerHeight
-export const Chart = styled.div`
-  height: calc(
-    100vh - ${(props) => props.NavBarHeight} - ${(props) => props.TitleHeight} -
-      ${(props) => props.DrawerHeight} - 6px
-  );
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  width: calc(100vw - 2px);
-`;

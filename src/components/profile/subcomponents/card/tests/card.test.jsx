@@ -2,19 +2,29 @@ import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import Card, { messages } from "../card.component";
 
-// { title, number, size, image }
-
 describe("Check the Card Component Renders Without Crashing", () => {
   afterEach(cleanup);
 
+  const mockFlipper = jest.fn();
   let utils;
   let state;
   let setup = [
-    { size: "150", title: "hello", number: "1", image: "./images/lastfm.png" },
-    { size: "150", title: "hello", number: "2", image: "./images/lastfm.png" },
+    {
+      size: "150",
+      title: "hello",
+      number: "1",
+      image: "./images/lastfm.png",
+    },
+    {
+      size: "150",
+      title: "hello",
+      number: "2",
+      image: "./images/lastfm.png",
+    },
   ];
 
   beforeEach(() => {
+    mockFlipper.mockReset();
     state = setup.shift();
     utils = render(
       <Card
@@ -22,6 +32,7 @@ describe("Check the Card Component Renders Without Crashing", () => {
         title={state.title}
         number={state.number}
         image={state.image}
+        flipper={mockFlipper}
       />
     );
   });
@@ -31,12 +42,13 @@ describe("Check the Card Component Renders Without Crashing", () => {
     expect(cardImage).toBeTruthy();
     expect(cardImage.getAttribute("src")).toBe(state.image);
     expect(utils.getByTestId("CardNumber")).toBeTruthy();
+    expect(mockFlipper.mock.calls.length).toBe(0);
   });
 
   it("should flip the card when clicked and add the flipped class for css rendering", () => {
+    expect(mockFlipper.mock.calls.length).toBe(0);
     const cardBody = utils.getByTestId("FlipCard");
-    expect(cardBody).not.toHaveClass("flipped");
     fireEvent.click(cardBody);
-    expect(cardBody).toHaveClass("flipped");
+    expect(mockFlipper.mock.calls.length).toBe(1);
   });
 });

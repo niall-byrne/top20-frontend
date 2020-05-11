@@ -5,8 +5,8 @@ export const messages = {
   Title: "Select an album for details.",
 };
 
-const Title = ({ TitleHeight }) => {
-  return <TitleDiv TitleHeight={TitleHeight}>{messages.Title}</TitleDiv>;
+const Title = ({ titleHeight }) => {
+  return <TitleDiv titleHeight={titleHeight}>{messages.Title}</TitleDiv>;
 };
 
 export default Title;
