@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { ChartDiv, ChartBox } from "./chart.styles";
+import { ChartDiv, ChartBox, NoListensDiv } from "./chart.styles";
 import Card from "../card/card.component";
 
-export const messages = {};
+export const messages = {
+  NoListens:
+    "Hey, you should really listen to some music to get the most out of this.",
+};
 export const cardSize = 100;
 
-const Chart = ({ navBarHeight, titleHeight, drawerHeight, data }) => {
+const Chart = ({ navBarHeight, titleHeight, drawerHeight, data, count }) => {
   const [flipped, setFlipped] = useState(null);
   const albums = data.data.topalbums.album.slice(0, 20);
 
@@ -20,26 +23,36 @@ const Chart = ({ navBarHeight, titleHeight, drawerHeight, data }) => {
       setFlipped(null);
     }
   };
-  
+
+  if (count > 0)
+    return (
+      <ChartDiv
+        NavBarHeight={navBarHeight}
+        TitleHeight={titleHeight}
+        DrawerHeight={drawerHeight}
+      >
+        <ChartBox width={(cardSize + 5) * 10}>
+          {albums.map((album, index) => (
+            <Card
+              title={album.name}
+              number={index + 1}
+              key={index + 1}
+              image={album.image[2]["#text"]}
+              size={cardSize}
+              flipper={handleFlip}
+            />
+          ))}
+        </ChartBox>
+      </ChartDiv>
+    );
   return (
-    <ChartDiv
+    <NoListensDiv
       NavBarHeight={navBarHeight}
       TitleHeight={titleHeight}
       DrawerHeight={drawerHeight}
     >
-      <ChartBox width={(cardSize + 5) * 10}>
-        {albums.map((album, index) => (
-          <Card
-            title={album.name}
-            number={index + 1}
-            key={index + 1}
-            image={album.image[2]["#text"]}
-            size={cardSize}
-            flipper={handleFlip}
-          />
-        ))}
-      </ChartBox>
-    </ChartDiv>
+      <span>{messages.NoListens}</span>
+    </NoListensDiv>
   );
 };
 

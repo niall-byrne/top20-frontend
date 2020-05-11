@@ -1,6 +1,6 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
-import Chart from "../chart.component";
+import Chart, { messages } from "../chart.component";
 
 import {
   mockApiData,
@@ -29,6 +29,7 @@ describe("Given a chart with some valid album data", () => {
         titleHeight="100px"
         drawerHeight="100px"
         data={initialState}
+        count={albums.length}
       />
     );
   });
@@ -47,6 +48,7 @@ describe("Given a chart with some valid album data", () => {
   it("should render a dialogue when there are no albums at all", () => {
     const cards = utils.queryAllByTestId("FlipCard");
     expect(cards.length).toBe(0);
+    expect(utils.getByText(messages.NoListens)).toBeInTheDocument();
   });
 });
 
@@ -55,12 +57,14 @@ describe("Given a rendered chart", () => {
 
   let utils;
   beforeEach(() => {
+    const albums = mockApiData.topalbums.album.slice(0, 20);
     utils = render(
       <Chart
         navBarHeight="100px"
         titleHeight="100px"
         drawerHeight="100px"
         data={{ data: mockApiData }}
+        count={albums.length}
       />
     );
   });

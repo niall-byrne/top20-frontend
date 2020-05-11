@@ -45,7 +45,6 @@ export const CardSide = css`
 export const CardFront = styled.div`
   ${CardSide};
   background-color: #c0c0c0;
-  font-weight: bold;
   text-align: center;
   img {
     height: 100%;
@@ -64,7 +63,7 @@ export const CardBack = styled.div`
 
 // Card content
 export const CardTitle = styled.div`
-  font-size: 1em;
+  font-size: 0.7em;
 `;
 
 export const CardText = styled.div`

@@ -7,4 +7,7 @@ export const TitleDiv = styled.div`
   justify-content: center;
   margin: 1px;
   width: calc(100vw - 2px);
+  span {
+    text-align: center;
+  }
 `;

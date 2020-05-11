@@ -1,18 +1,26 @@
 import styled from "styled-components";
 
-// Props:
-// NavBarHeight
-// TitleHeight
-// DrawerHeight
-export const ChartDiv = styled.div`
+const common = (props) => `
   height: calc(
-    100vh - ${(props) => props.NavBarHeight} - ${(props) => props.TitleHeight} -
-      ${(props) => props.DrawerHeight} - 6px
+    100vh - ${props.NavBarHeight} - ${props.TitleHeight} -
+      ${props.DrawerHeight} - 6px
   );
   display: flex;
   align-items: baseline;
   justify-content: center;
+`;
+
+export const ChartDiv = styled.div`
+  ${(props) => common(props)}
   overflow: scroll;
+`;
+
+export const NoListensDiv = styled.div`
+  ${(props) => common(props)}
+  align-items: center;
+  span {
+    text-align: center;
+  }
 `;
 
 export const ChartBox = styled.div`

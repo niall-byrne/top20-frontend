@@ -11,6 +11,7 @@ const DrawerHeight = "33vh";
 const TitleHeight = "40px";
 
 const Profile = ({ data }) => {
+  const count = data.data.topalbums.album.length;
   return (
     <div>
       <Drawer
@@ -20,12 +21,13 @@ const Profile = ({ data }) => {
       >
         <div data-testid="Profile">Profile</div>
       </Drawer>
-      <Title titleHeight={TitleHeight} />
+      <Title titleHeight={TitleHeight} count={count} />
       <Chart
         drawerHeight={DrawerHeight}
         navBarHeight={NavBarHeight}
         titleHeight={TitleHeight}
         data={data}
+        count={count}
       >
         Chart Area
       </Chart>
