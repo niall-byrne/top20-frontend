@@ -19,8 +19,10 @@ describe("Given a chart with some valid album data", () => {
     { data: mockApiData },
     { data: mockApiData0 },
   ];
+  let setFocus = jest.fn();
 
   beforeEach(() => {
+    setFocus.mockReset();
     initialState = setup.shift();
     albums = initialState.data.topalbums.album.slice(0, 20);
     utils = render(
@@ -30,6 +32,7 @@ describe("Given a chart with some valid album data", () => {
         drawerHeight="100px"
         data={initialState}
         count={albums.length}
+        setFocus={setFocus}
       />
     );
   });
@@ -37,18 +40,21 @@ describe("Given a chart with some valid album data", () => {
   it("should render a maximum of 20 albums", () => {
     const cards = utils.queryAllByTestId("FlipCard");
     expect(cards.length).toBe(albums.length);
+    expect(setFocus.mock.calls.length).toBe(0);
   });
 
   it("should render the expected albums without crashing", () => {
     const cards = utils.queryAllByTestId("FlipCard");
     expect(cards.length).toBe(20);
     expect(initialState.data.topalbums.album.length).toBe(50);
+    expect(setFocus.mock.calls.length).toBe(0);
   });
 
   it("should render a dialogue when there are no albums at all", () => {
     const cards = utils.queryAllByTestId("FlipCard");
     expect(cards.length).toBe(0);
     expect(utils.getByText(messages.NoListens)).toBeInTheDocument();
+    expect(setFocus.mock.calls.length).toBe(0);
   });
 });
 
@@ -56,7 +62,9 @@ describe("Given a rendered chart", () => {
   afterEach(cleanup);
 
   let utils;
+  let setFocus = jest.fn();
   beforeEach(() => {
+    setFocus.mockReset();
     const albums = mockApiData.topalbums.album.slice(0, 20);
     utils = render(
       <Chart
@@ -65,6 +73,7 @@ describe("Given a rendered chart", () => {
         drawerHeight="100px"
         data={{ data: mockApiData }}
         count={albums.length}
+        setFocus={setFocus}
       />
     );
   });
@@ -76,6 +85,9 @@ describe("Given a rendered chart", () => {
     expect(cards[0].className.includes("flipped")).toBeTruthy();
     fireEvent.click(cards[0]);
     expect(cards[0].className.includes("flipped")).toBeFalsy();
+    expect(setFocus.mock.calls.length).toBe(2);
+    expect(setFocus.mock.calls[0][0]).toBe(cards[0].getAttribute("data-index"));
+    expect(setFocus.mock.calls[1][0]).toBe(null);
   });
 
   it("clicking on a card, and then an adjacent card should flip one at a time", () => {
@@ -88,5 +100,9 @@ describe("Given a rendered chart", () => {
     expect(cards[1].className.includes("flipped")).toBeTruthy();
     fireEvent.click(cards[1]);
     expect(cards[1].className.includes("flipped")).toBeFalsy();
+    expect(setFocus.mock.calls.length).toBe(3);
+    expect(setFocus.mock.calls[0][0]).toBe(cards[0].getAttribute("data-index"));
+    expect(setFocus.mock.calls[1][0]).toBe(cards[1].getAttribute("data-index"));
+    expect(setFocus.mock.calls[2][0]).toBe(null);
   });
 });

@@ -43,6 +43,7 @@ describe("Check the Card Component Renders Without Crashing", () => {
     expect(cardImage.getAttribute("src")).toBe(state.image);
     expect(utils.getByTestId("CardNumber")).toBeTruthy();
     expect(mockFlipper.mock.calls.length).toBe(0);
+    expect(utils.getByTestId("FlipCard").getAttribute("data-index")).toBe("0");
   });
 
   it("should flip the card when clicked and add the flipped class for css rendering", () => {

@@ -8,7 +8,14 @@ export const messages = {
 };
 export const cardSize = 100;
 
-const Chart = ({ navBarHeight, titleHeight, drawerHeight, data, count }) => {
+const Chart = ({
+  navBarHeight,
+  titleHeight,
+  drawerHeight,
+  data,
+  count,
+  setFocus,
+}) => {
   const [flipped, setFlipped] = useState(null);
   const albums = data.data.topalbums.album.slice(0, 20);
 
@@ -19,8 +26,10 @@ const Chart = ({ navBarHeight, titleHeight, drawerHeight, data, count }) => {
     if (flipped !== event.currentTarget) {
       setFlipped(event.currentTarget);
       event.currentTarget.classList.add("flipped");
+      setFocus(event.currentTarget.getAttribute("data-index"));
     } else {
       setFlipped(null);
+      setFocus(null);
     }
   };
 

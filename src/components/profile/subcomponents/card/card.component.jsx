@@ -10,7 +10,12 @@ const FlipCard = ({ title, number, size, image, flipper }) => {
   const [flip, setFlip] = useState(null);
   return (
     <div>
-      <Card data-testid="FlipCard" TileHeight={size} onClick={flipper}>
+      <Card
+        data-index={number - 1}
+        data-testid="FlipCard"
+        TileHeight={size}
+        onClick={flipper}
+      >
         <CardFront>
           <CardTitle>
             <img alt={title} src={image} />
