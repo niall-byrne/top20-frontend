@@ -1,11 +1,11 @@
 // Displays the User Profile
 
 import React from "react";
-import { Drawer } from "./profile.styles";
 import { NavBarHeight } from "../header/header.component";
 
 import Title from "./subcomponents/title/title.component";
 import Chart from "./subcomponents/chart/chart.component";
+import Drawer from "./subcomponents/drawer/drawer.component";
 
 const DrawerHeight = "33vh";
 const TitleHeight = "40px";
@@ -15,8 +15,8 @@ const Profile = ({ data }) => {
     <div>
       <Drawer
         className="section"
-        DrawerHeight={DrawerHeight}
-        NavBarHeight={NavBarHeight}
+        drawerHeight={DrawerHeight}
+        navBarHeight={NavBarHeight}
       >
         <div data-testid="Profile">Profile</div>
       </Drawer>
