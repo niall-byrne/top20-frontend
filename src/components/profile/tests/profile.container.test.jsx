@@ -16,6 +16,7 @@ import {
   dispatchMock,
   userBeforeFetch,
   userBeforeFetchReady,
+  userBeforeFetchUrlEncodingNeeded,
 } from "../../../test.fixtures/lastfm.user.fixture";
 
 describe("Check the Profile Container Component Renders Without Crashing", () => {
@@ -60,6 +61,7 @@ describe("Check Profile Data Fetching", () => {
   let utils;
   let state = [
     userBeforeFetch,
+    userBeforeFetchUrlEncodingNeeded,
     userBeforeFetch,
     userBeforeFetch,
     userBeforeFetchReady,
@@ -70,7 +72,9 @@ describe("Check Profile Data Fetching", () => {
     Profile.mockImplementation(() => <div>MockComponent</div>);
     providerState = state.shift();
     history = createMemoryHistory();
-    history.push(`/${providerState.userProperties.userName}`);
+    history.push(
+      `/${encodeURIComponent(providerState.userProperties.userName)}`
+    );
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={providerState}>
@@ -82,7 +86,21 @@ describe("Check Profile Data Fetching", () => {
 
   afterEach(cleanup);
 
-  it("when ready is false, a dispatch is made to fetch the user data", async (done) => {
+  it("when ready is false, a dispatch is made to fetch the user data (clean username)", async (done) => {
+    await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(1));
+    const call = dispatchMock.mock.calls[0][0];
+    expect(call.userName).toBe(providerState.userProperties.userName);
+    expect(call.type).toBe("StartFetchUser");
+    expect(call.func).toBeInstanceOf(Function);
+    expect(call.func.name).toBe("fetchProfile");
+    expect(call.success).toBeInstanceOf(Function);
+    expect(call.success.name).toBe("success");
+    expect(call.failure).toBeInstanceOf(Function);
+    expect(call.failure.name).toBe("failure");
+    done();
+  });
+
+  it("when ready is false, a dispatch is made to fetch the user data (url encoding needed)", async (done) => {
     await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(1));
     const call = dispatchMock.mock.calls[0][0];
     expect(call.userName).toBe(providerState.userProperties.userName);

@@ -17,12 +17,13 @@ import { UserContext } from "../../providers/user/user.provider";
 const ProfileContainer = ({ match }) => {
   const { userProperties, dispatch } = React.useContext(UserContext);
   let useEffectTriggered = false; // Facilitates Testing Callbacks
+  const currentUser = decodeURIComponent(match.params.userName);
 
   React.useEffect(() => {
     const success = async (data) => {
       await dispatch({
         type: UserTypes.SuccessFetchUser,
-        userName: match.params.userName,
+        userName: currentUser,
         data: data.content,
       });
     };
@@ -30,13 +31,13 @@ const ProfileContainer = ({ match }) => {
     const failure = async (_) => {
       await dispatch({
         type: UserTypes.FailureFetchUser,
-        userName: match.params.userName,
+        userName: currentUser,
       });
     };
 
     const fetchUserDetails = async () => {
       await dispatch({
-        userName: match.params.userName,
+        userName: currentUser,
         type: UserTypes.StartFetchUser,
         func: fetchProfile,
         success,
@@ -48,7 +49,7 @@ const ProfileContainer = ({ match }) => {
       useEffectTriggered = true;
       fetchUserDetails();
     }
-  }, [dispatch, userProperties.ready, match.params.userName]);
+  }, [dispatch, userProperties.ready, currentUser]);
 
   return <WrappedSpinner data={userProperties} />;
 };

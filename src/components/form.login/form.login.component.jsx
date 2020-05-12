@@ -31,7 +31,7 @@ const FormLogin = ({ history }) => {
   const doSubmit = (value) => {
     const result = validateSubmit(value, setUserName, setErrorMsg);
     if (result) {
-      history.push(`/${value}`);
+      history.push(`/${encodeURIComponent(value)}`);
     }
   };
 

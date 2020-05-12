@@ -74,6 +74,18 @@ export const userBeforeFetch = {
   dispatch: dispatchMock,
 };
 
+export const userBeforeFetchUrlEncodingNeeded = {
+  userProperties: {
+    userName: "/niall-byrne",
+    imageUrl: "",
+    profileUrl: "",
+    ready: false,
+    error: false,
+    data: {},
+  },
+  dispatch: dispatchMock,
+};
+
 export const userBeforeFetchReady = {
   userProperties: {
     userName: "niall-byrne",
