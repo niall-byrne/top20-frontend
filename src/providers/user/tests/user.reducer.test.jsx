@@ -32,17 +32,31 @@ describe("Check The Reducer Functionality", () => {
     expect(received.ready).toBe(false);
   });
 
-  it("handles ToggleError correctly", () => {
-    // toggle on
+  it("handles ResetState correctly with no existing username", () => {
     received = UserReducer(InitialState, {
-      type: UserActions.ToggleError,
+      type: UserActions.ResetState,
     });
-    expect(received.error).toBe(true);
-    // toggle off
-    received = UserReducer(received, {
-      type: UserActions.ToggleError,
-    });
+    expect(Object.keys(received).length).toBe(6);
+    expect(received.userName).toBe("");
+    expect(received.data).toBe(null);
     expect(received.error).toBe(false);
+    expect(received.imageUrl).toBe(null);
+    expect(received.profileUrl).toBe(null);
+    expect(received.ready).toBe(false);
+  });
+
+  it("handles ResetState correctly with existing username", () => {
+    const InitalState2 = { ...InitialState, userName: "existing username" };
+    received = UserReducer(InitalState2, {
+      type: UserActions.ResetState,
+    });
+    expect(Object.keys(received).length).toBe(6);
+    expect(received.userName).toBe("existing username");
+    expect(received.data).toBe(null);
+    expect(received.error).toBe(false);
+    expect(received.imageUrl).toBe(null);
+    expect(received.profileUrl).toBe(null);
+    expect(received.ready).toBe(false);
   });
 
   it("handles StartFetchUser correctly", () => {

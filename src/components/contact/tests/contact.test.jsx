@@ -4,53 +4,57 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
-import WithError, { messages } from "../error.component";
+import Contact, { messages } from "../contact.component";
 import { UserContext } from "../../../providers/user/user.provider";
 import UserTypes from "../../../providers/user/user.actions";
 import {
   dispatchMock,
-  noUserError,
   userError,
 } from "../../../test.fixtures/lastfm.user.fixture";
-
-const TestHook = () => <div>TestComponent</div>;
+import Assets from "../../../configuration/assets";
 
 describe("Check Error Rendering", () => {
   let utils;
   let history;
   let state;
-  let setup = [noUserError, userError, userError, userError];
+  const originalGlobalOpen = global.open;
+  let mockOpen;
+  let setup = [userError, userError, userError, userError];
 
   beforeEach(() => {
     dispatchMock.mockReset();
     state = setup.shift();
-    history = createMemoryHistory();
-    const TestHookWithSpinner = WithError(TestHook);
+    history = createMemoryHistory("/home/contact");
+    mockOpen = jest.fn();
+    global.open = mockOpen;
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={state}>
-          <TestHookWithSpinner />
+          <Contact />
         </UserContext.Provider>
       </Router>
     );
   });
 
   afterEach(cleanup);
-
-  it("renders without an error message when no error is present", () => {
-    expect(utils.queryByText(messages.ErrorMessage)).toBeNull();
-    expect(utils.queryByTestId("Error1")).toBeNull();
+  afterAll(() => {
+    global.open = originalGlobalOpen;
   });
 
-  it("renders with an error message when an error is present", () => {
-    expect(utils.getByText(messages.ErrorMessage)).toBeTruthy();
-    expect(utils.getByTestId("Error1")).toBeTruthy();
-    expect(utils.getByTestId("Error2")).toBeTruthy();
+  it("renders with expected elements", () => {
+    expect(utils.getByText(messages.ContactMessage)).toBeTruthy();
+    expect(utils.getByTestId("Contact1")).toBeTruthy();
   });
 
-  it("responds to a button press by changing the page", () => {
+  it("responds to the contact button by calling window.open", () => {
+    fireEvent.click(utils.getByTestId("Contact2"));
+    expect(mockOpen.mock.calls.length).toBe(1);
+    expect(mockOpen.mock.calls[0]).toEqual([Assets.ContactPage, "_blank"]);
+  });
+
+  it("responds to the home button press by changing the page", () => {
     expect(history.length).toBe(1);
-    fireEvent.click(utils.getByTestId("Error2"));
+    fireEvent.click(utils.getByTestId("Contact3"));
     expect(history.length).toBe(2);
   });
 

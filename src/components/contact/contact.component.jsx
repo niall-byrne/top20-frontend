@@ -2,14 +2,34 @@ import React, { useContext } from "react";
 import Billboard from "../billboard/billboard.component";
 import { ContactContainer, CenteredContainer } from "./contact.styles";
 import CustomButton from "../button/button.component";
+import Assets from "../../configuration/assets";
+import UserTypes from "../../providers/user/user.actions";
+import { UserContext } from "../../providers/user/user.provider";
+import { withRouter } from "react-router-dom";
 
 export const messages = {
   ContactMessage: "Please Get In Touch If You Like What You See",
-  ContactButtonMessage: "Contact Me",
+  ContactButtonMessage1: "Contact Me",
+  ContactButtonMessage2: "Return Home",
 };
 
 const Contact = ({ history, ...otherProps }) => {
-  const handleClick = (e) => {
+  const { userProperties, dispatch } = useContext(UserContext);
+  let componentWillUnmount = false;
+
+  const handleClick1 = (e) => {
+    window.open(Assets.ContactPage, "_blank");
+  };
+
+  React.useEffect(() => {
+    return () => {
+      dispatch({
+        type: UserTypes.ResetState,
+      });
+    };
+  }, [componentWillUnmount, dispatch]);
+
+  const handleClick2 = (e) => {
     history.push("/");
   };
 
@@ -17,13 +37,19 @@ const Contact = ({ history, ...otherProps }) => {
     <div>
       <Billboard>
         <ContactContainer data-testid="Contact1">
-          <div>{messages.ContactButtonMessage}</div>
+          <div>{messages.ContactMessage}</div>
           <CenteredContainer>
             <CustomButton
-              action={handleClick}
+              action={handleClick1}
               type="button"
               testid="Contact2"
-              text={messages.ContactMessage}
+              text={messages.ContactButtonMessage1}
+            />
+            <CustomButton
+              action={handleClick2}
+              type="button"
+              testid="Contact3"
+              text={messages.ContactButtonMessage2}
             />
           </CenteredContainer>
         </ContactContainer>
@@ -32,4 +58,4 @@ const Contact = ({ history, ...otherProps }) => {
   );
 };
 
-export default Contact;
+export default withRouter(Contact);

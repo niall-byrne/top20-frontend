@@ -21,7 +21,7 @@ const WithError = (WrappedComponent) => {
 
     React.useEffect(() => {
       return () => {
-        dispatch({ type: UserTypes.ToggleError });
+        dispatch({ type: UserTypes.ResetState });
       };
     }, [componentWillUnmount, dispatch]);
 

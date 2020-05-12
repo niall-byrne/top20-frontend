@@ -12,4 +12,8 @@ export const CenteredContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding-top: 30px;
+
+  div:last-child {
+    padding-left: 20px;
+  }
 `;

@@ -15,15 +15,20 @@ export const InitialState = {
 
 const userReducer = (state, action) => {
   switch (action.type) {
-    case UserActions.ToggleError:
-      return {
-        ...state,
-        error: !state.error,
-      };
     case UserActions.ToggleReady:
       return {
         ...state,
         ready: !state.ready,
+      };
+    case UserActions.ResetState:
+      return {
+        ...state,
+        userName: state.userName ? state.userName : "",
+        profileUrl: null,
+        imageUrl: null,
+        data: null,
+        error: false,
+        ready: false,
       };
     case UserActions.StartFetchUser:
       action.func(state, action);
