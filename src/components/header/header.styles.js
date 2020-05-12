@@ -23,6 +23,12 @@ export const Navbar = styled.div`
   height: ${(props) => props.NavBarHeight};
   z-index: 10;
 
+  div:last-child {
+    cursor: pointer;
+    margin-left: auto;
+    padding-right: 10px;
+  }
+
   img {
     height: 40px;
     padding-top: 2px;

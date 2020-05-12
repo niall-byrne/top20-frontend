@@ -3,6 +3,8 @@ import { UserContext } from "../../providers/user/user.provider";
 import { Navbar, NavbarContainer, NavbarItems } from "./header.styles";
 import { withRouter } from "react-router-dom";
 
+// Configuration
+
 export const fallBackAvatar = "./images/lastfm.png";
 
 export const messages = {
@@ -11,12 +13,19 @@ export const messages = {
   loadingUser: "Loading ...",
   altLastFM: "last.fm",
   altAvatar: "Avatar",
+  contact: "contact",
 };
 
 export const NavBarHeight = "50px";
 
-const Header = ({ match }) => {
+export const AboutLink = "/home/contact";
+
+const Header = ({ history, match }) => {
   const { userProperties } = React.useContext(UserContext);
+
+  const handleLink = () => {
+    history.push(AboutLink);
+  };
 
   if (!userProperties.ready) {
     return (
@@ -33,6 +42,9 @@ const Header = ({ match }) => {
               : match.isExact
               ? messages.promptUser
               : messages.loadingUser}
+          </NavbarItems>
+          <NavbarItems>
+            <div onClick={handleLink}>{messages.contact}</div>
           </NavbarItems>
         </Navbar>
       </NavbarContainer>
@@ -58,6 +70,9 @@ const Header = ({ match }) => {
             </a>
           </NavbarItems>
           <NavbarItems>{userProperties.userName}</NavbarItems>
+          <NavbarItems>
+            <div onClick={handleLink}>{messages.contact}</div>
+          </NavbarItems>
         </Navbar>
       </NavbarContainer>
     );

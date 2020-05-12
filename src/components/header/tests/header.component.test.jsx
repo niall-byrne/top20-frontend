@@ -1,9 +1,13 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render, cleanup, fireEvent, waitFor } from "@testing-library/react";
 import { Router, Route } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
-import Header, { fallBackAvatar, messages } from "../header.component";
+import Header, {
+  AboutLink,
+  fallBackAvatar,
+  messages,
+} from "../header.component";
 
 import { UserContext } from "../../../providers/user/user.provider";
 import {
@@ -35,6 +39,11 @@ describe("The Header Should Render Without Crashing", () => {
       match: matches.root,
     },
     {
+      state: noUser,
+      path: "/",
+      match: matches.root,
+    },
+    {
       state: userError,
       path: "/niall-byrne",
       match: matches.name,
@@ -59,8 +68,7 @@ describe("The Header Should Render Without Crashing", () => {
 
   beforeEach(() => {
     currentTest = setup.shift();
-    history = createMemoryHistory();
-    history.push(currentTest.path);
+    history = createMemoryHistory(currentTest.path);
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={currentTest.state}>
@@ -81,6 +89,17 @@ describe("The Header Should Render Without Crashing", () => {
       expect(link).toBe("https://last.fm");
       expect(src).toBe(fallBackAvatar);
       expect(utils.getByText(messages.promptUser)).toBeInTheDocument();
+      // Contact is present
+      expect(utils.getByText(messages.contact)).toBeTruthy();
+    });
+  });
+
+  describe("When on The Root Page", () => {
+    it("when the contact link is clicked it modifies the history", () => {
+      expect(history.length).toBe(1);
+      const contactLink = utils.getByText(messages.contact);
+      fireEvent.click(contactLink);
+      expect(history.length).toBe(2);
     });
   });
 
@@ -93,6 +112,8 @@ describe("The Header Should Render Without Crashing", () => {
       expect(link).toBe("https://last.fm");
       expect(src).toBe(fallBackAvatar);
       expect(utils.getByText(messages.noUser)).toBeInTheDocument();
+      // Contact is present
+      expect(utils.getByText(messages.contact)).toBeTruthy();
     });
   });
 
@@ -104,7 +125,11 @@ describe("The Header Should Render Without Crashing", () => {
       const src = utils.getByAltText("last.fm").getAttribute("src");
       expect(link).toBe("https://last.fm");
       expect(src).toBe(fallBackAvatar);
-      expect(utils.getByText(messages.loadingUser)).toBeInTheDocument();
+      waitFor(() =>
+        expect(utils.getByText(messages.loadingUser)).toBeInTheDocument()
+      );
+      // Contact is present
+      expect(utils.getByText(messages.contact)).toBeTruthy();
     });
   });
 
@@ -119,6 +144,8 @@ describe("The Header Should Render Without Crashing", () => {
       expect(
         utils.getByText(testUser.userProperties.userName)
       ).toBeInTheDocument();
+      // Contact is present
+      expect(utils.getByText(messages.contact)).toBeTruthy();
     });
   });
 
@@ -133,6 +160,8 @@ describe("The Header Should Render Without Crashing", () => {
       expect(
         utils.getByText(testUser.userProperties.userName)
       ).toBeInTheDocument();
+      // Contact is present
+      expect(utils.getByText(messages.contact)).toBeTruthy();
     });
   });
 });
