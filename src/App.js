@@ -5,6 +5,7 @@ import Login from "./components/login/login.component";
 import { default as Profile } from "./components/profile/profile.container";
 import Contact from "./components/contact/contact.component";
 import UserProvider from "./providers/user/user.provider";
+import Routes from "./configuration/routes";
 
 function App() {
   return (
@@ -14,9 +15,9 @@ function App() {
           <div>
             <Header />
             <Switch>
-              <Route exact path="/" component={Login} />
-              <Route exact path="/home/contact" component={Contact} />
-              <Route path="/:userName" component={Profile} />
+              <Route exact path={Routes.root} component={Login} />
+              <Route path={Routes.contact} component={Contact} />
+              <Route path={Routes.profile} component={Profile} />
             </Switch>
           </div>
         </div>

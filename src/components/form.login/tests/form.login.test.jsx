@@ -4,6 +4,7 @@ import FormLogin, { messages } from "../form.login.component";
 
 import { UserContext } from "../../../providers/user/user.provider";
 import { testUser, noUser } from "../../../test.fixtures/lastfm.user.fixture";
+import Routes from "../../../configuration/routes";
 
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
@@ -14,11 +15,11 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
   let setup = [
     {
       state: noUser,
-      path: "/",
+      path: Routes.root,
     },
     {
       state: testUser,
-      path: "/",
+      path: Routes.root,
     },
   ];
   let currentTest;
@@ -78,34 +79,34 @@ describe("The FormLogin Component Should handle input correctly", () => {
   let setup = [
     {
       state: noUser,
-      path: "/",
+      path: Routes.root,
     },
     {
       state: testUser,
-      path: "/",
+      path: Routes.root,
     },
     {
       state: testUser,
-      path: "/",
+      path: Routes.root,
     },
     {
       state: testUser,
-      path: "/",
+      path: Routes.root,
     },
     {
       state: noUser,
-      path: "/",
+      path: Routes.root,
     },
     {
       state: noUser,
-      path: "/",
+      path: Routes.root,
     },
   ];
   let currentTest;
 
   beforeEach(() => {
     currentTest = setup.shift();
-    history = createMemoryHistory(currentTest.path);
+    history = createMemoryHistory({ initialEntries: [currentTest.path] });
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={currentTest.state}>

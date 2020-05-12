@@ -57,7 +57,7 @@ const FormLogin = ({ history }) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [handleKeyDown]);
+  }, []);
 
   return (
     <FormDiv>

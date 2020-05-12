@@ -3,6 +3,7 @@ import { render, cleanup, act, waitFor } from "@testing-library/react";
 import { Router, Route } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
+import Routes from "../../../configuration/routes";
 import ProfileContainer from "../profile.container";
 import Profile from "../profile.component";
 
@@ -28,7 +29,7 @@ describe("Check the Profile Container Component Renders Without Crashing", () =>
     Profile.mockImplementation(() => <div>MockComponent</div>);
     state = setup.shift();
     history = createMemoryHistory();
-    history.push("/");
+    history.push(Routes.root);
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={state}>

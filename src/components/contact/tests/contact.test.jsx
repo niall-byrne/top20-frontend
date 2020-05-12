@@ -4,6 +4,7 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
+import Routes from "../../../configuration/routes";
 import Contact, { messages } from "../contact.component";
 import { UserContext } from "../../../providers/user/user.provider";
 import UserTypes from "../../../providers/user/user.actions";
@@ -24,7 +25,7 @@ describe("Check Error Rendering", () => {
   beforeEach(() => {
     dispatchMock.mockReset();
     state = setup.shift();
-    history = createMemoryHistory("/home/contact");
+    history = createMemoryHistory({ initialEntries: [Routes.contact] });
     mockOpen = jest.fn();
     global.open = mockOpen;
     utils = render(

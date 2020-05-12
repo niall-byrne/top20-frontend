@@ -3,6 +3,7 @@ import { UserContext } from "../../providers/user/user.provider";
 import { Navbar, NavbarContainer, NavbarItems } from "./header.styles";
 import { withRouter } from "react-router-dom";
 import Assets from "../../configuration/assets";
+import Routes from "../../configuration/routes";
 import { HomePage } from "../../configuration/lastfm";
 
 // Configuration
@@ -14,20 +15,26 @@ export const messages = {
   HeaderAltLastFM: "last.fm",
   HeaderAltAvatar: "Avatar",
   HeaderContact: "contact",
+  HeaderTop20: "Top 20 Chart Generator",
 };
 
 export const NavBarHeight = "50px";
 
-export const AboutLink = "/home/contact";
-
 const Header = ({ history, match }) => {
   const { userProperties } = React.useContext(UserContext);
+  const { pathname } = history.location;
 
   const handleLink = () => {
-    history.push(AboutLink);
+    history.push(Routes.contact);
   };
 
-  if (!userProperties.ready) {
+  const getHeaderMessage = () => {
+    if (userProperties.error) return messages.HeaderNoUser;
+    if (pathname === Routes.contact) return messages.HeaderTop20;
+    return messages.HeaderPromptUser;
+  };
+
+  if (!userProperties.ready || pathname === Routes.contact) {
     return (
       <NavbarContainer NavBarHeight={NavBarHeight}>
         <Navbar NavBarHeight={NavBarHeight}>
@@ -36,13 +43,7 @@ const Header = ({ history, match }) => {
               <img alt={messages.HeaderAltLastFM} src={Assets.LastFMLogo} />
             </a>
           </NavbarItems>
-          <NavbarItems>
-            {userProperties.error
-              ? messages.HeaderNoUser
-              : match.isExact
-              ? messages.HeaderPromptUser
-              : messages.HeaderLoadingUser}
-          </NavbarItems>
+          <NavbarItems>{getHeaderMessage()}</NavbarItems>
           <NavbarItems>
             <div onClick={handleLink}>{messages.HeaderContact}</div>
           </NavbarItems>

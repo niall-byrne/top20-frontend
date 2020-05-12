@@ -6,6 +6,7 @@ import Assets from "../../configuration/assets";
 import UserTypes from "../../providers/user/user.actions";
 import { UserContext } from "../../providers/user/user.provider";
 import { withRouter } from "react-router-dom";
+import Routes from "../../configuration/routes";
 
 export const messages = {
   ContactMessage: "Please Get In Touch If You Like What You See",
@@ -14,7 +15,7 @@ export const messages = {
 };
 
 const Contact = ({ history, ...otherProps }) => {
-  const { userProperties, dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
   let componentWillUnmount = false;
 
   const handleClick1 = (e) => {
@@ -30,7 +31,8 @@ const Contact = ({ history, ...otherProps }) => {
   }, [componentWillUnmount, dispatch]);
 
   const handleClick2 = (e) => {
-    history.push("/");
+    componentWillUnmount = true;
+    history.push(Routes.root);
   };
 
   return (
