@@ -17,16 +17,21 @@ export const NavbarItems = styled.div`
 `;
 
 export const Navbar = styled.div`
-  align-items: center;
   display: flex;
   align-items: center;
   height: ${(props) => props.NavBarHeight};
   z-index: 10;
 
   div:last-child {
-    cursor: pointer;
     margin-left: auto;
     padding-right: 10px;
+    align-items: center;
+    display: flex;
+    z-index: 10;
+    div {
+      padding-left: 30px;
+      cursor: pointer;
+    }
   }
 
   img {

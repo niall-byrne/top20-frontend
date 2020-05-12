@@ -31,13 +31,18 @@ describe("The Header Should Render Without Crashing", () => {
     },
     contact: {
       path: Routes.contact,
-      url: "/home/contact",
+      url: Routes.contact,
       isExact: true,
       params: {},
     },
   };
 
   let setup = [
+    {
+      state: noUser,
+      path: Routes.root,
+      match: matches.root,
+    },
     {
       state: noUser,
       path: Routes.root,
@@ -113,6 +118,18 @@ describe("The Header Should Render Without Crashing", () => {
       fireEvent.click(contactLink);
       expect(history.length).toBe(2);
       expect(utils.getByText(messages.HeaderTop20)).toBeInTheDocument();
+      expect(history.location.pathname).toBe(Routes.contact);
+    });
+  });
+
+  describe("When on The Root Page", () => {
+    it("when the search link is clicked it modifies the history", () => {
+      expect(history.length).toBe(1);
+      const contactLink = utils.getByText(messages.HeaderSearch);
+      fireEvent.click(contactLink);
+      expect(history.length).toBe(2);
+      expect(utils.getByText(messages.HeaderPromptUser)).toBeInTheDocument();
+      expect(history.location.pathname).toBe(Routes.root);
     });
   });
 

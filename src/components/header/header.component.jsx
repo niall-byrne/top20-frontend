@@ -15,6 +15,7 @@ export const messages = {
   HeaderAltLastFM: "last.fm",
   HeaderAltAvatar: "Avatar",
   HeaderContact: "contact",
+  HeaderSearch: "search",
   HeaderTop20: "Top 20 Chart Generator",
 };
 
@@ -24,7 +25,11 @@ const Header = ({ history, match }) => {
   const { userProperties } = React.useContext(UserContext);
   const { pathname } = history.location;
 
-  const handleLink = () => {
+  const handleLinkHome = () => {
+    history.push(Routes.root);
+  };
+
+  const handleLinkContact = () => {
     history.push(Routes.contact);
   };
 
@@ -46,7 +51,8 @@ const Header = ({ history, match }) => {
           </NavbarItems>
           <NavbarItems>{getHeaderMessage()}</NavbarItems>
           <NavbarItems>
-            <div onClick={handleLink}>{messages.HeaderContact}</div>
+            <div onClick={handleLinkHome}>{messages.HeaderSearch}</div>
+            <div onClick={handleLinkContact}>{messages.HeaderContact}</div>
           </NavbarItems>
         </Navbar>
       </NavbarContainer>
@@ -73,7 +79,8 @@ const Header = ({ history, match }) => {
           </NavbarItems>
           <NavbarItems>{userProperties.userName}</NavbarItems>
           <NavbarItems>
-            <div onClick={handleLink}>{messages.HeaderContact}</div>
+            <div onClick={handleLinkHome}>{messages.HeaderSearch}</div>
+            <div onClick={handleLinkContact}>{messages.HeaderContact}</div>
           </NavbarItems>
         </Navbar>
       </NavbarContainer>

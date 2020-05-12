@@ -130,6 +130,7 @@ describe("The FormLogin Component Should handle input correctly", () => {
     expect(input.value).toBe("niall-byrne");
     fireEvent.click(submit);
     expect(history.length).toBe(2);
+    expect(history.location.pathname).toBe("/niall-byrne");
   });
 
   it("should handle submitted data correctly (enter) (no errors)", () => {
@@ -139,6 +140,7 @@ describe("The FormLogin Component Should handle input correctly", () => {
     expect(input.value).toBe("niall-byrne");
     fireEvent.keyDown(submit, { key: "enter", keyCode: 13 });
     expect(history.length).toBe(2);
+    expect(history.location.pathname).toBe("/niall-byrne");
   });
 
   it("should not submit data if another key is pressed", () => {

@@ -57,6 +57,7 @@ describe("Check Error Rendering", () => {
     expect(history.length).toBe(1);
     fireEvent.click(utils.getByTestId("Contact3"));
     expect(history.length).toBe(2);
+    expect(history.location.pathname).toBe(Routes.root);
   });
 
   it("calls the toggle error dispatch on cleanup", () => {

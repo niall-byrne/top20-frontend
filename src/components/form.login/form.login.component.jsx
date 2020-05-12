@@ -14,7 +14,7 @@ import { withRouter } from "react-router-dom";
 
 export const messages = {
   FormLastFMButtonMessage: "Show my Top20",
-  FormLastFMUsernameLabelMessage: "last.fm username",
+  FormLastFMUsernameLabelMessage: "last.fm username:",
   FormUserNameMissingValidation: "You require a name.",
 };
 
