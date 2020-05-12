@@ -2,6 +2,7 @@
 import UserActions from "./user.actions";
 import withMiddleware from "../../util/user.middleware";
 import reducerLoggingMiddleware from "../../util/reducer.logger";
+import { GenerateUserLink } from "../../configuration/lastfm";
 
 export const InitialState = {
   userName: "",
@@ -40,7 +41,7 @@ const userReducer = (state, action) => {
     case UserActions.SuccessFetchUser:
       return {
         userName: action.userName,
-        profileUrl: `https://www.last.fm/user/${action.userName}`,
+        profileUrl: GenerateUserLink(action.userName),
         imageUrl: action.data.image,
         data: action.data,
         error: false,

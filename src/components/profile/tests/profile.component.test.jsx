@@ -5,7 +5,7 @@ import Title from "../subcomponents/title/title.component";
 import Chart from "../subcomponents/chart/chart.component";
 import Drawer from "../subcomponents/drawer/drawer.component";
 
-import { mockApiData0 } from "../../../test.fixtures/api.fixture";
+import { mockApiData0 } from "../../../test.fixtures/lastfm.api.fixture";
 
 jest.mock("../subcomponents/title/title.component");
 jest.mock("../subcomponents/chart/chart.component");

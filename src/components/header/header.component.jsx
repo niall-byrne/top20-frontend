@@ -2,18 +2,18 @@ import React from "react";
 import { UserContext } from "../../providers/user/user.provider";
 import { Navbar, NavbarContainer, NavbarItems } from "./header.styles";
 import { withRouter } from "react-router-dom";
+import Assets from "../../configuration/assets";
+import { HomePage } from "../../configuration/lastfm";
 
 // Configuration
 
-export const fallBackAvatar = "./images/lastfm.png";
-
 export const messages = {
-  noUser: "No User Found",
-  promptUser: "Specify your last.fm username",
-  loadingUser: "Loading ...",
-  altLastFM: "last.fm",
-  altAvatar: "Avatar",
-  contact: "contact",
+  HeaderNoUser: "No User Found",
+  HeaderPromptUser: "Specify your last.fm username",
+  HeaderLoadingUser: "Loading ...",
+  HeaderAltLastFM: "last.fm",
+  HeaderAltAvatar: "Avatar",
+  HeaderContact: "contact",
 };
 
 export const NavBarHeight = "50px";
@@ -32,19 +32,19 @@ const Header = ({ history, match }) => {
       <NavbarContainer NavBarHeight={NavBarHeight}>
         <Navbar NavBarHeight={NavBarHeight}>
           <NavbarItems>
-            <a rel="noopener noreferrer" target="_blank" href="https://last.fm">
-              <img alt={messages.altLastFM} src={fallBackAvatar} />
+            <a rel="noopener noreferrer" target="_blank" href={HomePage}>
+              <img alt={messages.HeaderAltLastFM} src={Assets.LastFMLogo} />
             </a>
           </NavbarItems>
           <NavbarItems>
             {userProperties.error
-              ? messages.noUser
+              ? messages.HeaderNoUser
               : match.isExact
-              ? messages.promptUser
-              : messages.loadingUser}
+              ? messages.HeaderPromptUser
+              : messages.HeaderLoadingUser}
           </NavbarItems>
           <NavbarItems>
-            <div onClick={handleLink}>{messages.contact}</div>
+            <div onClick={handleLink}>{messages.HeaderContact}</div>
           </NavbarItems>
         </Navbar>
       </NavbarContainer>
@@ -60,18 +60,18 @@ const Header = ({ history, match }) => {
               href={userProperties.profileUrl}
             >
               <img
-                alt={messages.altAvatar}
+                alt={messages.HeaderAltAvatar}
                 src={
                   userProperties.imageUrl !== ""
                     ? userProperties.imageUrl
-                    : fallBackAvatar
+                    : Assets.LastFMLogo
                 }
               />
             </a>
           </NavbarItems>
           <NavbarItems>{userProperties.userName}</NavbarItems>
           <NavbarItems>
-            <div onClick={handleLink}>{messages.contact}</div>
+            <div onClick={handleLink}>{messages.HeaderContact}</div>
           </NavbarItems>
         </Navbar>
       </NavbarContainer>

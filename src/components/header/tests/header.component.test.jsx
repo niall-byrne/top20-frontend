@@ -1,13 +1,11 @@
 import React from "react";
 import { render, cleanup, fireEvent, waitFor } from "@testing-library/react";
-import { Router, Route } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
+import Assets from "../../../configuration/assets";
+import { HomePage } from "../../../configuration/lastfm";
 
-import Header, {
-  AboutLink,
-  fallBackAvatar,
-  messages,
-} from "../header.component";
+import Header, { messages } from "../header.component";
 
 import { UserContext } from "../../../providers/user/user.provider";
 import {
@@ -16,7 +14,7 @@ import {
   noUser,
   userError,
   userBeforeFetch,
-} from "../../../test.fixtures/user.fixture";
+} from "../../../test.fixtures/lastfm.user.fixture";
 
 describe("The Header Should Render Without Crashing", () => {
   let history;
@@ -83,21 +81,23 @@ describe("The Header Should Render Without Crashing", () => {
   describe("When on The Root Page", () => {
     it("renders without a user", () => {
       const link = utils
-        .getByAltText("last.fm")
+        .getByAltText(messages.HeaderAltLastFM)
         .parentElement.getAttribute("href");
-      const src = utils.getByAltText("last.fm").getAttribute("src");
-      expect(link).toBe("https://last.fm");
-      expect(src).toBe(fallBackAvatar);
-      expect(utils.getByText(messages.promptUser)).toBeInTheDocument();
+      const src = utils
+        .getByAltText(messages.HeaderAltLastFM)
+        .getAttribute("src");
+      expect(link).toBe(HomePage);
+      expect(src).toBe(Assets.LastFMLogo);
+      expect(utils.getByText(messages.HeaderPromptUser)).toBeInTheDocument();
       // Contact is present
-      expect(utils.getByText(messages.contact)).toBeTruthy();
+      expect(utils.getByText(messages.HeaderContact)).toBeTruthy();
     });
   });
 
   describe("When on The Root Page", () => {
     it("when the contact link is clicked it modifies the history", () => {
       expect(history.length).toBe(1);
-      const contactLink = utils.getByText(messages.contact);
+      const contactLink = utils.getByText(messages.HeaderContact);
       fireEvent.click(contactLink);
       expect(history.length).toBe(2);
     });
@@ -106,62 +106,68 @@ describe("The Header Should Render Without Crashing", () => {
   describe("When on a User Page, with an error", () => {
     it("renders the error message", () => {
       const link = utils
-        .getByAltText("last.fm")
+        .getByAltText(messages.HeaderAltLastFM)
         .parentElement.getAttribute("href");
-      const src = utils.getByAltText("last.fm").getAttribute("src");
-      expect(link).toBe("https://last.fm");
-      expect(src).toBe(fallBackAvatar);
-      expect(utils.getByText(messages.noUser)).toBeInTheDocument();
+      const src = utils
+        .getByAltText(messages.HeaderAltLastFM)
+        .getAttribute("src");
+      expect(link).toBe(HomePage);
+      expect(src).toBe(Assets.LastFMLogo);
+      expect(utils.getByText(messages.HeaderNoUser)).toBeInTheDocument();
       // Contact is present
-      expect(utils.getByText(messages.contact)).toBeTruthy();
+      expect(utils.getByText(messages.HeaderContact)).toBeTruthy();
     });
   });
 
   describe("When on a User Page, that is loading", () => {
     it("renders the error message", () => {
       const link = utils
-        .getByAltText("last.fm")
+        .getByAltText(messages.HeaderAltLastFM)
         .parentElement.getAttribute("href");
       const src = utils.getByAltText("last.fm").getAttribute("src");
-      expect(link).toBe("https://last.fm");
-      expect(src).toBe(fallBackAvatar);
+      expect(link).toBe(HomePage);
+      expect(src).toBe(Assets.LastFMLogo);
       waitFor(() =>
-        expect(utils.getByText(messages.loadingUser)).toBeInTheDocument()
+        expect(utils.getByText(messages.HeaderLoadingUser)).toBeInTheDocument()
       );
       // Contact is present
-      expect(utils.getByText(messages.contact)).toBeTruthy();
+      expect(utils.getByText(messages.HeaderContact)).toBeTruthy();
     });
   });
 
   describe("When on a User Page that is loaded", () => {
     it("renders with a user", () => {
       const link = utils
-        .getByAltText("Avatar")
+        .getByAltText(messages.HeaderAltAvatar)
         .parentElement.getAttribute("href");
-      const src = utils.getByAltText("Avatar").getAttribute("src");
+      const src = utils
+        .getByAltText(messages.HeaderAltAvatar)
+        .getAttribute("src");
       expect(link).toBe(testUser.userProperties.profileUrl);
       expect(src).toBe(testUser.userProperties.imageUrl);
       expect(
         utils.getByText(testUser.userProperties.userName)
       ).toBeInTheDocument();
       // Contact is present
-      expect(utils.getByText(messages.contact)).toBeTruthy();
+      expect(utils.getByText(messages.HeaderContact)).toBeTruthy();
     });
   });
 
   describe("When on a User Page, who has no image", () => {
     it("renders with a user", () => {
       const link = utils
-        .getByAltText("Avatar")
+        .getByAltText(messages.HeaderAltAvatar)
         .parentElement.getAttribute("href");
-      const src = utils.getByAltText("Avatar").getAttribute("src");
+      const src = utils
+        .getByAltText(messages.HeaderAltAvatar)
+        .getAttribute("src");
       expect(link).toBe(testUser.userProperties.profileUrl);
-      expect(src).toBe(fallBackAvatar);
+      expect(src).toBe(Assets.LastFMLogo);
       expect(
         utils.getByText(testUser.userProperties.userName)
       ).toBeInTheDocument();
       // Contact is present
-      expect(utils.getByText(messages.contact)).toBeTruthy();
+      expect(utils.getByText(messages.HeaderContact)).toBeTruthy();
     });
   });
 });

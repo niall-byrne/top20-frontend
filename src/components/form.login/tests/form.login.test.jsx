@@ -3,7 +3,7 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 import FormLogin, { messages } from "../form.login.component";
 
 import { UserContext } from "../../../providers/user/user.provider";
-import { testUser, noUser } from "../../../test.fixtures/user.fixture";
+import { testUser, noUser } from "../../../test.fixtures/lastfm.user.fixture";
 
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
@@ -46,9 +46,11 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
       // Check the other elements are present with correct text
       expect(utils.getByTestId("submit")).toBeTruthy();
       expect(
-        utils.getByText(messages.FormUsernameLabelMessage)
+        utils.getByText(messages.FormLastFMUsernameLabelMessage)
       ).toBeInTheDocument();
-      expect(utils.getByText(messages.FormButtonMessage)).toBeInTheDocument();
+      expect(
+        utils.getByText(messages.FormLastFMButtonMessage)
+      ).toBeInTheDocument();
     });
   });
 
@@ -61,9 +63,11 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
       // Check the other elements are present with correct text
       expect(utils.getByTestId("submit")).toBeTruthy();
       expect(
-        utils.getByText(messages.FormUsernameLabelMessage)
+        utils.getByText(messages.FormLastFMUsernameLabelMessage)
       ).toBeInTheDocument();
-      expect(utils.getByText(messages.FormButtonMessage)).toBeInTheDocument();
+      expect(
+        utils.getByText(messages.FormLastFMButtonMessage)
+      ).toBeInTheDocument();
     });
   });
 });

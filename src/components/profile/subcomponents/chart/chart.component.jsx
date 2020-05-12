@@ -3,7 +3,7 @@ import { ChartDiv, ChartBox, NoListensDiv } from "./chart.styles";
 import Card from "../card/card.component";
 
 export const messages = {
-  NoListens:
+  ChartNoListens:
     "Hey, you should really listen to some music to get the most out of this.",
 };
 export const cardSize = 100;
@@ -60,7 +60,7 @@ const Chart = ({
       TitleHeight={titleHeight}
       DrawerHeight={drawerHeight}
     >
-      <span>{messages.NoListens}</span>
+      <span>{messages.ChartNoListens}</span>
     </NoListensDiv>
   );
 };

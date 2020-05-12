@@ -4,13 +4,13 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
-import WithError, { ErrorMessage } from "../error.component";
+import WithError, { messages } from "../error.component";
 import { UserContext } from "../../../providers/user/user.provider";
 import {
   dispatchMock,
   noUserError,
   userError,
-} from "../../../test.fixtures/user.fixture";
+} from "../../../test.fixtures/lastfm.user.fixture";
 
 const TestHook = () => <div>TestComponent</div>;
 
@@ -37,12 +37,12 @@ describe("Check Error Rendering", () => {
   afterEach(cleanup);
 
   it("renders without an error message when no error is present", () => {
-    expect(utils.queryByText(ErrorMessage)).toBeNull();
+    expect(utils.queryByText(messages.ErrorMessage)).toBeNull();
     expect(utils.queryByTestId("Error1")).toBeNull();
   });
 
   it("renders with an error message when an error is present", () => {
-    expect(utils.getByText(ErrorMessage)).toBeTruthy();
+    expect(utils.getByText(messages.ErrorMessage)).toBeTruthy();
     expect(utils.getByTestId("Error1")).toBeTruthy();
     expect(utils.getByTestId("Error2")).toBeTruthy();
   });

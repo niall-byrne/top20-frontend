@@ -13,8 +13,9 @@ import { validateSubmit, validateChange } from "./form.login.validators";
 import { withRouter } from "react-router-dom";
 
 export const messages = {
-  FormButtonMessage: "Show my Top20",
-  FormUsernameLabelMessage: "last.fm username",
+  FormLastFMButtonMessage: "Show my Top20",
+  FormLastFMUsernameLabelMessage: "last.fm username",
+  FormUserNameMissingValidation: "You require a name.",
 };
 
 const FormLogin = ({ history }) => {
@@ -63,7 +64,7 @@ const FormLogin = ({ history }) => {
       <div>
         <form onSubmit={handleSubmit}>
           <FormInputGroup>
-            <FormLabel>{messages.FormUsernameLabelMessage}</FormLabel>
+            <FormLabel>{messages.FormLastFMUsernameLabelMessage}</FormLabel>
             <FormInput
               autoFocus
               name="username"
@@ -79,7 +80,7 @@ const FormLogin = ({ history }) => {
             <CustomButton
               type="submit"
               testid="submit"
-              text={messages.FormButtonMessage}
+              text={messages.FormLastFMButtonMessage}
             />
           </FormButton>
         </form>

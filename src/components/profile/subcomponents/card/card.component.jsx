@@ -1,13 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, CardFront, CardTitle, CardBack, CardText } from "./card.styles";
 
-export const messages = {
-  Front: "Front",
-  Back: "Back",
-};
-
 const FlipCard = ({ title, number, size, image, flipper }) => {
-  const [flip, setFlip] = useState(null);
   return (
     <div>
       <Card

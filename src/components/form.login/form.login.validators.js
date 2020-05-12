@@ -1,8 +1,9 @@
 // Validators for the Login Form
+import { messages } from "./form.login.component";
 
 export const validateSubmit = (data, success, reject) => {
   if (data.length < 1) {
-    reject("You require a name.");
+    reject(messages.FormUserNameMissingValidation);
     return false;
   }
   success(data);

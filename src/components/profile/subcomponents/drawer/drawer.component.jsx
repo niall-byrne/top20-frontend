@@ -11,15 +11,13 @@ import {
   Plays,
   Info,
 } from "./drawer.styles";
+import Assets from "../../../../configuration/assets";
 
 // Configuration
 
 export const messages = {
   DrawerTitle: "Top 20 Albums",
-};
-
-export const LocalImages = {
-  LastFM: "./images/lastfm.png",
+  DrawerAltLastFM: "last.fm",
 };
 
 export const DrawerDelay = 150;
@@ -70,8 +68,8 @@ const Drawer = ({ drawerHeight, navBarHeight, data, focus }) => {
                     <img
                       className="lastfm"
                       style={{ width: 50, height: 50 }}
-                      alt="last.fm"
-                      src={LocalImages.LastFM}
+                      alt={messages.DrawerAltLastFM}
+                      src={Assets.LastFMLogo}
                     />
                   </a>
                 </Info>

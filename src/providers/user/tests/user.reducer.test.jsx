@@ -1,5 +1,6 @@
 import { UserReducer, InitialState } from "../user.reducer";
 import UserActions from "../user.actions";
+import { GenerateUserLink } from "../../../configuration/lastfm";
 
 describe("Check The Reducer Functionality", () => {
   let received;
@@ -70,7 +71,7 @@ describe("Check The Reducer Functionality", () => {
       userName: "someguy",
       data: { image: "someimage" },
     });
-    expect(received.profileUrl).toBe("https://www.last.fm/user/someguy");
+    expect(received.profileUrl).toBe(GenerateUserLink("someguy"));
     expect(received.imageUrl).toBe("someimage");
     expect(received.userName).toBe("someguy");
     expect(received.data).toStrictEqual({ image: "someimage" });

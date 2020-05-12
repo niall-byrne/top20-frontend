@@ -1,6 +1,6 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
-import Card, { messages } from "../card.component";
+import Card from "../card.component";
 
 describe("Check the Card Component Renders Without Crashing", () => {
   afterEach(cleanup);

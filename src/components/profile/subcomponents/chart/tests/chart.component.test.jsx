@@ -6,7 +6,7 @@ import {
   mockApiData,
   mockApiData5,
   mockApiData0,
-} from "../../../../../test.fixtures/api.fixture";
+} from "../../../../../test.fixtures/lastfm.api.fixture";
 
 describe("Given a chart with some valid album data", () => {
   afterEach(cleanup);
@@ -53,7 +53,7 @@ describe("Given a chart with some valid album data", () => {
   it("should render a dialogue when there are no albums at all", () => {
     const cards = utils.queryAllByTestId("FlipCard");
     expect(cards.length).toBe(0);
-    expect(utils.getByText(messages.NoListens)).toBeInTheDocument();
+    expect(utils.getByText(messages.ChartNoListens)).toBeInTheDocument();
     expect(setFocus.mock.calls.length).toBe(0);
   });
 });

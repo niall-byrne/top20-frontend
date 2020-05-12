@@ -7,6 +7,8 @@ import Title from "./subcomponents/title/title.component";
 import Chart from "./subcomponents/chart/chart.component";
 import Drawer from "./subcomponents/drawer/drawer.component";
 
+// Configuration
+
 const DrawerHeight = "33vh";
 const TitleHeight = "40px";
 

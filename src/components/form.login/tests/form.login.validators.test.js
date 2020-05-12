@@ -1,4 +1,5 @@
 import { validateChange, validateSubmit } from "../form.login.validators";
+import { messages } from "../form.login.component";
 
 describe("The validators should work as expected", () => {
   let success = jest.fn();
@@ -29,7 +30,9 @@ describe("The validators should work as expected", () => {
 
     it("it should return failure on a missing name", () => {
       const result = validateSubmit("", success, reject);
-      expect(reject).toHaveBeenCalledWith("You require a name.");
+      expect(reject).toHaveBeenCalledWith(
+        messages.FormUserNameMissingValidation
+      );
       expect(success.mock.calls.length).toBe(0);
       expect(reject.mock.calls.length).toBe(1);
       expect(result).toBe(false);

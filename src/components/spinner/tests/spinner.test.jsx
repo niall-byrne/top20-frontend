@@ -3,7 +3,7 @@ import { render, cleanup } from "@testing-library/react";
 import WithSpinner, { messages } from "../spinner.component";
 
 import { UserContext } from "../../../providers/user/user.provider";
-import { testUser, noUser } from "../../../test.fixtures/user.fixture";
+import { testUser, noUser } from "../../../test.fixtures/lastfm.user.fixture";
 
 const TestHook = () => <div>TestComponent</div>;
 

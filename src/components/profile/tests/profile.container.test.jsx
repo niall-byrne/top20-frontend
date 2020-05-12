@@ -7,7 +7,7 @@ import ProfileContainer from "../profile.container";
 import Profile from "../profile.component";
 
 import { UserContext } from "../../../providers/user/user.provider";
-import { mockApiData } from "../../../test.fixtures/api.fixture";
+import { mockApiData } from "../../../test.fixtures/lastfm.api.fixture";
 
 jest.mock("../profile.component");
 
@@ -15,7 +15,7 @@ import {
   dispatchMock,
   userBeforeFetch,
   userBeforeFetchReady,
-} from "../../../test.fixtures/user.fixture";
+} from "../../../test.fixtures/lastfm.user.fixture";
 
 describe("Check the Profile Container Component Renders Without Crashing", () => {
   afterEach(cleanup);

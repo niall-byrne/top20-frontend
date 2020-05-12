@@ -1,12 +1,9 @@
 import React from "react";
 import { render, cleanup, waitFor } from "@testing-library/react";
-import Drawer, {
-  messages,
-  LocalImages,
-  DrawerDelay,
-} from "../drawer.component";
+import Drawer, { messages, DrawerDelay } from "../drawer.component";
+import Assets from "../../../../../configuration/assets";
 
-import { mockApiData } from "../../../../../test.fixtures/api.fixture";
+import { mockApiData } from "../../../../../test.fixtures/lastfm.api.fixture";
 
 describe("Check the Drawer Component Renders Without Crashing", () => {
   afterEach(cleanup);
@@ -44,8 +41,8 @@ describe("Check the Drawer Component Renders Without Crashing", () => {
     await waitFor(() => {
       expect(utils.getAllByText(albums[index].artist.name)).toBeTruthy();
       expect(utils.getAllByText(albums[index].name)).toBeTruthy();
-      const lastfmImage = utils.getByAltText("last.fm");
-      expect(lastfmImage.getAttribute("src")).toBe(LocalImages.LastFM);
+      const lastfmImage = utils.getByAltText(messages.DrawerAltLastFM);
+      expect(lastfmImage.getAttribute("src")).toBe(Assets.LastFMLogo);
       const lastfmlink = lastfmImage.parentElement.getAttribute("href");
       expect(lastfmlink).toBe(albums[index].url);
       const albumImage = utils.getByAltText(albums[index].name);
@@ -83,8 +80,8 @@ describe("Check the Drawer Component Renders Without Crashing", () => {
     await waitFor(() => {
       expect(utils.getAllByText(albums[index].artist.name)).toBeTruthy();
       expect(utils.getAllByText(albums[index].name)).toBeTruthy();
-      const lastfmImage = utils.getByAltText("last.fm");
-      expect(lastfmImage.getAttribute("src")).toBe(LocalImages.LastFM);
+      const lastfmImage = utils.getByAltText(messages.DrawerAltLastFM);
+      expect(lastfmImage.getAttribute("src")).toBe(Assets.LastFMLogo);
       const lastfmlink = lastfmImage.parentElement.getAttribute("href");
       expect(lastfmlink).toBe(albums[index].url);
       const albumImage = utils.getByAltText(albums[index].name);
