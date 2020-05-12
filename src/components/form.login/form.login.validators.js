@@ -6,7 +6,6 @@ export const validateSubmit = (data, success, reject) => {
     reject(messages.FormUserNameMissingValidation);
     return false;
   }
-  success(data);
   return true;
 };
 

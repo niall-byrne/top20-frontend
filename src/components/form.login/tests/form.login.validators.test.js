@@ -20,10 +20,9 @@ describe("The validators should work as expected", () => {
   });
 
   describe("give a submit validator", () => {
-    it("it should return success on proper names", () => {
+    it("it not reject proper names", () => {
       const result = validateSubmit("proper name", success, reject);
-      expect(success).toHaveBeenCalledWith("proper name");
-      expect(success.mock.calls.length).toBe(1);
+      expect(success.mock.calls.length).toBe(0);
       expect(reject.mock.calls.length).toBe(0);
       expect(result).toBe(true);
     });

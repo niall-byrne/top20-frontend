@@ -20,36 +20,36 @@ export const messages = {
 
 const FormLogin = ({ history }) => {
   const { userProperties } = React.useContext(UserContext);
-  const [userName, setUserName] = React.useState(userProperties.userName);
+  const [userName, setUserName] = React.useState("");
   const [errorMsg, setErrorMsg] = React.useState();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    doSubmit();
+    doSubmit(document.querySelector('input[name="username"]').value);
   };
 
-  const doSubmit = () => {
-    const result = validateSubmit(userName, setUserName, setErrorMsg);
+  const doSubmit = (value) => {
+    const result = validateSubmit(value, setUserName, setErrorMsg);
     if (result) {
-      history.push(`/${userName}`);
+      history.push(`/${value}`);
     }
-  };
-
-  const handleChange = (e) => {
-    if (errorMsg) {
-      setErrorMsg(null);
-    }
-    validateChange(e.currentTarget.value, setUserName, setErrorMsg);
   };
 
   const handleKeyDown = (e) => {
     switch (e.keyCode) {
       case 13:
-        doSubmit();
+        handleSubmit(e);
         break;
       default:
         break;
     }
+  };
+
+  const handleChange = (value) => {
+    if (errorMsg) {
+      setErrorMsg(null);
+    }
+    validateChange(value, setUserName, setErrorMsg);
   };
 
   React.useEffect(() => {
@@ -70,10 +70,10 @@ const FormLogin = ({ history }) => {
               name="username"
               type="username"
               data-testid="username"
-              onChange={handleChange}
-              value={userName}
+              onChange={(e) => handleChange(e.currentTarget.value)}
               size={15}
               required
+              defaultValue={userProperties.userName}
             />
           </FormInputGroup>
           <FormButton>

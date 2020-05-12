@@ -31,7 +31,8 @@ const Header = ({ history, match }) => {
   const getHeaderMessage = () => {
     if (userProperties.error) return messages.HeaderNoUser;
     if (pathname === Routes.contact) return messages.HeaderTop20;
-    return messages.HeaderPromptUser;
+    if (pathname === Routes.root) return messages.HeaderPromptUser;
+    return messages.HeaderLoadingUser;
   };
 
   if (!userProperties.ready || pathname === Routes.contact) {
