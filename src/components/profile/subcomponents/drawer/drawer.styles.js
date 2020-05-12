@@ -1,53 +1,54 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const DrawerDiv = styled.div`
-  margin-top: ${(props) => props.navBarHeight};
-  height: ${(props) => props.drawerHeight};
+const openDrawer = `
+  opacity: 1;
+  width: 100vw;
+  transform: translateX(0%);
+  transition: all 0.5s;
+`;
+const closedDrawer = `
+  opacity: 0.1;
+  width: 100vw;
+  transform: translateX(-100%);
+  transition: all 0.5s;
+`;
+
+const isOpen = (open) => {
+  if (open) return openDrawer;
+  return closedDrawer;
+};
+
+export const Switch = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: start;
+  flex-direction: row;
+  height: ${(props) => props.drawerHeight};
+  transition: all 0.5s;
+  background-color: #c0c0c0;
   width: 100vw;
 
-  .open {
-    background-color: #c0c0c0;
-    opacity: 1;
-    width: 100vw;
-    transform: translateX(0%);
-  }
+  ${(props) => isOpen(props.openDrawer)}
+`;
 
-  .closed {
-    opacity: 0.5;
-    width: 100vw;
-    transform: translateX(-100%);
-  }
+export const Note = styled.div`
+  padding: 15px;
+  font-size: 1em;
+`;
 
-  .drawer {
-    display: flex;
-    flex-direction: row;
-    height: ${(props) => props.drawerHeight};
-    transition: all 0.5s;
-  }
+export const Artist = styled.div`
+  font-size: 1em;
+`;
 
-  .note {
-    padding: 15px;
-    font-size: 1em;
+export const Plays = styled.div`
+  padding-top: 10px;
+  padding-bottom: 20px;
+  font-size: 0.8em;
+`;
 
-    .artist {
-      font-size: 1em;
-    }
-    .plays {
-      padding-top: 10px;
-      padding-bottom: 20px;
-      font-size: 0.8em;
-    }
-    .info {
-      display: grid;
-      justify-content: flex-start;
-    }
-    .lastfm {
-      filter: contrast(300%);
-    }
-  }
+export const Info = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 3px;
+  z-index: 10;
 
   .lastfmlink:hover {
     filter: grayscale(0%);
@@ -56,15 +57,32 @@ export const DrawerDiv = styled.div`
   .lastfmlink {
     filter: grayscale(100%);
   }
+  .lastfm {
+    filter: contrast(300%);
+  }
+`;
 
-  .zoomed {
-    border-style: solid;
-    border-color: black;
-    border-width: 1px;
-    .zoomedImage {
-      height: calc(${(props) => props.drawerHeight} - 2px);
-      width: calc(${(props) => props.drawerHeight} - 2px);
-    }
+export const DrawerDiv = styled.div`
+  margin-top: ${(props) => props.navBarHeight};
+  height: ${(props) => props.drawerHeight};
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100vw;
+`;
+
+export const ZoomedAlbum = styled.div``;
+
+export const ZoomedCover = styled.div`
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  height: calc(${(props) => props.drawerHeight} - 2px);
+  width: calc(${(props) => props.drawerHeight} - 2px);
+
+  img {
+    height: calc(${(props) => props.drawerHeight} - 2px);
+    width: calc(${(props) => props.drawerHeight} - 2px);
   }
 `;
 
