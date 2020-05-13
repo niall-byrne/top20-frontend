@@ -56,7 +56,7 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
       // Check the other elements are present with correct text
       expect(utils.getByTestId("submit")).toBeTruthy();
       expect(
-        utils.getByText(messages.FormLastFMUsernameLabelMessage)
+        utils.getByText(messages.FormLastFMUsernameLabelMessage + ":")
       ).toBeInTheDocument();
       expect(
         utils.getByText(messages.FormLastFMButtonMessage)
@@ -73,7 +73,7 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
       // Check the other elements are present with correct text
       expect(utils.getByTestId("submit")).toBeTruthy();
       expect(
-        utils.getByText(messages.FormLastFMUsernameLabelMessage)
+        utils.getByText(messages.FormLastFMUsernameLabelMessage + ":")
       ).toBeInTheDocument();
       expect(
         utils.getByText(messages.FormLastFMButtonMessage)
