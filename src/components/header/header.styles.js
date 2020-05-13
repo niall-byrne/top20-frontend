@@ -24,12 +24,12 @@ export const Navbar = styled.div`
 
   div:last-child {
     margin-left: auto;
-    padding-right: 10px;
+    margin-right: 10px;
     align-items: center;
     display: flex;
     z-index: 10;
     div {
-      padding-left: 15px;
+      margin-left: 15px;
       cursor: pointer;
 
       img:hover {

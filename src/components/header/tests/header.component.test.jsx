@@ -2,13 +2,13 @@ import React from "react";
 import { render, cleanup, fireEvent, waitFor } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
+
 import Assets from "../../../configuration/assets";
 import messages from "../../../configuration/messages";
 import { HomePage } from "../../../configuration/lastfm";
 import Routes from "../../../configuration/routes";
 
 import Header from "../header.component";
-
 import { UserContext } from "../../../providers/user/user.provider";
 import {
   testUserWithoutImage,
@@ -17,6 +17,15 @@ import {
   userError,
   userBeforeFetch,
 } from "../../../test.fixtures/lastfm.user.fixture";
+
+// Translate as English
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key) => {
+      return key;
+    },
+  }),
+}));
 
 describe("The Header Should Render Without Crashing", () => {
   let history;

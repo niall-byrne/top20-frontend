@@ -1,7 +1,9 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import { UserContext } from "../../providers/user/user.provider";
 import { Navbar, NavbarContainer, NavbarItems } from "./header.styles";
-import { withRouter } from "react-router-dom";
 import Assets from "../../configuration/assets";
 import messages from "../../configuration/messages";
 import Routes from "../../configuration/routes";
@@ -13,6 +15,7 @@ export const NavBarHeight = "50px";
 const Header = ({ history, match }) => {
   const { userProperties } = React.useContext(UserContext);
   const { pathname } = history.location;
+  const { t } = useTranslation();
 
   const handleLinkHome = () => {
     history.push(Routes.search);
@@ -23,66 +26,55 @@ const Header = ({ history, match }) => {
   };
 
   const getHeaderMessage = () => {
-    if (userProperties.error) return messages.HeaderNoUser;
-    if (pathname === Routes.contact) return messages.HeaderTop20;
-    if (pathname === Routes.search) return messages.HeaderPromptUser;
-    return messages.HeaderLoadingUser;
+    if (userProperties.error) return t(messages.HeaderNoUser);
+    if (pathname === Routes.contact) return t(messages.HeaderTop20);
+    if (pathname === Routes.search) return t(messages.HeaderPromptUser);
+    if (!userProperties.ready) return t(messages.HeaderLoadingUser);
+    return userProperties.userName;
   };
 
-  if (!userProperties.ready || pathname === Routes.contact) {
+  const getHeaderMainIcon = () => {
+    if (Object.values(Routes).includes(pathname) || !userProperties.ready) {
+      return (
+        <a rel="noopener noreferrer" target="_blank" href={HomePage}>
+          <img alt={t(messages.HeaderAltLastFM)} src={Assets.LastFMLogo} />
+        </a>
+      );
+    }
     return (
-      <NavbarContainer NavBarHeight={NavBarHeight}>
-        <Navbar NavBarHeight={NavBarHeight}>
-          <NavbarItems>
-            <a rel="noopener noreferrer" target="_blank" href={HomePage}>
-              <img alt={messages.HeaderAltLastFM} src={Assets.LastFMLogo} />
-            </a>
-          </NavbarItems>
-          <NavbarItems>{getHeaderMessage()}</NavbarItems>
-          <NavbarItems>
-            <div onClick={handleLinkHome}>
-              <img alt={messages.HeaderAltSearch} src={Assets.SearchLogo} />
-            </div>
-            <div onClick={handleLinkContact}>
-              <img alt={messages.HeaderAltContact} src={Assets.ContactLogo} />
-            </div>
-          </NavbarItems>
-        </Navbar>
-      </NavbarContainer>
+      <a
+        rel="noopener noreferrer"
+        target="_blank"
+        href={userProperties.profileUrl}
+      >
+        <img
+          alt={t(messages.HeaderAltAvatar)}
+          src={
+            userProperties.imageUrl !== ""
+              ? userProperties.imageUrl
+              : Assets.LastFMLogo
+          }
+        />
+      </a>
     );
-  } else {
-    return (
-      <NavbarContainer NavBarHeight={NavBarHeight}>
-        <Navbar NavBarHeight={NavBarHeight}>
-          <NavbarItems>
-            <a
-              rel="noopener noreferrer"
-              target="_blank"
-              href={userProperties.profileUrl}
-            >
-              <img
-                alt={messages.HeaderAltAvatar}
-                src={
-                  userProperties.imageUrl !== ""
-                    ? userProperties.imageUrl
-                    : Assets.LastFMLogo
-                }
-              />
-            </a>
-          </NavbarItems>
-          <NavbarItems>{userProperties.userName}</NavbarItems>
-          <NavbarItems>
-            <div onClick={handleLinkHome}>
-              <img alt={messages.HeaderAltSearch} src={Assets.SearchLogo} />
-            </div>
-            <div onClick={handleLinkContact}>
-              <img alt={messages.HeaderAltContact} src={Assets.ContactLogo} />
-            </div>
-          </NavbarItems>
-        </Navbar>
-      </NavbarContainer>
-    );
-  }
+  };
+
+  return (
+    <NavbarContainer NavBarHeight={NavBarHeight}>
+      <Navbar NavBarHeight={NavBarHeight}>
+        <NavbarItems>{getHeaderMainIcon()}</NavbarItems>
+        <NavbarItems>{getHeaderMessage()}</NavbarItems>
+        <NavbarItems>
+          <div onClick={handleLinkHome}>
+            <img alt={t(messages.HeaderAltSearch)} src={Assets.SearchLogo} />
+          </div>
+          <div onClick={handleLinkContact}>
+            <img alt={t(messages.HeaderAltContact)} src={Assets.ContactLogo} />
+          </div>
+        </NavbarItems>
+      </Navbar>
+    </NavbarContainer>
+  );
 };
 
 export default withRouter(Header);
