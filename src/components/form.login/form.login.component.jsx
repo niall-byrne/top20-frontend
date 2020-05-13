@@ -20,7 +20,6 @@ export const messages = {
 
 const FormLogin = ({ history }) => {
   const { userProperties } = React.useContext(UserContext);
-  const [userName, setUserName] = React.useState("");
   const [errorMsg, setErrorMsg] = React.useState();
 
   const handleSubmit = async (e) => {
@@ -29,7 +28,7 @@ const FormLogin = ({ history }) => {
   };
 
   const doSubmit = (value) => {
-    const result = validateSubmit(value, setUserName, setErrorMsg);
+    const result = validateSubmit(value, setErrorMsg);
     if (result) {
       history.push(`/${encodeURIComponent(value)}`);
     }
@@ -49,7 +48,7 @@ const FormLogin = ({ history }) => {
     if (errorMsg) {
       setErrorMsg(null);
     }
-    validateChange(value, setUserName, setErrorMsg);
+    validateChange(value, setErrorMsg);
   };
 
   React.useEffect(() => {
