@@ -2,11 +2,13 @@
 // Controlled by the 'error' property of the UserContext
 
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
+import { withRouter } from "react-router-dom";
+
 import UserTypes from "../../providers/user/user.actions";
 import { UserContext } from "../../providers/user/user.provider";
 import { ErrorContainer, CenteredContainer } from "./error.styles";
 import CustomButton from "../button/button.component";
-import { withRouter } from "react-router-dom";
 import Billboard from "../billboard/billboard.component";
 import Routes from "../../configuration/routes";
 import messages from "../../configuration/messages";
@@ -14,6 +16,7 @@ import messages from "../../configuration/messages";
 const WithError = (WrappedComponent) => {
   const CustomError = ({ history, ...otherProps }) => {
     const { userProperties, dispatch } = useContext(UserContext);
+    const { t } = useTranslation();
     let componentWillUnmount = false;
 
     React.useEffect(() => {
@@ -32,13 +35,13 @@ const WithError = (WrappedComponent) => {
         {userProperties.error ? (
           <Billboard>
             <ErrorContainer data-testid="Error1">
-              <div>{messages.ErrorMessage}</div>
+              <div>{t(messages.ErrorMessage)}</div>
               <CenteredContainer>
                 <CustomButton
                   action={handleClick}
                   type="button"
                   testid="Error2"
-                  text={messages.ErrorButtonMessage}
+                  text={t(messages.ErrorButtonMessage)}
                 />
               </CenteredContainer>
             </ErrorContainer>

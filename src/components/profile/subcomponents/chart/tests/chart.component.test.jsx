@@ -10,6 +10,15 @@ import {
 import Assets from "../../../../../configuration/assets";
 import messages from "../../../../../configuration/messages";
 
+// Translate as English
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key) => {
+      return key;
+    },
+  }),
+}));
+
 describe("Given a chart with some valid album data", () => {
   afterEach(cleanup);
 

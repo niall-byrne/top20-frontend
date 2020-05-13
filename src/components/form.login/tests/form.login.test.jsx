@@ -1,14 +1,22 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
-import FormLogin from "../form.login.component";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
+import FormLogin from "../form.login.component";
 import { UserContext } from "../../../providers/user/user.provider";
 import { testUser, noUser } from "../../../test.fixtures/lastfm.user.fixture";
 import Routes from "../../../configuration/routes";
-
-import { Router } from "react-router-dom";
-import { createMemoryHistory } from "history";
 import messages from "../../../configuration/messages";
+
+// Translate as English
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key) => {
+      return key;
+    },
+  }),
+}));
 
 describe("The FormLogin Component Should Render Without Crashing", () => {
   let history;

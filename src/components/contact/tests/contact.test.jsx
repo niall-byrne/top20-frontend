@@ -1,6 +1,5 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
-
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
@@ -14,6 +13,15 @@ import {
 } from "../../../test.fixtures/lastfm.user.fixture";
 import Assets from "../../../configuration/assets";
 import messages from "../../../configuration/messages";
+
+// Translate as English
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key) => {
+      return key;
+    },
+  }),
+}));
 
 describe("Check Error Rendering", () => {
   let utils;

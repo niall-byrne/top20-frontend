@@ -10,6 +10,15 @@ import Profile from "../profile.component";
 import { UserContext } from "../../../providers/user/user.provider";
 import { mockApiData } from "../../../test.fixtures/lastfm.api.fixture";
 
+// Translate as English (For Rendered Children)
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key) => {
+      return key;
+    },
+  }),
+}));
+
 jest.mock("../profile.component");
 
 import {

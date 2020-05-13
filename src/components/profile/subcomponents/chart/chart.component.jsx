@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import { ChartDiv, ChartBox, NoListensDiv } from "./chart.styles";
 import Card from "../card/card.component";
 import Assets from "../../../../configuration/assets";
@@ -18,6 +20,7 @@ const Chart = ({
 }) => {
   const [flipped, setFlipped] = useState(null);
   const albums = data.data.topalbums.album.slice(0, 20);
+  const { t } = useTranslation();
 
   const handleFlip = (event) => {
     if (flipped) {
@@ -60,7 +63,7 @@ const Chart = ({
       TitleHeight={titleHeight}
       DrawerHeight={drawerHeight}
     >
-      <img alt={messages.ChartAltNoListens} src={Assets.Cans} />
+      <img alt={t(messages.ChartAltNoListens)} src={Assets.Cans} />
     </NoListensDiv>
   );
 };

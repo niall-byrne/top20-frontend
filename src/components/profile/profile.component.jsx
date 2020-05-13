@@ -23,9 +23,7 @@ const Profile = ({ data }) => {
         navBarHeight={NavBarHeight}
         focus={focus}
         data={data}
-      >
-        <div data-testid="Profile">Profile</div>
-      </Drawer>
+      />
       <Title titleHeight={TitleHeight} count={count} />
       <Chart
         drawerHeight={DrawerHeight}
@@ -34,9 +32,7 @@ const Profile = ({ data }) => {
         data={data}
         count={count}
         setFocus={setFocus}
-      >
-        Chart Area
-      </Chart>
+      />
     </div>
   );
 };

@@ -2,6 +2,8 @@
 // Controlled by the 'ready' property of the UserContext
 
 import React from "react";
+import { useTranslation } from "react-i18next";
+
 import { UserContext } from "../../providers/user/user.provider";
 import { LoaderContainer } from "./spinner.styles";
 import Billboard from "../billboard/billboard.component";
@@ -10,12 +12,13 @@ import messages from "../../configuration/messages";
 const WithSpinner = (WrappedComponent) => {
   const SpinnerContainer = ({ ...otherProps }) => {
     const { userProperties } = React.useContext(UserContext);
+    const { t } = useTranslation();
     return (
       <div>
         {!userProperties.ready ? (
           <Billboard>
             <LoaderContainer data-testid="Spinner1">
-              <div className="loader">{messages.SpinnerMessage}</div>
+              <div className="loader">{t(messages.SpinnerMessage)}</div>
             </LoaderContainer>
           </Billboard>
         ) : (

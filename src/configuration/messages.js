@@ -21,10 +21,10 @@ const messages = {
     HeaderAltContact: "contact",
     HeaderAltSearch: "search",
     HeaderTop20: "Top 20 Chart Generator",
-    ChartAltNoListens:
-      "Hey, you should really listen to some music to get the most out of this.",
+    ChartAltNoListens: "You need to listen to more music.",
     DrawerTitle: "Top 20 Albums",
     DrawerAltLastFM: "last.fm",
+    DrawerListensPluralNoun: "listens",
     MainTitle: "Select an album for details.",
     MainTitleEmpty: "This user has no listening data!",
     SpinnerMessage: "Loading...",

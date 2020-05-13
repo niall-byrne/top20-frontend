@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { UserContext } from "../../providers/user/user.provider";
 import {
@@ -17,6 +18,7 @@ import messages from "../../configuration/messages";
 const FormLogin = ({ history }) => {
   const { userProperties } = React.useContext(UserContext);
   const [errorMsg, setErrorMsg] = React.useState();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,7 +61,7 @@ const FormLogin = ({ history }) => {
       <div>
         <form onSubmit={handleSubmit}>
           <FormInputGroup>
-            <FormLabel>{messages.FormLastFMUsernameLabelMessage}</FormLabel>
+            <FormLabel>{t(messages.FormLastFMUsernameLabelMessage)}</FormLabel>
             <FormInput
               autoFocus
               name="username"
@@ -75,12 +77,12 @@ const FormLogin = ({ history }) => {
             <CustomButton
               type="submit"
               testid="submit"
-              text={messages.FormLastFMButtonMessage}
+              text={t(messages.FormLastFMButtonMessage)}
             />
           </FormButton>
         </form>
         {errorMsg ? (
-          <ErrorDiv data-testid="error">{errorMsg}</ErrorDiv>
+          <ErrorDiv data-testid="error">{t(errorMsg)}</ErrorDiv>
         ) : (
           <div></div>
         )}

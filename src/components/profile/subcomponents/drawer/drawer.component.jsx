@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import {
   DrawerDiv,
   UnderDrawer,
@@ -22,6 +24,7 @@ const Drawer = ({ drawerHeight, navBarHeight, data, focus }) => {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(null);
   const albums = data.data.topalbums.album;
+  const { t } = useTranslation();
 
   const openDrawer = (focus) => {
     if (open) {
@@ -46,7 +49,7 @@ const Drawer = ({ drawerHeight, navBarHeight, data, focus }) => {
       {current ? <div></div> : null}
       <UnderDrawer>
         <DrawerMessage drawerHeight={drawerHeight}>
-          <div>{messages.DrawerTitle}</div>
+          <h2>{t(messages.DrawerTitle)}</h2>
         </DrawerMessage>
       </UnderDrawer>
       <DrawerDiv drawerHeight navBarHeight={navBarHeight}>
@@ -64,7 +67,7 @@ const Drawer = ({ drawerHeight, navBarHeight, data, focus }) => {
                     <img
                       className="lastfm"
                       style={{ width: 50, height: 50 }}
-                      alt={messages.DrawerAltLastFM}
+                      alt={t(messages.DrawerAltLastFM)}
                       src={Assets.LastFMLogo}
                     />
                   </a>
@@ -80,11 +83,14 @@ const Drawer = ({ drawerHeight, navBarHeight, data, focus }) => {
             <Note>
               {albums[current].name}
               <Artist>{albums[current].artist.name}</Artist>
-              <Plays>{albums[current].playcount} listens</Plays>
+              <Plays>
+                {albums[current].playcount}{" "}
+                {t(messages.DrawerListensPluralNoun)}
+              </Plays>
             </Note>
           </Switch>
         ) : (
-          <Switch open={open} drawerHeight={drawerHeight}></Switch>
+          <Switch openDrawer={open} drawerHeight={drawerHeight}></Switch>
         )}
       </DrawerDiv>
     </div>

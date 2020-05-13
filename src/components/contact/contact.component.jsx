@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
+
 import Billboard from "../billboard/billboard.component";
 import {
   ContactContainer,
@@ -11,12 +13,12 @@ import UserTypes from "../../providers/user/user.actions";
 import { UserContext } from "../../providers/user/user.provider";
 import { withRouter } from "react-router-dom";
 import Routes from "../../configuration/routes";
-
 import messages from "../../configuration/messages";
 
 const Contact = ({ history, ...otherProps }) => {
   const { dispatch } = useContext(UserContext);
   let componentWillUnmount = false;
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     return () => {
@@ -39,33 +41,33 @@ const Contact = ({ history, ...otherProps }) => {
     <div>
       <Billboard>
         <ContactContainer data-testid="Contact1">
-          <h2>Top 20 Chart Generator</h2>
-          <div>{messages.ContactMessage1}</div>
-          <div>{messages.ContactMessage2}</div>
+          <h2>{t(messages.ContactTitle)}</h2>
+          <div>{t(messages.ContactMessage1)}</div>
+          <div>{t(messages.ContactMessage2)}</div>
           <CenteredContainer>
             <CustomButton
               action={handleClick1}
               type="button"
               testid="Contact2"
-              text={messages.ContactButtonMessage1}
+              text={t(messages.ContactButtonMessage1)}
             />
             <CustomButton
               action={handleClick2}
               type="button"
               testid="Contact3"
-              text={messages.ContactButtonMessage2}
+              text={t(messages.ContactButtonMessage2)}
             />
           </CenteredContainer>
           <LoadingIO>
-            {messages.ContactCredit1}
+            {t(messages.ContactCredit1)}
             <a
               rel="noopener noreferrer"
               target="_blank"
               href={Assets.IconCredLink}
             >
-              {messages.ContactCredit2}
+              {t(messages.ContactCredit2)}
             </a>
-            {messages.ContactCredit3}
+            {t(messages.ContactCredit3)}
           </LoadingIO>
         </ContactContainer>
       </Billboard>

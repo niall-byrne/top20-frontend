@@ -1,10 +1,19 @@
 import React from "react";
 import { render, cleanup, waitFor } from "@testing-library/react";
+
 import Drawer, { DrawerDelay } from "../drawer.component";
 import Assets from "../../../../../configuration/assets";
 import messages from "../../../../../configuration/messages";
-
 import { mockApiData } from "../../../../../test.fixtures/lastfm.api.fixture";
+
+// Translate as English
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key) => {
+      return key;
+    },
+  }),
+}));
 
 describe("Check the Drawer Component Renders Without Crashing", () => {
   afterEach(cleanup);
