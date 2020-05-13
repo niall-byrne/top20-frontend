@@ -61,7 +61,10 @@ const FormLogin = ({ history }) => {
       <div>
         <form onSubmit={handleSubmit}>
           <FormInputGroup>
-            <FormLabel>{t(messages.FormLastFMUsernameLabelMessage)}</FormLabel>
+            <FormLabel>
+              {t(messages.FormLastFMUsernameLabelMessage)}
+              {":"}
+            </FormLabel>
             <FormInput
               autoFocus
               name="username"
