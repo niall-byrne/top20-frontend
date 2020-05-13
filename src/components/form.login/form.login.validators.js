@@ -1,5 +1,5 @@
 // Validators for the Login Form
-import { messages } from "./form.login.component";
+import messages from "../../configuration/messages";
 
 export const validateSubmit = (data, reject) => {
   if (data.length < 1) {

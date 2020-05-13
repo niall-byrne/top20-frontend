@@ -1,5 +1,5 @@
 import { validateChange, validateSubmit } from "../form.login.validators";
-import { messages } from "../form.login.component";
+import messages from "../../../configuration/messages";
 
 describe("The validators should work as expected", () => {
   let reject = jest.fn();

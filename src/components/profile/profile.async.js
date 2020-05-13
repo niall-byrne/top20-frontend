@@ -1,9 +1,10 @@
 // Asynchonous Tasks for the Profile Component
+import { DefaultBackend } from "../../configuration/lastfm";
 
 export const backend = () => {
   return process.env.ENV === "production"
     ? process.env.REACT_APP_BACKEND
-    : "http://localhost:5000";
+    : DefaultBackend;
 };
 
 const postData = async (url, data, success, failure) => {

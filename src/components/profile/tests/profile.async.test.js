@@ -1,5 +1,6 @@
 import UserActions from "../../../providers/user/user.actions";
 import { fetchProfile, backend } from "../profile.async";
+import { DefaultBackend } from "../../../configuration/lastfm";
 
 let mockFetchPromise;
 let success;
@@ -27,7 +28,7 @@ describe("When fetchProfile is used", () => {
     fetchProfile(state, action);
     expect(mockedFetch.mock.calls.length).toBe(1);
     const call = mockedFetch.mock.calls[0];
-    expect(call[0]).toBe("http://localhost:5000/lastfm/");
+    expect(call[0]).toBe(`${DefaultBackend}/lastfm/`);
     const options = call[1];
     expect(options).toEqual({
       method: "POST",
@@ -127,6 +128,6 @@ describe("Manage Environents", () => {
 
   it("uses the correct backend for the development environment", () => {
     process.env.ENV = "development";
-    expect(backend()).toBe("http://localhost:5000");
+    expect(backend()).toBe(DefaultBackend);
   });
 });

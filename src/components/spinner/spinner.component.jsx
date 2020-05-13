@@ -5,10 +5,7 @@ import React from "react";
 import { UserContext } from "../../providers/user/user.provider";
 import { LoaderContainer } from "./spinner.styles";
 import Billboard from "../billboard/billboard.component";
-
-export const messages = {
-  SpinnerMessage: "Loading...",
-};
+import messages from "../../configuration/messages";
 
 const WithSpinner = (WrappedComponent) => {
   const SpinnerContainer = ({ ...otherProps }) => {

@@ -9,11 +9,7 @@ import CustomButton from "../button/button.component";
 import { withRouter } from "react-router-dom";
 import Billboard from "../billboard/billboard.component";
 import Routes from "../../configuration/routes";
-
-export const messages = {
-  ErrorMessage: "Unable to load this user's data ...",
-  ErrorButtonMessage: "Try Again",
-};
+import messages from "../../configuration/messages";
 
 const WithError = (WrappedComponent) => {
   const CustomError = ({ history, ...otherProps }) => {

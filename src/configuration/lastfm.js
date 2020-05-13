@@ -3,3 +3,4 @@ export const GenerateUserLink = (username) => {
 };
 
 export const HomePage = "https://last.fm";
+export const DefaultBackend = "http://localhost:5000";

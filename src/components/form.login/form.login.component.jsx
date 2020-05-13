@@ -1,4 +1,6 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+
 import { UserContext } from "../../providers/user/user.provider";
 import {
   ErrorDiv,
@@ -8,15 +10,9 @@ import {
   FormButton,
   FormInputGroup,
 } from "./form.login.styles";
-import CustomButton from "../button/button.component";
 import { validateSubmit, validateChange } from "./form.login.validators";
-import { withRouter } from "react-router-dom";
-
-export const messages = {
-  FormLastFMButtonMessage: "Show my Top20",
-  FormLastFMUsernameLabelMessage: "last.fm username:",
-  FormUserNameMissingValidation: "You require a name.",
-};
+import CustomButton from "../button/button.component";
+import messages from "../../configuration/messages";
 
 const FormLogin = ({ history }) => {
   const { userProperties } = React.useContext(UserContext);

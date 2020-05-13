@@ -12,13 +12,9 @@ import {
   Info,
 } from "./drawer.styles";
 import Assets from "../../../../configuration/assets";
+import messages from "../../../../configuration/messages";
 
 // Configuration
-
-export const messages = {
-  DrawerTitle: "Top 20 Albums",
-  DrawerAltLastFM: "last.fm",
-};
 
 export const DrawerDelay = 150;
 

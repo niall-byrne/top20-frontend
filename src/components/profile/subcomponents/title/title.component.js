@@ -1,10 +1,6 @@
 import React from "react";
 import { TitleDiv } from "./title.styles";
-
-export const messages = {
-  MainTitle: "Select an album for details.",
-  MainTitleEmpty: "This user has no listening data!",
-};
+import messages from "../../../../configuration/messages";
 
 const Title = ({ titleHeight, count }) => {
   return (

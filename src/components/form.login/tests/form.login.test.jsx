@@ -1,6 +1,6 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
-import FormLogin, { messages } from "../form.login.component";
+import FormLogin from "../form.login.component";
 
 import { UserContext } from "../../../providers/user/user.provider";
 import { testUser, noUser } from "../../../test.fixtures/lastfm.user.fixture";
@@ -8,6 +8,7 @@ import Routes from "../../../configuration/routes";
 
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
+import messages from "../../../configuration/messages";
 
 describe("The FormLogin Component Should Render Without Crashing", () => {
   let history;

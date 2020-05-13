@@ -1,7 +1,8 @@
 import React from "react";
 import { render, cleanup, waitFor } from "@testing-library/react";
-import Drawer, { messages, DrawerDelay } from "../drawer.component";
+import Drawer, { DrawerDelay } from "../drawer.component";
 import Assets from "../../../../../configuration/assets";
+import messages from "../../../../../configuration/messages";
 
 import { mockApiData } from "../../../../../test.fixtures/lastfm.api.fixture";
 

@@ -1,13 +1,14 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
-import Chart, { messages } from "../chart.component";
 
+import Chart from "../chart.component";
 import {
   mockApiData,
   mockApiData5,
   mockApiData0,
 } from "../../../../../test.fixtures/lastfm.api.fixture";
 import Assets from "../../../../../configuration/assets";
+import messages from "../../../../../configuration/messages";
 
 describe("Given a chart with some valid album data", () => {
   afterEach(cleanup);
@@ -54,7 +55,7 @@ describe("Given a chart with some valid album data", () => {
   it("should render a dialogue when there are no albums at all", () => {
     const cards = utils.queryAllByTestId("FlipCard");
     expect(cards.length).toBe(0);
-    const cans = utils.getByAltText(messages.ChartNoListens);
+    const cans = utils.getByAltText(messages.ChartAltNoListens);
     expect(cans).toBeTruthy();
     expect(cans.getAttribute("src")).toBe(Assets.Cans);
     expect(setFocus.mock.calls.length).toBe(0);

@@ -4,7 +4,7 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
-import WithError, { messages } from "../error.component";
+import WithError from "../error.component";
 import { UserContext } from "../../../providers/user/user.provider";
 import UserTypes from "../../../providers/user/user.actions";
 import {
@@ -13,6 +13,7 @@ import {
   userError,
 } from "../../../test.fixtures/lastfm.user.fixture";
 import Routes from "../../../configuration/routes";
+import messages from "../../../configuration/messages";
 
 const TestHook = () => <div>TestComponent</div>;
 

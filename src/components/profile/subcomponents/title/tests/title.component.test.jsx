@@ -1,6 +1,7 @@
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
-import Title, { messages } from "../title.component";
+import Title from "../title.component";
+import messages from "../../../../../configuration/messages";
 
 describe("Check the Title Component Renders Without Crashing", () => {
   afterEach(cleanup);
