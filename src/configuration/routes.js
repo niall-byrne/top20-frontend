@@ -1,5 +1,5 @@
 const routes = {
-  search: "/search",
+  search: "/command/search",
   contact: "/",
   profile: "/:userName",
 };
