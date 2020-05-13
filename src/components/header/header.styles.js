@@ -29,8 +29,16 @@ export const Navbar = styled.div`
     display: flex;
     z-index: 10;
     div {
-      padding-left: 30px;
+      padding-left: 15px;
       cursor: pointer;
+
+      img:hover {
+        filter: opacity(50%);
+        transform: rotate(10deg);
+      }
+    }
+    div:hover {
+      transform: scale(1.1);
     }
   }
 

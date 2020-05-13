@@ -12,9 +12,9 @@ export const CenterDiv = styled.div`
 
 export const ProfileDiv = styled.div`
   background-color: #c0c0c0;
-  min-width: 200px;
+  min-width: 280px;
   width: 60vw;
-  min-height: 150px;
+  min-height: 250px;
   height: calc(40vh);
   display: flex;
   align-items: center;

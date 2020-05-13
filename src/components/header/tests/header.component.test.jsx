@@ -3,10 +3,11 @@ import { render, cleanup, fireEvent, waitFor } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import Assets from "../../../configuration/assets";
+import messages from "../../../configuration/messages";
 import { HomePage } from "../../../configuration/lastfm";
 import Routes from "../../../configuration/routes";
 
-import Header, { messages } from "../header.component";
+import Header from "../header.component";
 
 import { UserContext } from "../../../providers/user/user.provider";
 import {
@@ -22,7 +23,12 @@ describe("The Header Should Render Without Crashing", () => {
   let utils;
 
   const matches = {
-    root: { path: Routes.root, url: Routes.root, isExact: true, params: {} },
+    root: {
+      path: Routes.search,
+      url: Routes.search,
+      isExact: true,
+      params: {},
+    },
     name: {
       path: Routes.profile,
       url: "/niall-byrne",
@@ -40,18 +46,18 @@ describe("The Header Should Render Without Crashing", () => {
   let setup = [
     {
       state: noUser,
-      path: Routes.root,
-      match: matches.root,
+      path: Routes.search,
+      match: matches.search,
     },
     {
       state: noUser,
-      path: Routes.root,
-      match: matches.root,
+      path: Routes.search,
+      match: matches.search,
     },
     {
       state: noUser,
-      path: Routes.root,
-      match: matches.root,
+      path: Routes.search,
+      match: matches.search,
     },
     {
       state: noUser,
@@ -95,29 +101,34 @@ describe("The Header Should Render Without Crashing", () => {
 
   afterEach(cleanup);
 
+  const checkImage = (alt, link, src) => {
+    if (link) {
+      const renderedLink = utils
+        .getByAltText(alt)
+        .parentElement.getAttribute("href");
+      expect(link).toBe(renderedLink);
+    }
+    const renderedSrc = utils.getByAltText(alt).getAttribute("src");
+    expect(src).toBe(renderedSrc);
+  };
+
   describe("When on The Root Page", () => {
     it("renders without a user", () => {
-      const link = utils
-        .getByAltText(messages.HeaderAltLastFM)
-        .parentElement.getAttribute("href");
-      const src = utils
-        .getByAltText(messages.HeaderAltLastFM)
-        .getAttribute("src");
-      expect(link).toBe(HomePage);
-      expect(src).toBe(Assets.LastFMLogo);
-      expect(utils.getByText(messages.HeaderPromptUser)).toBeInTheDocument();
-      // Contact is present
-      expect(utils.getByText(messages.HeaderContact)).toBeTruthy();
+      checkImage(messages.HeaderAltLastFM, HomePage, Assets.LastFMLogo);
+      expect(utils.getByText(messages.HeaderPromptUser)).toBeTruthy();
+      checkImage(messages.HeaderAltContact, null, Assets.ContactLogo);
+      checkImage(messages.HeaderAltSearch, null, Assets.SearchLogo);
     });
   });
 
   describe("When on The Root Page", () => {
     it("when the contact link is clicked it modifies the history", () => {
       expect(history.length).toBe(1);
-      const contactLink = utils.getByText(messages.HeaderContact);
-      fireEvent.click(contactLink);
+      const contactDiv = utils.getByAltText(messages.HeaderAltContact)
+        .parentElement;
+      fireEvent.click(contactDiv);
       expect(history.length).toBe(2);
-      expect(utils.getByText(messages.HeaderTop20)).toBeInTheDocument();
+      expect(utils.getByText(messages.HeaderTop20)).toBeTruthy();
       expect(history.location.pathname).toBe(Routes.contact);
     });
   });
@@ -125,95 +136,67 @@ describe("The Header Should Render Without Crashing", () => {
   describe("When on The Root Page", () => {
     it("when the search link is clicked it modifies the history", () => {
       expect(history.length).toBe(1);
-      const contactLink = utils.getByText(messages.HeaderSearch);
-      fireEvent.click(contactLink);
+      const searchDiv = utils.getByAltText(messages.HeaderAltSearch)
+        .parentElement;
+      fireEvent.click(searchDiv);
       expect(history.length).toBe(2);
-      expect(utils.getByText(messages.HeaderPromptUser)).toBeInTheDocument();
-      expect(history.location.pathname).toBe(Routes.root);
+      expect(utils.getByText(messages.HeaderPromptUser)).toBeTruthy();
+      expect(history.location.pathname).toBe(Routes.search);
     });
   });
 
   describe("When on the Contact Page", () => {
     it("renders the header as expectd", () => {
-      const link = utils
-        .getByAltText(messages.HeaderAltLastFM)
-        .parentElement.getAttribute("href");
-      const src = utils
-        .getByAltText(messages.HeaderAltLastFM)
-        .getAttribute("src");
-      expect(link).toBe(HomePage);
-      expect(src).toBe(Assets.LastFMLogo);
-      expect(utils.getByText(messages.HeaderTop20)).toBeInTheDocument();
-      // Contact is present
-      expect(utils.getByText(messages.HeaderContact)).toBeTruthy();
+      checkImage(messages.HeaderAltLastFM, HomePage, Assets.LastFMLogo);
+      checkImage(messages.HeaderAltContact, null, Assets.ContactLogo);
+      checkImage(messages.HeaderAltSearch, null, Assets.SearchLogo);
+      expect(utils.getByText(messages.HeaderTop20)).toBeTruthy();
     });
   });
 
   describe("When on a User Page, with an error", () => {
     it("renders the error message", () => {
-      const link = utils
-        .getByAltText(messages.HeaderAltLastFM)
-        .parentElement.getAttribute("href");
-      const src = utils
-        .getByAltText(messages.HeaderAltLastFM)
-        .getAttribute("src");
-      expect(link).toBe(HomePage);
-      expect(src).toBe(Assets.LastFMLogo);
+      checkImage(messages.HeaderAltLastFM, HomePage, Assets.LastFMLogo);
+      checkImage(messages.HeaderAltContact, null, Assets.ContactLogo);
+      checkImage(messages.HeaderAltSearch, null, Assets.SearchLogo);
       expect(utils.getByText(messages.HeaderNoUser)).toBeTruthy();
-      // Contact is present
-      expect(utils.getByText(messages.HeaderContact)).toBeTruthy();
     });
   });
 
   describe("When on a User Page, that is loading", () => {
     it("renders the error message", () => {
-      const link = utils
-        .getByAltText(messages.HeaderAltLastFM)
-        .parentElement.getAttribute("href");
-      const src = utils.getByAltText("last.fm").getAttribute("src");
-      expect(link).toBe(HomePage);
-      expect(src).toBe(Assets.LastFMLogo);
+      checkImage(messages.HeaderAltLastFM, HomePage, Assets.LastFMLogo);
+      checkImage(messages.HeaderAltContact, null, Assets.ContactLogo);
+      checkImage(messages.HeaderAltSearch, null, Assets.SearchLogo);
       waitFor(() =>
         expect(utils.getByText(messages.HeaderLoadingUser)).toBeTruthy()
       );
-      // Contact is present
-      expect(utils.getByText(messages.HeaderContact)).toBeTruthy();
     });
   });
 
   describe("When on a User Page that is loaded", () => {
     it("renders with a user", () => {
-      const link = utils
-        .getByAltText(messages.HeaderAltAvatar)
-        .parentElement.getAttribute("href");
-      const src = utils
-        .getByAltText(messages.HeaderAltAvatar)
-        .getAttribute("src");
-      expect(link).toBe(testUser.userProperties.profileUrl);
-      expect(src).toBe(testUser.userProperties.imageUrl);
-      expect(
-        utils.getByText(testUser.userProperties.userName)
-      ).toBeInTheDocument();
-      // Contact is present
-      expect(utils.getByText(messages.HeaderContact)).toBeTruthy();
+      checkImage(
+        messages.HeaderAltAvatar,
+        testUser.userProperties.profileUrl,
+        testUser.userProperties.imageUrl
+      );
+      checkImage(messages.HeaderAltContact, null, Assets.ContactLogo);
+      checkImage(messages.HeaderAltSearch, null, Assets.SearchLogo);
+      expect(utils.getByText(testUser.userProperties.userName)).toBeTruthy();
     });
   });
 
   describe("When on a User Page, who has no image", () => {
     it("renders with a user", () => {
-      const link = utils
-        .getByAltText(messages.HeaderAltAvatar)
-        .parentElement.getAttribute("href");
-      const src = utils
-        .getByAltText(messages.HeaderAltAvatar)
-        .getAttribute("src");
-      expect(link).toBe(testUser.userProperties.profileUrl);
-      expect(src).toBe(Assets.LastFMLogo);
-      expect(
-        utils.getByText(testUser.userProperties.userName)
-      ).toBeInTheDocument();
-      // Contact is present
-      expect(utils.getByText(messages.HeaderContact)).toBeTruthy();
+      checkImage(
+        messages.HeaderAltAvatar,
+        testUser.userProperties.profileUrl,
+        Assets.LastFMLogo
+      );
+      checkImage(messages.HeaderAltContact, null, Assets.ContactLogo);
+      checkImage(messages.HeaderAltSearch, null, Assets.SearchLogo);
+      expect(utils.getByText(testUser.userProperties.userName)).toBeTruthy();
     });
   });
 });

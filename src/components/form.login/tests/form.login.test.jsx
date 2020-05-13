@@ -15,11 +15,11 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
   let setup = [
     {
       state: noUser,
-      path: Routes.root,
+      path: Routes.search,
     },
     {
       state: testUser,
-      path: Routes.root,
+      path: Routes.search,
     },
   ];
   let currentTest;
@@ -79,27 +79,27 @@ describe("The FormLogin Component Should handle input correctly", () => {
   let setup = [
     {
       state: noUser,
-      path: Routes.root,
+      path: Routes.search,
     },
     {
       state: testUser,
-      path: Routes.root,
+      path: Routes.search,
     },
     {
       state: testUser,
-      path: Routes.root,
+      path: Routes.search,
     },
     {
       state: testUser,
-      path: Routes.root,
+      path: Routes.search,
     },
     {
       state: noUser,
-      path: Routes.root,
+      path: Routes.search,
     },
     {
       state: noUser,
-      path: Routes.root,
+      path: Routes.search,
     },
   ];
   let currentTest;

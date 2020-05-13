@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ChartDiv, ChartBox, NoListensDiv } from "./chart.styles";
 import Card from "../card/card.component";
+import Assets from "../../../../configuration/assets";
 
 export const messages = {
   ChartNoListens:
@@ -60,7 +61,7 @@ const Chart = ({
       TitleHeight={titleHeight}
       DrawerHeight={drawerHeight}
     >
-      <span>{messages.ChartNoListens}</span>
+      <img alt={messages.ChartNoListens} src={Assets.Cans} />
     </NoListensDiv>
   );
 };

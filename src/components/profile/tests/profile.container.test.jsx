@@ -30,7 +30,7 @@ describe("Check the Profile Container Component Renders Without Crashing", () =>
     Profile.mockImplementation(() => <div>MockComponent</div>);
     state = setup.shift();
     history = createMemoryHistory();
-    history.push(Routes.root);
+    history.push(Routes.search);
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={state}>

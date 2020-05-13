@@ -53,7 +53,7 @@ describe("Check Error Rendering", () => {
     expect(history.length).toBe(1);
     fireEvent.click(utils.getByTestId("Error2"));
     expect(history.length).toBe(2);
-    expect(history.location.pathname).toBe(Routes.root);
+    expect(history.location.pathname).toBe(Routes.search);
   });
 
   it("calls the toggle error dispatch on cleanup", () => {

@@ -3,22 +3,11 @@ import { UserContext } from "../../providers/user/user.provider";
 import { Navbar, NavbarContainer, NavbarItems } from "./header.styles";
 import { withRouter } from "react-router-dom";
 import Assets from "../../configuration/assets";
+import messages from "../../configuration/messages";
 import Routes from "../../configuration/routes";
 import { HomePage } from "../../configuration/lastfm";
 
 // Configuration
-
-export const messages = {
-  HeaderNoUser: "No User Found",
-  HeaderPromptUser: "Specify your last.fm username",
-  HeaderLoadingUser: "Loading ...",
-  HeaderAltLastFM: "last.fm",
-  HeaderAltAvatar: "Avatar",
-  HeaderContact: "contact",
-  HeaderSearch: "search",
-  HeaderTop20: "Top 20 Chart Generator",
-};
-
 export const NavBarHeight = "50px";
 
 const Header = ({ history, match }) => {
@@ -26,7 +15,7 @@ const Header = ({ history, match }) => {
   const { pathname } = history.location;
 
   const handleLinkHome = () => {
-    history.push(Routes.root);
+    history.push(Routes.search);
   };
 
   const handleLinkContact = () => {
@@ -36,7 +25,7 @@ const Header = ({ history, match }) => {
   const getHeaderMessage = () => {
     if (userProperties.error) return messages.HeaderNoUser;
     if (pathname === Routes.contact) return messages.HeaderTop20;
-    if (pathname === Routes.root) return messages.HeaderPromptUser;
+    if (pathname === Routes.search) return messages.HeaderPromptUser;
     return messages.HeaderLoadingUser;
   };
 
@@ -51,8 +40,12 @@ const Header = ({ history, match }) => {
           </NavbarItems>
           <NavbarItems>{getHeaderMessage()}</NavbarItems>
           <NavbarItems>
-            <div onClick={handleLinkHome}>{messages.HeaderSearch}</div>
-            <div onClick={handleLinkContact}>{messages.HeaderContact}</div>
+            <div onClick={handleLinkHome}>
+              <img alt={messages.HeaderAltSearch} src={Assets.SearchLogo} />
+            </div>
+            <div onClick={handleLinkContact}>
+              <img alt={messages.HeaderAltContact} src={Assets.ContactLogo} />
+            </div>
           </NavbarItems>
         </Navbar>
       </NavbarContainer>
@@ -79,8 +72,12 @@ const Header = ({ history, match }) => {
           </NavbarItems>
           <NavbarItems>{userProperties.userName}</NavbarItems>
           <NavbarItems>
-            <div onClick={handleLinkHome}>{messages.HeaderSearch}</div>
-            <div onClick={handleLinkContact}>{messages.HeaderContact}</div>
+            <div onClick={handleLinkHome}>
+              <img alt={messages.HeaderAltSearch} src={Assets.SearchLogo} />
+            </div>
+            <div onClick={handleLinkContact}>
+              <img alt={messages.HeaderAltContact} src={Assets.ContactLogo} />
+            </div>
           </NavbarItems>
         </Navbar>
       </NavbarContainer>

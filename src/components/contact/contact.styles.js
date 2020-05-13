@@ -17,3 +17,8 @@ export const CenteredContainer = styled.div`
     padding-left: 20px;
   }
 `;
+
+export const LoadingIO = styled.div`
+  padding-top: 10px;
+  font-size: 0.7em;
+`;

@@ -1,6 +1,6 @@
 const routes = {
-  root: "/",
-  contact: "/home/contact",
+  search: "/search",
+  contact: "/",
   profile: "/:userName",
 };
 

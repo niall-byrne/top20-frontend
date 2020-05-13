@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import Billboard from "../billboard/billboard.component";
-import { ContactContainer, CenteredContainer } from "./contact.styles";
+import {
+  ContactContainer,
+  CenteredContainer,
+  LoadingIO,
+} from "./contact.styles";
 import CustomButton from "../button/button.component";
 import Assets from "../../configuration/assets";
 import UserTypes from "../../providers/user/user.actions";
@@ -8,19 +12,11 @@ import { UserContext } from "../../providers/user/user.provider";
 import { withRouter } from "react-router-dom";
 import Routes from "../../configuration/routes";
 
-export const messages = {
-  ContactMessage: "Please Get In Touch If You Like What You See",
-  ContactButtonMessage1: "Contact Me",
-  ContactButtonMessage2: "Return Home",
-};
+import messages from "../../configuration/messages";
 
 const Contact = ({ history, ...otherProps }) => {
   const { dispatch } = useContext(UserContext);
   let componentWillUnmount = false;
-
-  const handleClick1 = (e) => {
-    window.open(Assets.ContactPage, "_blank");
-  };
 
   React.useEffect(() => {
     return () => {
@@ -30,16 +26,22 @@ const Contact = ({ history, ...otherProps }) => {
     };
   }, [componentWillUnmount, dispatch]);
 
-  const handleClick2 = (e) => {
+  const handleClick1 = (e) => {
     componentWillUnmount = true;
-    history.push(Routes.root);
+    history.push(Routes.search);
+  };
+
+  const handleClick2 = (e) => {
+    window.open(Assets.ContactPage, "_blank");
   };
 
   return (
     <div>
       <Billboard>
         <ContactContainer data-testid="Contact1">
-          <div>{messages.ContactMessage}</div>
+          <h2>Top 20 Chart Generator</h2>
+          <div>{messages.ContactMessage1}</div>
+          <div>{messages.ContactMessage2}</div>
           <CenteredContainer>
             <CustomButton
               action={handleClick1}
@@ -54,6 +56,17 @@ const Contact = ({ history, ...otherProps }) => {
               text={messages.ContactButtonMessage2}
             />
           </CenteredContainer>
+          <LoadingIO>
+            {messages.ContactCredit1}
+            <a
+              rel="noopener noreferrer"
+              target="_blank"
+              href={Assets.IconCredLink}
+            >
+              {messages.ContactCredit2}
+            </a>
+            {messages.ContactCredit3}
+          </LoadingIO>
         </ContactContainer>
       </Billboard>
     </div>

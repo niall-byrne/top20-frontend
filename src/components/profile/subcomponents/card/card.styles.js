@@ -50,6 +50,10 @@ export const CardFront = styled.div`
     height: 100%;
     width: 100%;
   }
+
+  img:hover {
+    filter: opacity(50%);
+  }
 `;
 
 // Card side - back

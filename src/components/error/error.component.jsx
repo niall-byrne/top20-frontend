@@ -27,7 +27,7 @@ const WithError = (WrappedComponent) => {
     }, [componentWillUnmount, dispatch]);
 
     const handleClick = (e) => {
-      history.push(Routes.root);
+      history.push(Routes.search);
       componentWillUnmount = true;
     };
 
