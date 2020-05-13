@@ -5,7 +5,7 @@ const jestRunning = () => {
 };
 
 const productionRunning = () => {
-  return process.env.ENV === "production";
+  return process.env.NODE_ENV === "production";
 };
 
 const reducerLoggingMiddleware = (reducer) => {

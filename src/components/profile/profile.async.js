@@ -2,9 +2,9 @@
 import { DefaultBackend } from "../../configuration/lastfm";
 
 export const backend = () => {
-  return process.env.ENV === "production"
-    ? process.env.REACT_APP_BACKEND
-    : DefaultBackend;
+  return process.env.NODE_ENV !== "production"
+    ? DefaultBackend
+    : process.env.REACT_APP_BACKEND;
 };
 
 const postData = async (url, data, success, failure) => {
@@ -34,7 +34,7 @@ const postData = async (url, data, success, failure) => {
 
 export const fetchProfile = async (state, action) => {
   return await postData(
-    process.env.REACT_APP_BACKEND + "/lastfm/",
+    backend() + "/lastfm/",
     {
       username: action.userName,
     },

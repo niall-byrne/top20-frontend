@@ -122,12 +122,12 @@ describe("Manage Environents", () => {
   beforeEach(() => {});
 
   it("uses the correct backend for the production environment", () => {
-    process.env.ENV = "production";
+    process.env.NODE_ENV = "production";
     expect(backend()).toBe(process.env.REACT_APP_BACKEND);
   });
 
   it("uses the correct backend for the development environment", () => {
-    process.env.ENV = "development";
+    process.env.NODE_ENV = "development";
     expect(backend()).toBe(DefaultBackend);
   });
 });
