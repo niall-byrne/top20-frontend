@@ -5,6 +5,10 @@ export const ContactContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  span {
+    text-align: center;
+  }
 `;
 
 export const CenteredContainer = styled.div`
@@ -12,6 +16,7 @@ export const CenteredContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding-top: 30px;
+  text-align: center;
 
   div:last-child {
     padding-left: 20px;

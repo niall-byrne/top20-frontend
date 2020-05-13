@@ -34,11 +34,12 @@ export const Navbar = styled.div`
 
       img:hover {
         filter: opacity(50%);
-        transform: rotate(10deg);
+        transform: rotate(15deg) scale(1.1);
       }
-    }
-    div:hover {
-      transform: scale(1.1);
+
+      .here {
+        transform: rotate(15deg) scale(1.1);
+      }
     }
   }
 

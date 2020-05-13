@@ -42,8 +42,8 @@ const Contact = ({ history, ...otherProps }) => {
       <Billboard>
         <ContactContainer data-testid="Contact1">
           <h2>{t(messages.ContactTitle)}</h2>
-          <div>{t(messages.ContactMessage1)}</div>
-          <div>{t(messages.ContactMessage2)}</div>
+          <span>{t(messages.ContactMessage1)}</span>
+          <span>{t(messages.ContactMessage2)}</span>
           <CenteredContainer>
             <CustomButton
               action={handleClick1}

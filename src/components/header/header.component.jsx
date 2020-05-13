@@ -59,6 +59,13 @@ const Header = ({ history, match }) => {
     );
   };
 
+  const isSearching = () => {
+    if (pathname === Routes.search) return true;
+    if (!Object.values(Routes).includes(pathname) && !userProperties.ready)
+      return true;
+    return false;
+  };
+
   return (
     <NavbarContainer NavBarHeight={NavBarHeight}>
       <Navbar NavBarHeight={NavBarHeight}>
@@ -66,10 +73,18 @@ const Header = ({ history, match }) => {
         <NavbarItems>{getHeaderMessage()}</NavbarItems>
         <NavbarItems>
           <div onClick={handleLinkHome}>
-            <img alt={t(messages.HeaderAltSearch)} src={Assets.SearchLogo} />
+            <img
+              className={isSearching() ? "here" : ""}
+              alt={t(messages.HeaderAltSearch)}
+              src={Assets.SearchLogo}
+            />
           </div>
           <div onClick={handleLinkContact}>
-            <img alt={t(messages.HeaderAltContact)} src={Assets.ContactLogo} />
+            <img
+              className={pathname === Routes.contact ? "here" : ""}
+              alt={t(messages.HeaderAltContact)}
+              src={Assets.ContactLogo}
+            />
           </div>
         </NavbarItems>
       </Navbar>
