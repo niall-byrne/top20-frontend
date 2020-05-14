@@ -3,7 +3,7 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
-import FormLogin from "../form.login.component";
+import FormSearch from "../form.search.component";
 import { UserContext } from "../../../providers/user/user.provider";
 import { testUser, noUser } from "../../../test.fixtures/lastfm.user.fixture";
 import Routes from "../../../configuration/routes";
@@ -40,7 +40,7 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={currentTest.state}>
-          <FormLogin />
+          <FormSearch />
         </UserContext.Provider>
       </Router>
     );
@@ -119,7 +119,7 @@ describe("The FormLogin Component Should handle input correctly", () => {
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={currentTest.state}>
-          <FormLogin />
+          <FormSearch />
         </UserContext.Provider>
       </Router>
     );

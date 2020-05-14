@@ -1,4 +1,4 @@
-import { validateChange, validateSubmit } from "../form.login.validators";
+import { validateChange, validateSubmit } from "../form.search.validators";
 import messages from "../../../configuration/messages";
 
 describe("The validators should work as expected", () => {

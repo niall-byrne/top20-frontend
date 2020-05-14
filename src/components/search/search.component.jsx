@@ -2,6 +2,6 @@
 // - withBillboard
 
 import { withBillboard } from "../billboard/billboard.component";
-import FormLogin from "../form.login/form.login.component";
+import FormLogin from "../form.search/form.search.component";
 
 export default withBillboard(FormLogin);

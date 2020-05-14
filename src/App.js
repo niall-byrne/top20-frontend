@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { I18nextProvider } from "react-i18next";
 
 import Header from "./components/header/header.component";
-import Login from "./components/login/login.component";
+import Search from "./components/search/search.component";
 import { default as Profile } from "./components/profile/profile.container";
 import Contact from "./components/contact/contact.component";
 import UserProvider from "./providers/user/user.provider";
@@ -20,7 +20,7 @@ function App() {
               <Header />
               <Switch>
                 <Route exact path={Routes.contact} component={Contact} />
-                <Route exact path={Routes.search} component={Login} />
+                <Route exact path={Routes.search} component={Search} />
                 <Route path={Routes.profile} component={Profile} />
               </Switch>
             </div>

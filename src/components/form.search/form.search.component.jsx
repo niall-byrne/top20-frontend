@@ -10,12 +10,12 @@ import {
   FormInput,
   FormButton,
   FormInputGroup,
-} from "./form.login.styles";
-import { validateSubmit, validateChange } from "./form.login.validators";
+} from "./form.search.styles";
+import { validateSubmit, validateChange } from "./form.search.validators";
 import CustomButton from "../button/button.component";
 import messages from "../../configuration/messages";
 
-const FormLogin = ({ history }) => {
+const FormSearch = ({ history }) => {
   const { userProperties } = React.useContext(UserContext);
   const [errorMsg, setErrorMsg] = React.useState();
   const { t } = useTranslation();
@@ -94,4 +94,4 @@ const FormLogin = ({ history }) => {
   );
 };
 
-export default withRouter(FormLogin);
+export default withRouter(FormSearch);

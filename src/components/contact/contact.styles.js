@@ -15,7 +15,7 @@ export const CenteredContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 30px;
+  padding-top: 3vh;
   text-align: center;
 
   div:last-child {
@@ -24,6 +24,6 @@ export const CenteredContainer = styled.div`
 `;
 
 export const LoadingIO = styled.div`
-  padding-top: 10px;
+  padding-top: 2vh;
   font-size: 0.7em;
 `;

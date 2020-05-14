@@ -6,15 +6,16 @@ export const CenterDiv = styled.div`
   justify-items: center;
   display: grid;
   grid-template-columns: 100vw;
-  grid-template-rows: calc(100vh + 50px);
+  grid-template-rows: calc(100vh - 50px);
+  margin-top: 50px;
   border: 3px;
 `;
 
 export const ProfileDiv = styled.div`
   background-color: #c0c0c0;
-  min-width: 280px;
-  width: 60vw;
-  min-height: 250px;
+  width: 100vw;
+  max-width: 600px;
+  min-height: 175px;
   height: calc(40vh);
   display: flex;
   align-items: center;

@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const FormDiv = styled.div`
   background-color: #c0c0c0;
-  min-width: 200px;
   width: 60vw;
   min-height: 150px;
   height: calc(40vh - 50px);
@@ -41,7 +40,7 @@ export const FormButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 30px;
+  padding-top: 2vh;
 `;
 
 export const FormInputGroup = styled.div`
