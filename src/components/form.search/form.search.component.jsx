@@ -61,12 +61,13 @@ const FormSearch = ({ history }) => {
       <div>
         <form onSubmit={handleSubmit}>
           <FormInputGroup>
-            <FormLabel>
+            <FormLabel htmlFor="username">
               {t(messages.FormLastFMUsernameLabelMessage)}
               {":"}
             </FormLabel>
             <FormInput
               autoFocus
+              id="username"
               name="username"
               type="username"
               data-testid="username"
