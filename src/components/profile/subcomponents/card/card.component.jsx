@@ -11,7 +11,7 @@ const FlipCard = ({ title, number, size, image, flipper }) => {
         onClick={flipper}
       >
         <CardFront>
-          <CardTitle>
+          <CardTitle TileHeight={size}>
             <img alt={title} src={image} />
           </CardTitle>
         </CardFront>

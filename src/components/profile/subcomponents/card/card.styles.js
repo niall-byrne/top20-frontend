@@ -46,9 +46,10 @@ export const CardFront = styled.div`
   ${CardSide};
   background-color: #c0c0c0;
   text-align: center;
+
   img {
-    height: 100%;
     width: 100%;
+    height: 100%;
   }
 
   img:hover {
@@ -67,6 +68,8 @@ export const CardBack = styled.div`
 
 // Card content
 export const CardTitle = styled.div`
+  width: ${(props) => props.TileHeight}px;
+  height: ${(props) => props.TileHeight}px;
   font-size: 0.7em;
 `;
 
