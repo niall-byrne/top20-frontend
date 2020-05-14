@@ -9,18 +9,24 @@ import { LoaderContainer } from "./spinner.styles";
 import Billboard from "../billboard/billboard.component";
 import messages from "../../configuration/messages";
 
+export const Spinner = () => {
+  const { t } = useTranslation();
+  return (
+    <Billboard>
+      <LoaderContainer data-testid="Spinner1">
+        <div className="loader">{t(messages.SpinnerMessage)}</div>
+      </LoaderContainer>
+    </Billboard>
+  );
+};
+
 const WithSpinner = (WrappedComponent) => {
   const SpinnerContainer = ({ ...otherProps }) => {
     const { userProperties } = React.useContext(UserContext);
-    const { t } = useTranslation();
     return (
       <div>
         {!userProperties.ready ? (
-          <Billboard>
-            <LoaderContainer data-testid="Spinner1">
-              <div className="loader">{t(messages.SpinnerMessage)}</div>
-            </LoaderContainer>
-          </Billboard>
+          <Spinner />
         ) : (
           <WrappedComponent {...otherProps} />
         )}
