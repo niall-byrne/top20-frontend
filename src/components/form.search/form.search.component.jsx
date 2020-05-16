@@ -16,13 +16,14 @@ import CustomButton from "../button/button.component";
 import messages from "../../configuration/messages";
 
 const FormSearch = ({ history }) => {
+  const fieldUsername = React.createRef();
   const { userProperties } = React.useContext(UserContext);
   const [errorMsg, setErrorMsg] = React.useState();
   const { t } = useTranslation();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    doSubmit(document.querySelector('input[name="username"]').value);
+    doSubmit(fieldUsername.current.value);
   };
 
   const doSubmit = (value) => {
@@ -35,7 +36,7 @@ const FormSearch = ({ history }) => {
   const handleKeyDown = (e) => {
     switch (e.keyCode) {
       case 13:
-        handleSubmit(e);
+        doSubmit(fieldUsername.current.value);
         break;
       default:
         break;
@@ -49,17 +50,10 @@ const FormSearch = ({ history }) => {
     validateChange(value, setErrorMsg);
   };
 
-  React.useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
   return (
     <FormDiv>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onKeyDown={handleKeyDown} onSubmit={handleSubmit}>
           <FormInputGroup>
             <FormLabel htmlFor="username">
               {t(messages.FormLastFMUsernameLabelMessage)}
@@ -68,6 +62,7 @@ const FormSearch = ({ history }) => {
             <FormInput
               autoFocus
               id="username"
+              ref={fieldUsername}
               name="username"
               type="username"
               data-testid="username"

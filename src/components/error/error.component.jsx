@@ -17,17 +17,16 @@ const WithError = (WrappedComponent) => {
   const CustomError = ({ history, ...otherProps }) => {
     const { userProperties, dispatch } = useContext(UserContext);
     const { t } = useTranslation();
-    let componentWillUnmount = false;
 
     React.useEffect(() => {
       return () => {
+        // Whenever this is unmounted clear the state
         dispatch({ type: UserTypes.ResetState });
       };
-    }, [componentWillUnmount, dispatch]);
+    }, []);
 
     const handleClick = (e) => {
       history.push(Routes.search);
-      componentWillUnmount = true;
     };
 
     return (

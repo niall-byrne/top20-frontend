@@ -109,7 +109,7 @@ describe("When fetchProfile is used", () => {
     expect(mockedFetch.mock.calls.length).toBe(1);
     expect(failure.mock.calls.length).toBe(1);
     expect(success.mock.calls.length).toBe(0);
-    expect(failure.mock.calls[0][0]).toEqual({ userName: "" });
+    expect(failure.mock.calls[0][0]).toEqual({});
     done();
   });
 });

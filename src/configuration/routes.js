@@ -1,7 +1,7 @@
-const routes = {
+const Routes = {
   search: "/command/search",
   contact: "/",
   profile: "/:userName",
 };
 
-export default routes;
+export default Routes;

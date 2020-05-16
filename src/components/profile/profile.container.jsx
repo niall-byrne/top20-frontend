@@ -20,23 +20,23 @@ const ProfileContainer = ({ match }) => {
   const currentUser = decodeURIComponent(match.params.userName);
 
   React.useEffect(() => {
-    const success = async (data) => {
-      await dispatch({
+    const success = (data) => {
+      dispatch({
         type: UserTypes.SuccessFetchUser,
         userName: currentUser,
         data: data.content,
       });
     };
 
-    const failure = async (_) => {
-      await dispatch({
+    const failure = (_) => {
+      dispatch({
         type: UserTypes.FailureFetchUser,
         userName: currentUser,
       });
     };
 
-    const fetchUserDetails = async () => {
-      await dispatch({
+    const fetchUserDetails = () => {
+      dispatch({
         userName: currentUser,
         type: UserTypes.StartFetchUser,
         func: fetchProfile,
@@ -46,10 +46,9 @@ const ProfileContainer = ({ match }) => {
     };
 
     if (!useEffectTriggered && !userProperties.ready) {
-      useEffectTriggered = true;
       fetchUserDetails();
     }
-  }, [dispatch, userProperties.ready, currentUser]);
+  }, []);
 
   return <WrappedSpinner data={userProperties} />;
 };

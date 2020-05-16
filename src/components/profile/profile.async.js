@@ -28,12 +28,12 @@ const postData = async (url, data, success, failure) => {
     }
   } catch {
     // Server Error
-    return failure({ userName: "" });
+    return failure({});
   }
 };
 
-export const fetchProfile = async (state, action) => {
-  return await postData(
+export const fetchProfile = (state, action) => {
+  return postData(
     backend() + "/lastfm/",
     {
       username: action.userName,
