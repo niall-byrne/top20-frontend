@@ -30,9 +30,7 @@
       "src/serviceWorker.js",
       "src/setupTests.js",
       "src/test.fixtures/.*",
-      "configuration/*",
-      "App.js",
-      "index.js"
+      "configuration/*"
     ],
     "coverageThreshold": {
       "global": {
