@@ -1,6 +1,5 @@
 import React, { Suspense, lazy } from "react";
 import { Switch, Route } from "react-router-dom";
-import { I18nextProvider } from "react-i18next";
 
 //import Header from "./components/header/header.component";
 import UserProvider from "./providers/user/user.provider";
