@@ -5,6 +5,9 @@ import { createMemoryHistory } from "history";
 
 import FormSearch from "../form.search.component";
 import { UserContext } from "../../../providers/user/user.provider";
+import { AnalyticsContext } from "../../../providers/analytics/analytics.provider";
+import { AnalyticsActions } from "../../../providers/analytics/analytics.actions";
+
 import { testUser, noUser } from "../../../test.fixtures/lastfm.user.fixture";
 import Routes from "../../../configuration/routes";
 import messages from "../../../configuration/messages";
@@ -17,6 +20,9 @@ jest.mock("react-i18next", () => ({
     },
   }),
 }));
+
+const mockEvent = jest.fn();
+const mockAnalyticsSettings = { event: mockEvent, initialized: true };
 
 describe("The FormLogin Component Should Render Without Crashing", () => {
   let history;
@@ -35,12 +41,14 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
 
   beforeEach(() => {
     currentTest = setup.shift();
-    history = createMemoryHistory();
-    history.push(currentTest.path);
+    history = createMemoryHistory({ initialEntries: [currentTest.path] });
+    mockEvent.mockClear();
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={currentTest.state}>
-          <FormSearch />
+          <AnalyticsContext.Provider value={mockAnalyticsSettings}>
+            <FormSearch />
+          </AnalyticsContext.Provider>
         </UserContext.Provider>
       </Router>
     );
@@ -61,6 +69,7 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
       expect(
         utils.getByText(messages.FormLastFMButtonMessage)
       ).toBeInTheDocument();
+      expect(mockEvent).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -78,6 +87,7 @@ describe("The FormLogin Component Should Render Without Crashing", () => {
       expect(
         utils.getByText(messages.FormLastFMButtonMessage)
       ).toBeInTheDocument();
+      expect(mockEvent).toHaveBeenCalledTimes(0);
     });
   });
 });
@@ -116,10 +126,13 @@ describe("The FormLogin Component Should handle input correctly", () => {
   beforeEach(() => {
     currentTest = setup.shift();
     history = createMemoryHistory({ initialEntries: [currentTest.path] });
+    mockEvent.mockClear();
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={currentTest.state}>
-          <FormSearch />
+          <AnalyticsContext.Provider value={mockAnalyticsSettings}>
+            <FormSearch />
+          </AnalyticsContext.Provider>
         </UserContext.Provider>
       </Router>
     );
@@ -130,6 +143,7 @@ describe("The FormLogin Component Should handle input correctly", () => {
     const input = utils.getByTestId("username");
     fireEvent.change(input, { target: { value: "username" } });
     expect(input.value).toBe("username");
+    expect(mockEvent).toHaveBeenCalledTimes(0);
   });
 
   it("should handle submitted data correctly (click) (no errors)", () => {
@@ -140,6 +154,8 @@ describe("The FormLogin Component Should handle input correctly", () => {
     fireEvent.click(submit);
     expect(history.length).toBe(2);
     expect(history.location.pathname).toBe("/niall-byrne");
+    expect(mockEvent).toHaveBeenCalledTimes(1);
+    expect(mockEvent).toHaveBeenCalledWith(AnalyticsActions.Search);
   });
 
   it("should handle submitted data correctly (enter) (no errors)", () => {
@@ -150,6 +166,8 @@ describe("The FormLogin Component Should handle input correctly", () => {
     fireEvent.keyDown(submit, { key: "enter", keyCode: 13 });
     expect(history.length).toBe(2);
     expect(history.location.pathname).toBe("/niall-byrne");
+    expect(mockEvent).toHaveBeenCalledTimes(1);
+    expect(mockEvent).toHaveBeenCalledWith(AnalyticsActions.Search);
   });
 
   it("should not submit data if another key is pressed", () => {
@@ -159,6 +177,7 @@ describe("The FormLogin Component Should handle input correctly", () => {
     expect(input.value).toBe("niall-byrne");
     fireEvent.keyDown(submit, { key: "a", keyCode: 65 });
     expect(history.length).toBe(1);
+    expect(mockEvent).toHaveBeenCalledTimes(0);
   });
 
   it("should handle submitted data correctly (with errors)", () => {
@@ -169,6 +188,7 @@ describe("The FormLogin Component Should handle input correctly", () => {
     fireEvent.click(submit);
     expect(history.length).toBe(1);
     expect(utils.getByTestId("error")).toBeTruthy();
+    expect(mockEvent).toHaveBeenCalledTimes(0);
   });
 
   it("should clear the error message on new input", () => {
@@ -180,5 +200,6 @@ describe("The FormLogin Component Should handle input correctly", () => {
     expect(utils.getByTestId("error")).toBeTruthy();
     fireEvent.change(input, { target: { value: "username" } });
     expect(utils.queryByTestId("error")).toBeFalsy();
+    expect(mockEvent).toHaveBeenCalledTimes(0);
   });
 });

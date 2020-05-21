@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 
+import { AnalyticsContext } from "../../providers/analytics/analytics.provider";
+import { AnalyticsActions } from "../../providers/analytics/analytics.actions";
+
 import Billboard from "../billboard/billboard.component";
 import {
   ContactContainer,
@@ -17,6 +20,7 @@ import messages from "../../configuration/messages";
 
 const Contact = ({ history, ...otherProps }) => {
   const { dispatch } = useContext(UserContext);
+  const { event } = React.useContext(AnalyticsContext);
   let componentWillUnmount = false;
   const { t } = useTranslation();
 
@@ -34,6 +38,7 @@ const Contact = ({ history, ...otherProps }) => {
   };
 
   const handleClick2 = (e) => {
+    event(AnalyticsActions.Contact);
     window.open(Assets.ContactPage, "_blank");
   };
 

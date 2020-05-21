@@ -3,6 +3,8 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
+import { AnalyticsContext } from "../../../providers/analytics/analytics.provider";
+import { AnalyticsActions } from "../../../providers/analytics/analytics.actions";
 import Routes from "../../../configuration/routes";
 import Contact from "../contact.component";
 import { UserContext } from "../../../providers/user/user.provider";
@@ -23,6 +25,9 @@ jest.mock("react-i18next", () => ({
   }),
 }));
 
+const mockEvent = jest.fn();
+const mockAnalyticsSettings = { event: mockEvent, initialized: true };
+
 describe("Check Error Rendering", () => {
   let utils;
   let history;
@@ -32,7 +37,8 @@ describe("Check Error Rendering", () => {
   let setup = [userError, userError, userError, userError];
 
   beforeEach(() => {
-    dispatchMock.mockReset();
+    mockEvent.mockClear();
+    dispatchMock.mockClear();
     state = setup.shift();
     history = createMemoryHistory({ initialEntries: [Routes.contact] });
     mockOpen = jest.fn();
@@ -40,7 +46,9 @@ describe("Check Error Rendering", () => {
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={state}>
-          <Contact />
+          <AnalyticsContext.Provider value={mockAnalyticsSettings}>
+            <Contact />
+          </AnalyticsContext.Provider>
         </UserContext.Provider>
       </Router>
     );
@@ -63,6 +71,7 @@ describe("Check Error Rendering", () => {
     expect(utils.getByTestId("Contact1")).toBeTruthy();
     const link = utils.getByText(messages.ContactCredit2);
     expect(link.getAttribute("href")).toBe(Assets.IconCredLink);
+    expect(mockEvent).toHaveBeenCalledTimes(0);
   });
 
   it("responds to the home button press by changing the page", () => {
@@ -70,12 +79,15 @@ describe("Check Error Rendering", () => {
     fireEvent.click(utils.getByTestId("Contact2"));
     expect(history.length).toBe(2);
     expect(history.location.pathname).toBe(Routes.search);
+    expect(mockEvent).toHaveBeenCalledTimes(0);
   });
 
   it("responds to the contact button by calling window.open", () => {
     fireEvent.click(utils.getByTestId("Contact3"));
     expect(mockOpen.mock.calls.length).toBe(1);
     expect(mockOpen.mock.calls[0]).toEqual([Assets.ContactPage, "_blank"]);
+    expect(mockEvent).toHaveBeenCalledTimes(1);
+    expect(mockEvent).toHaveBeenCalledWith(AnalyticsActions.Contact);
   });
 
   it("calls the toggle error dispatch on cleanup", () => {
@@ -84,5 +96,6 @@ describe("Check Error Rendering", () => {
     expect(dispatchMock.mock.calls[0][0]).toStrictEqual({
       type: UserTypes.ResetState,
     });
+    expect(mockEvent).toHaveBeenCalledTimes(0);
   });
 });

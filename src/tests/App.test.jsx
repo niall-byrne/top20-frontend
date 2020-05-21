@@ -7,6 +7,7 @@ import Header from "../components/header/header.component";
 import Search from "../components/search/search.component";
 import Contact from "../components/contact/contact.component";
 import ProfileContainer from "../components/profile/profile.container";
+import AnalyticsProvider from "../providers/analytics/analytics.provider";
 
 import Routes from "../configuration/routes";
 import App from "../App.js";
@@ -16,11 +17,13 @@ jest.mock("../components/header/header.component");
 jest.mock("../components/search/search.component");
 jest.mock("../components/contact/contact.component");
 jest.mock("../components/profile/profile.container");
+jest.mock("../providers/analytics/analytics.provider");
 
 Spinner.mockImplementation(() => <div>MockSpinner</div>);
 Header.mockImplementation(() => <div>MockHeader</div>);
 Search.mockImplementation(() => <div>MockSearch</div>);
 Contact.mockImplementation(() => <div>MockContact</div>);
+AnalyticsProvider.mockImplementation(({ children }) => <div>{children}</div>);
 ProfileContainer.mockImplementation(() => <div>MockProfileContainer</div>);
 
 // Translate as English (For Rendered Children)
@@ -46,6 +49,7 @@ describe("Check Routing", () => {
     Header.mockClear();
     Search.mockClear();
     Contact.mockClear();
+    AnalyticsProvider.mockClear();
     ProfileContainer.mockClear();
     currentTest = tests.shift();
     utils = render(
@@ -58,7 +62,7 @@ describe("Check Routing", () => {
   afterEach(cleanup);
 
   it("should render the header and search components on the search page", () => {
-    // Spinner Should always be rendered
+    expect(AnalyticsProvider).toHaveBeenCalledTimes(1);
     expect(Spinner.mock.calls.length).toBe(1);
 
     expect(currentTest.path).toBe(Routes.search);
@@ -69,7 +73,7 @@ describe("Check Routing", () => {
   });
 
   it("should render the header and contact components on the contact page", () => {
-    // Spinner Should always be rendered
+    expect(AnalyticsProvider).toHaveBeenCalledTimes(1);
     expect(Spinner.mock.calls.length).toBe(1);
 
     expect(currentTest.path).toBe(Routes.contact);
@@ -80,7 +84,7 @@ describe("Check Routing", () => {
   });
 
   it("should render the header and profile components on the profile page", () => {
-    // Spinner Should always be rendered
+    expect(AnalyticsProvider).toHaveBeenCalledTimes(1);
     expect(Spinner.mock.calls.length).toBe(1);
 
     expect(currentTest.path).toBe("/niall-byrne");

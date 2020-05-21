@@ -3,6 +3,9 @@ import { withRouter } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { UserContext } from "../../providers/user/user.provider";
+import { AnalyticsContext } from "../../providers/analytics/analytics.provider";
+import { AnalyticsActions } from "../../providers/analytics/analytics.actions";
+
 import {
   ErrorDiv,
   FormDiv,
@@ -18,6 +21,7 @@ import messages from "../../configuration/messages";
 const FormSearch = ({ history }) => {
   const fieldUsername = React.createRef();
   const { userProperties } = React.useContext(UserContext);
+  const { event } = React.useContext(AnalyticsContext);
   const [errorMsg, setErrorMsg] = React.useState();
   const { t } = useTranslation();
 
@@ -29,6 +33,7 @@ const FormSearch = ({ history }) => {
   const doSubmit = (value) => {
     const result = validateSubmit(value, setErrorMsg);
     if (result) {
+      event(AnalyticsActions.Search);
       history.push(`/${encodeURIComponent(value)}`);
     }
   };

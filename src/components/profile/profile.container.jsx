@@ -13,11 +13,14 @@ import withError from "../error/error.component";
 import { fetchProfile } from "./profile.async";
 import UserTypes from "../../providers/user/user.actions";
 import { UserContext } from "../../providers/user/user.provider";
+import { AnalyticsContext } from "../../providers/analytics/analytics.provider";
+import { AnalyticsActions } from "../../providers/analytics/analytics.actions";
 
 const ProfileContainer = ({ match }) => {
   const { userProperties, dispatch } = React.useContext(UserContext);
   let useEffectTriggered = false; // Facilitates Testing Callbacks
   const currentUser = decodeURIComponent(match.params.userName);
+  const { event } = React.useContext(AnalyticsContext);
 
   React.useEffect(() => {
     const success = (data) => {
@@ -26,6 +29,7 @@ const ProfileContainer = ({ match }) => {
         userName: currentUser,
         data: data.content,
       });
+      event(AnalyticsActions.SuccessProfile);
     };
 
     const failure = (_) => {
@@ -33,6 +37,7 @@ const ProfileContainer = ({ match }) => {
         type: UserTypes.FailureFetchUser,
         userName: currentUser,
       });
+      event(AnalyticsActions.ErrorProfile);
     };
 
     const fetchUserDetails = () => {

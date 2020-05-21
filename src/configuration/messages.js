@@ -28,6 +28,8 @@ const messages = {
     MainTitle: "Select an album for details.",
     MainTitleEmpty: "This user has no listening data!",
     SpinnerMessage: "Loading...",
+    CookieMessage:
+      "This website uses cookies to log your interactions with it.",
   },
 };
 

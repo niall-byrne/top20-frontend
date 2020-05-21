@@ -8,6 +8,8 @@ import ProfileContainer from "../profile.container";
 import Profile from "../profile.component";
 
 import { UserContext } from "../../../providers/user/user.provider";
+import { AnalyticsContext } from "../../../providers/analytics/analytics.provider";
+import { AnalyticsActions } from "../../../providers/analytics/analytics.actions";
 import { mockApiData } from "../../../test.fixtures/lastfm.api.fixture";
 
 // Translate as English (For Rendered Children)
@@ -20,6 +22,9 @@ jest.mock("react-i18next", () => ({
 }));
 
 jest.mock("../profile.component");
+Profile.mockImplementation(() => <div>MockComponent</div>);
+const mockEvent = jest.fn();
+const mockAnalyticsSettings = { event: mockEvent, initialized: true };
 
 import {
   dispatchMock,
@@ -35,15 +40,18 @@ describe("Check the Profile Container Component Renders Without Crashing", () =>
   let state;
   let setup = [userBeforeFetchReady, userBeforeFetch];
   beforeEach(() => {
-    dispatchMock.mockReset();
-    Profile.mockImplementation(() => <div>MockComponent</div>);
+    dispatchMock.mockClear();
+    mockEvent.mockClear();
+    Profile.mockClear();
     state = setup.shift();
     history = createMemoryHistory();
     history.push(Routes.search);
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={state}>
-          <ProfileContainer data={mockApiData} />
+          <AnalyticsContext.Provider value={mockAnalyticsSettings}>
+            <ProfileContainer data={mockApiData} />
+          </AnalyticsContext.Provider>
         </UserContext.Provider>
       </Router>
     );
@@ -53,6 +61,7 @@ describe("Check the Profile Container Component Renders Without Crashing", () =>
     expect(utils.queryByTestId("billboard1")).toBeFalsy();
     expect(utils.queryByTestId("billboard2")).toBeFalsy();
     await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(0));
+    expect(mockEvent).toHaveBeenCalledTimes(0);
     done();
   });
 
@@ -61,6 +70,7 @@ describe("Check the Profile Container Component Renders Without Crashing", () =>
     expect(utils.getByTestId("billboard2")).toBeTruthy();
     expect(utils.getByTestId("Spinner1")).toBeTruthy();
     await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(1));
+    expect(mockEvent).toHaveBeenCalledTimes(0);
     done();
   });
 });
@@ -77,8 +87,9 @@ describe("Check Profile Data Fetching", () => {
   ];
   let providerState;
   beforeEach(() => {
-    dispatchMock.mockReset();
-    Profile.mockImplementation(() => <div>MockComponent</div>);
+    dispatchMock.mockClear();
+    mockEvent.mockClear();
+    Profile.mockClear();
     providerState = state.shift();
     history = createMemoryHistory();
     history.push(
@@ -87,7 +98,9 @@ describe("Check Profile Data Fetching", () => {
     utils = render(
       <Router history={history}>
         <UserContext.Provider value={providerState}>
-          <Route path="/:userName" component={ProfileContainer} />
+          <AnalyticsContext.Provider value={mockAnalyticsSettings}>
+            <Route path="/:userName" component={ProfileContainer} />
+          </AnalyticsContext.Provider>
         </UserContext.Provider>
       </Router>
     );
@@ -106,6 +119,7 @@ describe("Check Profile Data Fetching", () => {
     expect(call.success.name).toBe("success");
     expect(call.failure).toBeInstanceOf(Function);
     expect(call.failure.name).toBe("failure");
+    expect(mockEvent).toHaveBeenCalledTimes(0);
     done();
   });
 
@@ -120,6 +134,7 @@ describe("Check Profile Data Fetching", () => {
     expect(call.success.name).toBe("success");
     expect(call.failure).toBeInstanceOf(Function);
     expect(call.failure.name).toBe("failure");
+    expect(mockEvent).toHaveBeenCalledTimes(0);
     done();
   });
 
@@ -137,6 +152,8 @@ describe("Check Profile Data Fetching", () => {
       userName: "niall-byrne",
       data: "Data",
     });
+    expect(mockEvent).toHaveBeenCalledTimes(1);
+    expect(mockEvent).toHaveBeenCalledWith(AnalyticsActions.SuccessProfile);
     done();
   });
 
@@ -153,11 +170,14 @@ describe("Check Profile Data Fetching", () => {
       type: "FailureFetchUser",
       userName: "niall-byrne",
     });
+    expect(mockEvent).toHaveBeenCalledTimes(1);
+    expect(mockEvent).toHaveBeenCalledWith(AnalyticsActions.ErrorProfile);
     done();
   });
 
   it("when ready is true, no dispatch is made", async (done) => {
     expect(dispatchMock.mock.calls.length).toBe(0);
+    expect(mockEvent).toHaveBeenCalledTimes(0);
     done();
   });
 });
