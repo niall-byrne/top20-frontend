@@ -173,13 +173,14 @@ describe("The Header Should Render Without Crashing", () => {
   });
 
   describe("When on a User Page, that is loading", () => {
-    it("renders the error message", () => {
+    it("renders the error message", async (done) => {
       checkImage(messages.HeaderAltLastFM, HomePage, Assets.LastFMLogo);
       checkImage(messages.HeaderAltContact, null, Assets.ContactLogo);
       checkImage(messages.HeaderAltSearch, null, Assets.SearchLogo);
-      waitFor(() =>
+      await waitFor(() =>
         expect(utils.getByText(messages.HeaderLoadingUser)).toBeTruthy()
       );
+      done();
     });
   });
 

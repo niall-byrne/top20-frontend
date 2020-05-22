@@ -29,7 +29,8 @@ const messages = {
     MainTitleEmpty: "This user has no listening data!",
     SpinnerMessage: "Loading...",
     CookieMessage:
-      "This website uses cookies to log your interactions with it.",
+      "This website would like to use cookies to measure how you as an individual interact with it.  We'll use this information to improve the service.",
+    CookieButtonText: "I'm ok with that",
   },
 };
 

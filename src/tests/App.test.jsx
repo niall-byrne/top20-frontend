@@ -61,36 +61,39 @@ describe("Check Routing", () => {
 
   afterEach(cleanup);
 
-  it("should render the header and search components on the search page", () => {
+  it("should render the header and search components on the search page", async (done) => {
     expect(AnalyticsProvider).toHaveBeenCalledTimes(1);
     expect(Spinner.mock.calls.length).toBe(1);
 
     expect(currentTest.path).toBe(Routes.search);
-    waitFor(() => expect(Header.mock.calls.length).toBe(1));
+    await waitFor(() => expect(Header.mock.calls.length).toBe(1));
     expect(Search.mock.calls.length).toBe(1);
     expect(Contact.mock.calls.length).toBe(0);
     expect(ProfileContainer.mock.calls.length).toBe(0);
+    done();
   });
 
-  it("should render the header and contact components on the contact page", () => {
+  it("should render the header and contact components on the contact page", async (done) => {
     expect(AnalyticsProvider).toHaveBeenCalledTimes(1);
     expect(Spinner.mock.calls.length).toBe(1);
 
     expect(currentTest.path).toBe(Routes.contact);
-    waitFor(() => expect(Header.mock.calls.length).toBe(1));
+    await waitFor(() => expect(Header.mock.calls.length).toBe(1));
     expect(Search.mock.calls.length).toBe(0);
     expect(Contact.mock.calls.length).toBe(1);
     expect(ProfileContainer.mock.calls.length).toBe(0);
+    done();
   });
 
-  it("should render the header and profile components on the profile page", () => {
+  it("should render the header and profile components on the profile page", async (done) => {
     expect(AnalyticsProvider).toHaveBeenCalledTimes(1);
     expect(Spinner.mock.calls.length).toBe(1);
 
     expect(currentTest.path).toBe("/niall-byrne");
-    waitFor(() => expect(Header.mock.calls.length).toBe(1));
+    await waitFor(() => expect(Header.mock.calls.length).toBe(1));
     expect(Search.mock.calls.length).toBe(0);
     expect(Contact.mock.calls.length).toBe(0);
     expect(ProfileContainer.mock.calls.length).toBe(1);
+    done();
   });
 });

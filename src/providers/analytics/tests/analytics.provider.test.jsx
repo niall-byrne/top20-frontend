@@ -1,6 +1,6 @@
 import ReactGA from "react-ga";
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render, cleanup, waitFor, act } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
@@ -8,18 +8,17 @@ import AnalyticsProvider, { AnalyticsContext } from "../analytics.provider";
 
 jest.mock("react-ga");
 const originalEnvironment = process.env;
-
 describe("Manage Environment", () => {
   let received = {};
   let history;
   let setup = [
-    { code: "", NODE_ENV: "test", changePage: false },
-    { code: "", NODE_ENV: "test", changePage: false },
-    { code: "SOMEVALUE", NODE_ENV: "test", changePage: false },
-    { code: "SOMEVALUE", NODE_ENV: "production", changePage: false },
-    { code: "SOMEVALUE", NODE_ENV: "production", changePage: false },
-    { code: "SOMEVALUE", NODE_ENV: "production", changePage: true },
-    { code: "SOMEVALUE", NODE_ENV: "production", changePage: false },
+    { code: "", NODE_ENV: "test" },
+    { code: "", NODE_ENV: "test" },
+    { code: "SOMEVALUE", NODE_ENV: "test" },
+    { code: "SOMEVALUE", NODE_ENV: "production" },
+    { code: "SOMEVALUE", NODE_ENV: "production" },
+    { code: "SOMEVALUE", NODE_ENV: "production" },
+    { code: "SOMEVALUE", NODE_ENV: "production" },
   ];
   let currentTest;
   beforeEach(() => {
@@ -46,66 +45,119 @@ describe("Manage Environment", () => {
         </AnalyticsProvider>
       </Router>
     );
-    if (currentTest.changePage) {
-      history.push("/");
-    }
   });
-  afterEach(cleanup);
+
+  afterEach(() => {
+    cleanup();
+  });
+
   afterAll(() => {
     process.env = originalEnvironment;
   });
 
-  it("when no analytics value is present it should not initialize ReactGA", () => {
-    expect(Object.keys(received).length).toBe(2);
+  const changePage = () => {
+    history.push("/");
+  };
+
+  it("should not initialize ReactGA when no analytics value is present setup ", async (done) => {
+    expect(Object.keys(received).length).toBe(3);
     expect(received.event).toBeInstanceOf(Function);
+    expect(received.setup).toBeInstanceOf(Function);
     expect(received.initialized).toBeFalsy();
+
+    act(() => received.setup());
+    await waitFor(() => expect(received.initialized).toBeFalsy());
     expect(ReactGA.initialize).toHaveBeenCalledTimes(0);
     received.event("FAKE_EVENT");
     expect(ReactGA.event).toHaveBeenCalledTimes(0);
+    done();
   });
 
-  it("when no analytics value is present it should not post events", () => {
+  it("should not post events when no analytics value is present", async (done) => {
+    expect(Object.keys(received).length).toBe(3);
+    expect(received.event).toBeInstanceOf(Function);
+    expect(received.setup).toBeInstanceOf(Function);
+    expect(received.initialized).toBeFalsy();
+
+    act(() => received.setup());
+    await waitFor(() => expect(received.initialized).toBeFalsy());
     received.event("FAKE_EVENT");
     expect(ReactGA.event).toHaveBeenCalledTimes(0);
+    done();
   });
 
-  it("when an analytics value is present it should initialize ReactGA", () => {
-    expect(Object.keys(received).length).toBe(2);
+  it("should initialize ReactGA when an analytics value is present", async (done) => {
+    expect(Object.keys(received).length).toBe(3);
     expect(received.event).toBeInstanceOf(Function);
-    expect(received.initialized).toBeTruthy();
+    expect(received.setup).toBeInstanceOf(Function);
+    expect(received.initialized).toBeFalsy();
+
+    act(() => received.setup());
+    await waitFor(() => expect(received.initialized).toBeTruthy());
     expect(ReactGA.initialize).toHaveBeenCalledTimes(1);
     expect(ReactGA.initialize).toHaveBeenCalledWith(
       process.env.REACT_APP_UA_CODE,
       { debug: true }
     );
+    done();
   });
 
-  it("when an analytics value is present, and it's production, it should initialize ReactGA without logging", () => {
-    expect(Object.keys(received).length).toBe(2);
+  it("should initialize ReactGA without logging when an analytics value is present, and it's production", async (done) => {
+    expect(Object.keys(received).length).toBe(3);
     expect(received.event).toBeInstanceOf(Function);
-    expect(received.initialized).toBeTruthy();
+    expect(received.setup).toBeInstanceOf(Function);
+    expect(received.initialized).toBeFalsy();
+
+    act(() => received.setup());
+    await waitFor(() => expect(received.initialized).toBeTruthy());
     expect(ReactGA.initialize).toHaveBeenCalledTimes(1);
     expect(ReactGA.initialize).toHaveBeenCalledWith(
       process.env.REACT_APP_UA_CODE,
       { debug: false }
     );
+    done();
   });
 
-  it("when an analytics value is present it should post events", () => {
-    received.event("FAKE_EVENT");
-    expect(ReactGA.event).toHaveBeenCalledTimes(1);
+  it("should post events when an analytics value is present ", async (done) => {
+    expect(Object.keys(received).length).toBe(3);
+    expect(received.event).toBeInstanceOf(Function);
+    expect(received.setup).toBeInstanceOf(Function);
+    expect(received.initialized).toBeFalsy();
+
+    act(() => received.setup());
+    await waitFor(() => expect(received.initialized).toBeTruthy());
+    act(() => received.event("FAKE_EVENT"));
+    await waitFor(() => expect(ReactGA.event).toHaveBeenCalledTimes(1));
     expect(ReactGA.event).toHaveBeenCalledWith("FAKE_EVENT");
+    done();
   });
 
-  it("when an analytics value is present it should post routes on route changes", () => {
-    expect(ReactGA.set).toHaveBeenCalledTimes(1);
+  it("should track route changes when an analytics value is present", async (done) => {
+    expect(Object.keys(received).length).toBe(3);
+    expect(received.event).toBeInstanceOf(Function);
+    expect(received.setup).toBeInstanceOf(Function);
+    expect(received.initialized).toBeFalsy();
+
+    act(() => received.setup());
+    await waitFor(() => expect(received.initialized).toBeTruthy());
+    act(() => changePage());
+    await waitFor(() => expect(ReactGA.set).toHaveBeenCalledTimes(1));
     expect(ReactGA.set).toHaveBeenCalledWith({ page: "/" });
     expect(ReactGA.pageview).toHaveBeenCalledTimes(1);
     expect(ReactGA.pageview).toHaveBeenCalledWith("/");
+    done();
   });
 
-  it("when an analytics value is present it should only post routes on an actual change", () => {
+  it("should only track route changes when a route change happens, and when an analytics value is present", async (done) => {
+    expect(Object.keys(received).length).toBe(3);
+    expect(received.event).toBeInstanceOf(Function);
+    expect(received.setup).toBeInstanceOf(Function);
+    expect(received.initialized).toBeFalsy();
+
+    act(() => received.setup());
+    await waitFor(() => expect(received.initialized).toBeTruthy());
     expect(ReactGA.set).toHaveBeenCalledTimes(0);
     expect(ReactGA.pageview).toHaveBeenCalledTimes(0);
+    done();
   });
 });

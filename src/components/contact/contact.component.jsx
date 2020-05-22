@@ -21,7 +21,6 @@ import messages from "../../configuration/messages";
 const Contact = ({ history, ...otherProps }) => {
   const { dispatch } = useContext(UserContext);
   const { event } = React.useContext(AnalyticsContext);
-  let componentWillUnmount = false;
   const { t } = useTranslation();
 
   React.useEffect(() => {
@@ -30,10 +29,9 @@ const Contact = ({ history, ...otherProps }) => {
         type: UserTypes.ResetState,
       });
     };
-  }, [componentWillUnmount, dispatch]);
+  }, []);
 
   const handleClick1 = (e) => {
-    componentWillUnmount = true;
     history.push(Routes.search);
   };
 
