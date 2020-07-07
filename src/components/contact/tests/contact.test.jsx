@@ -16,15 +16,6 @@ import {
 import Assets from "../../../configuration/assets";
 import messages from "../../../configuration/messages";
 
-// Translate as English
-jest.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (key) => {
-      return key;
-    },
-  }),
-}));
-
 const mockEvent = jest.fn();
 const mockAnalyticsSettings = { event: mockEvent, initialized: true };
 

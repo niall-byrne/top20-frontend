@@ -18,15 +18,6 @@ import {
   userBeforeFetch,
 } from "../../../test.fixtures/lastfm.user.fixture";
 
-// Translate as English
-jest.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (key) => {
-      return key;
-    },
-  }),
-}));
-
 describe("The Header Should Render Without Crashing", () => {
   let history;
   let utils;

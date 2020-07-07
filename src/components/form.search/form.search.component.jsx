@@ -16,7 +16,6 @@ import {
 } from "./form.search.styles";
 import { validateSubmit, validateChange } from "./form.search.validators";
 import CustomButton from "../button/button.component";
-import messages from "../../configuration/messages";
 
 const FormSearch = ({ history }) => {
   const fieldUsername = React.createRef();
@@ -61,7 +60,7 @@ const FormSearch = ({ history }) => {
         <form onKeyDown={handleKeyDown} onSubmit={handleSubmit}>
           <FormInputGroup>
             <FormLabel htmlFor="username">
-              {t(messages.FormLastFMUsernameLabelMessage)}
+              {t("FormLastFMUsernameLabelMessage")}
               {":"}
             </FormLabel>
             <FormInput
@@ -81,7 +80,7 @@ const FormSearch = ({ history }) => {
             <CustomButton
               type="submit"
               testid="submit"
-              text={t(messages.FormLastFMButtonMessage)}
+              text={t("FormLastFMButtonMessage")}
             />
           </FormButton>
         </form>

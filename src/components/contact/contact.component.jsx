@@ -16,7 +16,6 @@ import UserTypes from "../../providers/user/user.actions";
 import { UserContext } from "../../providers/user/user.provider";
 import { withRouter } from "react-router-dom";
 import Routes from "../../configuration/routes";
-import messages from "../../configuration/messages";
 
 const Contact = ({ history, ...otherProps }) => {
   const { dispatch } = useContext(UserContext);
@@ -29,7 +28,7 @@ const Contact = ({ history, ...otherProps }) => {
         type: UserTypes.ResetState,
       });
     };
-  }, []);
+  }, []); // eslint-disable-line
 
   const handleClick1 = (e) => {
     history.push(Routes.search);
@@ -44,33 +43,33 @@ const Contact = ({ history, ...otherProps }) => {
     <div>
       <Billboard>
         <ContactContainer data-testid="Contact1">
-          <h2>{t(messages.ContactTitle)}</h2>
-          <span>{t(messages.ContactMessage1)}</span>
-          <span>{t(messages.ContactMessage2)}</span>
+          <h2>{t("ContactTitle")}</h2>
+          <span>{t("ContactMessage1")}</span>
+          <span>{t("ContactMessage2")}</span>
           <CenteredContainer>
             <CustomButton
               action={handleClick1}
               type="button"
               testid="Contact2"
-              text={t(messages.ContactButtonMessage1)}
+              text={t("ContactButtonMessage1")}
             />
             <CustomButton
               action={handleClick2}
               type="button"
               testid="Contact3"
-              text={t(messages.ContactButtonMessage2)}
+              text={t("ContactButtonMessage2")}
             />
           </CenteredContainer>
           <LoadingIO>
-            {t(messages.ContactCredit1)}
+            {t("ContactCredit1")}
             <a
               rel="noopener noreferrer"
               target="_blank"
               href={Assets.IconCredLink}
             >
-              {t(messages.ContactCredit2)}
+              {t("ContactCredit2")}
             </a>
-            {t(messages.ContactCredit3)}
+            {t("ContactCredit3")}
           </LoadingIO>
         </ContactContainer>
       </Billboard>

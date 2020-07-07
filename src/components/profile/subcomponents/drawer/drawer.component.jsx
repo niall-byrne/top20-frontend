@@ -14,7 +14,6 @@ import {
   Info,
 } from "./drawer.styles";
 import Assets from "../../../../configuration/assets";
-import messages from "../../../../configuration/messages";
 
 // Configuration
 
@@ -42,14 +41,14 @@ const Drawer = ({ drawerHeight, navBarHeight, data, focus }) => {
     } else {
       setOpen(false);
     }
-  }, [focus]);
+  }, [focus]); // eslint-disable-line
 
   return (
     <div>
       {current ? <div></div> : null}
       <UnderDrawer>
         <DrawerMessage drawerHeight={drawerHeight}>
-          <h2>{t(messages.DrawerTitle)}</h2>
+          <h2>{t("DrawerTitle")}</h2>
         </DrawerMessage>
       </UnderDrawer>
       <DrawerDiv drawerHeight navBarHeight={navBarHeight}>
@@ -67,7 +66,7 @@ const Drawer = ({ drawerHeight, navBarHeight, data, focus }) => {
                     <img
                       className="lastfm"
                       style={{ width: 50, height: 50 }}
-                      alt={t(messages.DrawerAltLastFM)}
+                      alt={t("DrawerAltLastFM")}
                       src={Assets.LastFMLogo}
                     />
                   </a>
@@ -84,8 +83,7 @@ const Drawer = ({ drawerHeight, navBarHeight, data, focus }) => {
               {albums[current].name}
               <Artist>{albums[current].artist.name}</Artist>
               <Plays>
-                {albums[current].playcount}{" "}
-                {t(messages.DrawerListensPluralNoun)}
+                {albums[current].playcount} {t("DrawerListensPluralNoun")}
               </Plays>
             </Note>
           </Switch>

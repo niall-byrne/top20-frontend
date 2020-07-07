@@ -3,15 +3,6 @@ import { render, cleanup } from "@testing-library/react";
 import Title from "../title.component";
 import messages from "../../../../../configuration/messages";
 
-// Translate as English
-jest.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (key) => {
-      return key;
-    },
-  }),
-}));
-
 describe("Check the Title Component Renders Without Crashing", () => {
   afterEach(cleanup);
 

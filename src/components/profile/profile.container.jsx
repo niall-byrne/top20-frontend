@@ -53,7 +53,7 @@ const ProfileContainer = ({ match }) => {
     if (!useEffectTriggered && !userProperties.ready) {
       fetchUserDetails();
     }
-  }, []);
+  }, []); // eslint-disable-line
 
   return <WrappedSpinner data={userProperties} />;
 };

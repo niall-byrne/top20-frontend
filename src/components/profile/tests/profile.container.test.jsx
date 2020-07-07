@@ -12,15 +12,6 @@ import { AnalyticsContext } from "../../../providers/analytics/analytics.provide
 import { AnalyticsActions } from "../../../providers/analytics/analytics.actions";
 import { mockApiData } from "../../../test.fixtures/lastfm.api.fixture";
 
-// Translate as English (For Rendered Children)
-jest.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (key) => {
-      return key;
-    },
-  }),
-}));
-
 jest.mock("../profile.component");
 Profile.mockImplementation(() => <div>MockComponent</div>);
 const mockEvent = jest.fn();

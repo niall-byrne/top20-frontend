@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { ChartDiv, ChartBox, NoListensDiv } from "./chart.styles";
 import Card from "../card/card.component";
 import Assets from "../../../../configuration/assets";
-import messages from "../../../../configuration/messages";
 
 // Configuration
 
@@ -63,7 +62,7 @@ const Chart = ({
       TitleHeight={titleHeight}
       DrawerHeight={drawerHeight}
     >
-      <img alt={t(messages.ChartAltNoListens)} src={Assets.Cans} />
+      <img alt={t("ChartAltNoListens")} src={Assets.Cans} />
     </NoListensDiv>
   );
 };

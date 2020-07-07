@@ -14,15 +14,6 @@ import {
 import Routes from "../../../configuration/routes";
 import messages from "../../../configuration/messages";
 
-// Translate as English
-jest.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (key) => {
-      return key;
-    },
-  }),
-}));
-
 const TestHook = () => <div>TestComponent</div>;
 
 describe("Check Error Rendering", () => {

@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { UserContext } from "../../providers/user/user.provider";
 import { Navbar, NavbarContainer, NavbarItems } from "./header.styles";
 import Assets from "../../configuration/assets";
-import messages from "../../configuration/messages";
 import Routes from "../../configuration/routes";
 import { HomePage } from "../../configuration/lastfm";
 
@@ -26,10 +25,10 @@ const Header = ({ history, match }) => {
   };
 
   const getHeaderMessage = () => {
-    if (userProperties.error) return t(messages.HeaderNoUser);
-    if (pathname === Routes.contact) return t(messages.HeaderTop20);
-    if (pathname === Routes.search) return t(messages.HeaderPromptUser);
-    if (!userProperties.ready) return t(messages.HeaderLoadingUser);
+    if (userProperties.error) return t("HeaderNoUser");
+    if (pathname === Routes.contact) return t("HeaderTop20");
+    if (pathname === Routes.search) return t("HeaderPromptUser");
+    if (!userProperties.ready) return t("HeaderLoadingUser");
     return userProperties.userName;
   };
 
@@ -37,7 +36,7 @@ const Header = ({ history, match }) => {
     if (Object.values(Routes).includes(pathname) || !userProperties.ready) {
       return (
         <a rel="noopener noreferrer" target="_blank" href={HomePage}>
-          <img alt={t(messages.HeaderAltLastFM)} src={Assets.LastFMLogo} />
+          <img alt={t("HeaderAltLastFM")} src={Assets.LastFMLogo} />
         </a>
       );
     }
@@ -48,7 +47,7 @@ const Header = ({ history, match }) => {
         href={userProperties.profileUrl}
       >
         <img
-          alt={t(messages.HeaderAltAvatar)}
+          alt={t("HeaderAltAvatar")}
           src={
             userProperties.imageUrl !== ""
               ? userProperties.imageUrl
@@ -75,14 +74,14 @@ const Header = ({ history, match }) => {
           <div onClick={handleLinkHome}>
             <img
               className={isSearching() ? "here" : ""}
-              alt={t(messages.HeaderAltSearch)}
+              alt={t("HeaderAltSearch")}
               src={Assets.SearchLogo}
             />
           </div>
           <div onClick={handleLinkContact}>
             <img
               className={pathname === Routes.contact ? "here" : ""}
-              alt={t(messages.HeaderAltContact)}
+              alt={t("HeaderAltContact")}
               src={Assets.ContactLogo}
             />
           </div>

@@ -7,14 +7,13 @@ import { useTranslation } from "react-i18next";
 import { UserContext } from "../../providers/user/user.provider";
 import { LoaderContainer } from "./spinner.styles";
 import Billboard from "../billboard/billboard.component";
-import messages from "../../configuration/messages";
 
 export const Spinner = () => {
   const { t } = useTranslation();
   return (
     <Billboard>
       <LoaderContainer data-testid="Spinner1">
-        <div className="loader">{t(messages.SpinnerMessage)}</div>
+        <div className="loader">{t("SpinnerMessage")}</div>
       </LoaderContainer>
     </Billboard>
   );

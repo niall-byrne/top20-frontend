@@ -11,7 +11,6 @@ import { ErrorContainer, CenteredContainer } from "./error.styles";
 import CustomButton from "../button/button.component";
 import Billboard from "../billboard/billboard.component";
 import Routes from "../../configuration/routes";
-import messages from "../../configuration/messages";
 
 const WithError = (WrappedComponent) => {
   const CustomError = ({ history, ...otherProps }) => {
@@ -23,7 +22,7 @@ const WithError = (WrappedComponent) => {
         // Whenever this is unmounted clear the state
         dispatch({ type: UserTypes.ResetState });
       };
-    }, []);
+    }, []); // eslint-disable-line
 
     const handleClick = (e) => {
       history.push(Routes.search);
@@ -34,13 +33,13 @@ const WithError = (WrappedComponent) => {
         {userProperties.error ? (
           <Billboard>
             <ErrorContainer data-testid="Error1">
-              <div>{t(messages.ErrorMessage)}</div>
+              <div>{t("ErrorMessage")}</div>
               <CenteredContainer>
                 <CustomButton
                   action={handleClick}
                   type="button"
                   testid="Error2"
-                  text={t(messages.ErrorButtonMessage)}
+                  text={t("ErrorButtonMessage")}
                 />
               </CenteredContainer>
             </ErrorContainer>

@@ -26,15 +26,6 @@ Contact.mockImplementation(() => <div>MockContact</div>);
 AnalyticsProvider.mockImplementation(({ children }) => <div>{children}</div>);
 ProfileContainer.mockImplementation(() => <div>MockProfileContainer</div>);
 
-// Translate as English (For Rendered Children)
-jest.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (key) => {
-      return key;
-    },
-  }),
-}));
-
 describe("Check Routing", () => {
   let tests = [
     { path: Routes.search },

@@ -1,6 +1,5 @@
 import React, { Suspense, lazy } from "react";
 import { Switch, Route } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 import UserProvider from "./providers/user/user.provider";
 import AnalyticsProvider from "./providers/analytics/analytics.provider";
@@ -15,8 +14,6 @@ const Contact = lazy(() => import("./components/contact/contact.component"));
 const Profile = lazy(() => import("./components/profile/profile.container"));
 
 function App() {
-  const { t } = useTranslation();
-
   return (
     <div>
       <UserProvider>

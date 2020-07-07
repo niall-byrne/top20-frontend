@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "cookie_js": "^1.4.0",
     "i18next": "^19.4.4",
     "i18next-browser-languagedetector": "^4.1.1",
     "react": "^16.13.1",
