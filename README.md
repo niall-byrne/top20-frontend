@@ -2,6 +2,8 @@
 
 User Listening Data Visualizations (powered by last.fm)
 
+![Top20 Automation](https://github.com/niall-byrne/top20-frontend/workflows/Top20%20Automation/badge.svg)
+
 https://niall-byrne.github.io/top20-frontend/
 
 ## Environment Variabes
