@@ -2,9 +2,11 @@
 
 User Listening Data Visualizations (powered by last.fm)
 
-![Top20 Automation](https://github.com/niall-byrne/top20-frontend/workflows/Top20%20Automation/badge.svg)
+## Develop Branch (Stage)
+- ![Top20 Automation](https://github.com/playcounts/top20-frontend/workflows/Top20%20Automation/badge.svg?branch=develop)
 
-https://niall-byrne.github.io/top20-frontend/
+## Master Branch (Production)
+- ![Top20 Automation](https://github.com/playcounts/top20-frontend/workflows/Top20%20Automation/badge.svg?branch=master)
 
 ## Environment Variabes
 
