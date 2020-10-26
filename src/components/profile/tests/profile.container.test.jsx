@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup, act, waitFor } from "@testing-library/react";
+import { render, cleanup, waitFor } from "@testing-library/react";
 import { Router, Route } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
@@ -12,17 +12,17 @@ import { AnalyticsContext } from "../../../providers/analytics/analytics.provide
 import { AnalyticsActions } from "../../../providers/analytics/analytics.actions";
 import { mockApiData } from "../../../test.fixtures/lastfm.api.fixture";
 
-jest.mock("../profile.component");
-Profile.mockImplementation(() => <div>MockComponent</div>);
-const mockEvent = jest.fn();
-const mockAnalyticsSettings = { event: mockEvent, initialized: true };
-
 import {
   dispatchMock,
   userBeforeFetch,
   userBeforeFetchReady,
   userBeforeFetchUrlEncodingNeeded,
 } from "../../../test.fixtures/lastfm.user.fixture";
+
+jest.mock("../profile.component");
+Profile.mockImplementation(() => <div>MockComponent</div>);
+const mockEvent = jest.fn();
+const mockAnalyticsSettings = { event: mockEvent, initialized: true };
 
 describe("Check the Profile Container Component Renders Without Crashing", () => {
   afterEach(cleanup);
@@ -48,27 +48,24 @@ describe("Check the Profile Container Component Renders Without Crashing", () =>
     );
   });
 
-  it("has ready state, so the profile should be rendered without any dispatch", async (done) => {
+  it("has ready state, so the profile should be rendered without any dispatch", async () => {
     expect(utils.queryByTestId("billboard1")).toBeFalsy();
     expect(utils.queryByTestId("billboard2")).toBeFalsy();
     await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(0));
     expect(mockEvent).toHaveBeenCalledTimes(0);
-    done();
   });
 
-  it("has not ready state, so the spinner should be rendered, on it's billboard", async (done) => {
+  it("has not ready state, so the spinner should be rendered, on it's billboard", async () => {
     expect(utils.getByTestId("billboard1")).toBeTruthy();
     expect(utils.getByTestId("billboard2")).toBeTruthy();
     expect(utils.getByTestId("Spinner1")).toBeTruthy();
     await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(1));
     expect(mockEvent).toHaveBeenCalledTimes(0);
-    done();
   });
 });
 
 describe("Check Profile Data Fetching", () => {
   let history;
-  let utils;
   let state = [
     userBeforeFetch,
     userBeforeFetchUrlEncodingNeeded,
@@ -86,7 +83,7 @@ describe("Check Profile Data Fetching", () => {
     history.push(
       `/${encodeURIComponent(providerState.userProperties.userName)}`
     );
-    utils = render(
+    render(
       <Router history={history}>
         <UserContext.Provider value={providerState}>
           <AnalyticsContext.Provider value={mockAnalyticsSettings}>
@@ -99,7 +96,7 @@ describe("Check Profile Data Fetching", () => {
 
   afterEach(cleanup);
 
-  it("when ready is false, a dispatch is made to fetch the user data (clean username)", async (done) => {
+  it("when ready is false, a dispatch is made to fetch the user data (clean username)", async () => {
     await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(1));
     const call = dispatchMock.mock.calls[0][0];
     expect(call.userName).toBe(providerState.userProperties.userName);
@@ -111,10 +108,9 @@ describe("Check Profile Data Fetching", () => {
     expect(call.failure).toBeInstanceOf(Function);
     expect(call.failure.name).toBe("failure");
     expect(mockEvent).toHaveBeenCalledTimes(0);
-    done();
   });
 
-  it("when ready is false, a dispatch is made to fetch the user data (url encoding needed)", async (done) => {
+  it("when ready is false, a dispatch is made to fetch the user data (url encoding needed)", async () => {
     await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(1));
     const call = dispatchMock.mock.calls[0][0];
     expect(call.userName).toBe(providerState.userProperties.userName);
@@ -126,10 +122,9 @@ describe("Check Profile Data Fetching", () => {
     expect(call.failure).toBeInstanceOf(Function);
     expect(call.failure.name).toBe("failure");
     expect(mockEvent).toHaveBeenCalledTimes(0);
-    done();
   });
 
-  it("the success callback should dispatch correctly", async (done) => {
+  it("the success callback should dispatch correctly", async () => {
     await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(1));
     // Grab The Success Callback
     const call = dispatchMock.mock.calls[0][0];
@@ -145,10 +140,9 @@ describe("Check Profile Data Fetching", () => {
     });
     expect(mockEvent).toHaveBeenCalledTimes(1);
     expect(mockEvent).toHaveBeenCalledWith(AnalyticsActions.SuccessProfile);
-    done();
   });
 
-  it("the failure callback should dispatch correctly", async (done) => {
+  it("the failure callback should dispatch correctly", async () => {
     await waitFor(() => expect(dispatchMock).toHaveBeenCalledTimes(1));
     // Grab The Failure Callback
     const call = dispatchMock.mock.calls[0][0];
@@ -163,12 +157,10 @@ describe("Check Profile Data Fetching", () => {
     });
     expect(mockEvent).toHaveBeenCalledTimes(1);
     expect(mockEvent).toHaveBeenCalledWith(AnalyticsActions.ErrorProfile);
-    done();
   });
 
-  it("when ready is true, no dispatch is made", async (done) => {
+  it("when ready is true, no dispatch is made", async () => {
     expect(dispatchMock.mock.calls.length).toBe(0);
     expect(mockEvent).toHaveBeenCalledTimes(0);
-    done();
   });
 });

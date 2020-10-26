@@ -28,6 +28,7 @@
     "coverage": "react-scripts test --env=jest-environment-jsdom-sixteen --coverage --coverageDirectory=coverage --watchAll=false"
   },
   "jest": {
+    "resetMocks": false,
     "coverageReporters": [
       "text",
       "html"

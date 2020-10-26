@@ -29,7 +29,7 @@ describe("Check the Drawer Component Renders Without Crashing", () => {
     expect(utils.getByText(messages.DrawerTitle)).toBeTruthy();
   });
 
-  it("clicking on an card should open the drawer revealing the image, listens and name of the album", async (done) => {
+  it("clicking on an card should open the drawer revealing the image, listens and name of the album", async () => {
     utils.rerender(
       <Drawer
         drawerHeight="33vh"
@@ -54,10 +54,9 @@ describe("Check the Drawer Component Renders Without Crashing", () => {
         utils.getByText(`${albums[index].playcount} listens`)
       ).toBeTruthy();
     });
-    done();
   });
 
-  it("clicking on two successive cards, should only show the lastest card's info", async (done) => {
+  it("clicking on two successive cards, should only show the lastest card's info", async () => {
     utils.rerender(
       <Drawer
         drawerHeight="33vh"
@@ -93,6 +92,5 @@ describe("Check the Drawer Component Renders Without Crashing", () => {
         utils.getByText(`${albums[index].playcount} listens`)
       ).toBeTruthy();
     });
-    done();
   });
 });

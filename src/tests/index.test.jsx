@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { I18nextProvider } from "react-i18next";
 import App from "../App.js";
 import * as serviceWorker from "../serviceWorker";
+import { IndexComponent } from "../index.component";
 
 jest.mock("../serviceWorker", () => ({
   __esModule: true,
@@ -15,7 +16,9 @@ jest.mock("../App.js");
 App.mockImplementation(() => <div>MockApp</div>);
 I18nextProvider.mockImplementation(({ children }) => children);
 serviceWorker.register.mockImplementation(() => {
-  register: jest.fn();
+  return {
+    register: jest.fn(),
+  };
 });
 
 describe("Check Main Rendering", () => {
@@ -29,18 +32,16 @@ describe("Check Main Rendering", () => {
     const div = document.createElement("div");
     div.id = "root";
     document.body.appendChild(div);
-    const { Index } = require("../index.js");
+    require("../index");
     expect(ReactDOM.render).toHaveBeenCalledTimes(1);
-    expect(ReactDOM.render).toHaveBeenCalledWith(<Index />, div);
+    expect(ReactDOM.render).toHaveBeenCalledWith(<IndexComponent />, div);
     expect(serviceWorker.register).toHaveBeenCalledTimes(1);
   });
 
   it("should render the main application components without crashing", () => {
-    jest.unmock("react-dom");
-    const { render, cleanup, waitFor } = require("@testing-library/react");
-    const { Index } = require("../index.js");
-    const utils = render(<Index />);
+    const actualDom = jest.requireActual("react-dom");
+    actualDom.render(<IndexComponent />, document.getElementById("root"));
     expect(I18nextProvider).toHaveBeenCalledTimes(1);
-    expect(utils.getByText("MockApp")).toBeTruthy();
+    expect(App).toHaveBeenCalledTimes(1);
   });
 });

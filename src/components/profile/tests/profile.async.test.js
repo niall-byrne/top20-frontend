@@ -41,7 +41,7 @@ describe("When fetchProfile is used", () => {
     });
   });
 
-  it("should call the success callback as expected", async (done) => {
+  it("should call the success callback as expected", async () => {
     mockedFetch.mockImplementation(() =>
       Promise.resolve({
         json: () => Promise.resolve({}),
@@ -63,10 +63,9 @@ describe("When fetchProfile is used", () => {
     expect(success.mock.calls.length).toBe(1);
     expect(failure.mock.calls.length).toBe(0);
     expect(success.mock.calls[0][0]).toEqual(state);
-    done();
   });
 
-  it("should call the failure callback as expected", async (done) => {
+  it("should call the failure callback as expected", async () => {
     mockedFetch.mockImplementation(() =>
       Promise.resolve({
         json: () => Promise.resolve({}),
@@ -88,10 +87,9 @@ describe("When fetchProfile is used", () => {
     expect(failure.mock.calls.length).toBe(1);
     expect(success.mock.calls.length).toBe(0);
     expect(failure.mock.calls[0][0]).toEqual(state);
-    done();
   });
 
-  it("should handle a server error", async (done) => {
+  it("should handle a server error", async () => {
     mockedFetch.mockImplementation(() => {
       throw new Error("Server Error!");
     });
@@ -110,7 +108,6 @@ describe("When fetchProfile is used", () => {
     expect(failure.mock.calls.length).toBe(1);
     expect(success.mock.calls.length).toBe(0);
     expect(failure.mock.calls[0][0]).toEqual({});
-    done();
   });
 });
 

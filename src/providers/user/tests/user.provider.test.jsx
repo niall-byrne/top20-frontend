@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { render, cleanup } from "@testing-library/react";
 import UserProvider, { UserContext } from "../user.provider";
 

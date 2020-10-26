@@ -32,7 +32,6 @@ describe("Check Routing", () => {
     { path: Routes.contact },
     { path: "/niall-byrne" },
   ];
-  let utils;
   let currentTest;
 
   beforeEach(() => {
@@ -43,7 +42,7 @@ describe("Check Routing", () => {
     AnalyticsProvider.mockClear();
     ProfileContainer.mockClear();
     currentTest = tests.shift();
-    utils = render(
+    render(
       <MemoryRouter initialEntries={[currentTest.path]}>
         <App />
       </MemoryRouter>
@@ -52,7 +51,7 @@ describe("Check Routing", () => {
 
   afterEach(cleanup);
 
-  it("should render the header and search components on the search page", async (done) => {
+  it("should render the header and search components on the search page", async () => {
     expect(AnalyticsProvider).toHaveBeenCalledTimes(1);
     expect(Spinner.mock.calls.length).toBe(1);
 
@@ -61,10 +60,9 @@ describe("Check Routing", () => {
     expect(Search.mock.calls.length).toBe(1);
     expect(Contact.mock.calls.length).toBe(0);
     expect(ProfileContainer.mock.calls.length).toBe(0);
-    done();
   });
 
-  it("should render the header and contact components on the contact page", async (done) => {
+  it("should render the header and contact components on the contact page", async () => {
     expect(AnalyticsProvider).toHaveBeenCalledTimes(1);
     expect(Spinner.mock.calls.length).toBe(1);
 
@@ -73,10 +71,9 @@ describe("Check Routing", () => {
     expect(Search.mock.calls.length).toBe(0);
     expect(Contact.mock.calls.length).toBe(1);
     expect(ProfileContainer.mock.calls.length).toBe(0);
-    done();
   });
 
-  it("should render the header and profile components on the profile page", async (done) => {
+  it("should render the header and profile components on the profile page", async () => {
     expect(AnalyticsProvider).toHaveBeenCalledTimes(1);
     expect(Spinner.mock.calls.length).toBe(1);
 
@@ -85,6 +82,5 @@ describe("Check Routing", () => {
     expect(Search.mock.calls.length).toBe(0);
     expect(Contact.mock.calls.length).toBe(0);
     expect(ProfileContainer.mock.calls.length).toBe(1);
-    done();
   });
 });
