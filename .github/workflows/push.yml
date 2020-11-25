@@ -4,6 +4,7 @@ on:
   push:
   schedule:
     - cron: "0 6 * * 1"
+  workflow_dispatch:
 
 jobs:
   push:
@@ -29,7 +30,7 @@ jobs:
         env:
           WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
 
-      - name: Stage -- Build 
+      - name: Stage -- Build
         if: ${{ github.ref == 'refs/heads/develop' && github.event_name == 'push' }}
         run: |
           npm run build
@@ -37,7 +38,7 @@ jobs:
           SKIP_PREFLIGHT_CHECK: "true"
           REACT_APP_BACKEND: ${{ secrets.STAGE_REACT_APP_BACKEND }}
           REACT_APP_UA_CODE: ${{ secrets.STAGE_REACT_APP_UA_CODE }}
-      - name: Stage -- Automated Deploy        
+      - name: Stage -- Automated Deploy
         if: ${{ github.ref == 'refs/heads/develop' && github.event_name == 'push' }}
         uses: w9jds/firebase-action@v1.5.0
         with:
@@ -59,23 +60,23 @@ jobs:
           WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           REF: ${{ github.ref }}
           EVENT: ${{ github.event_name }}
-      
+
       - name: Production -- Detect A Release Tag
         if: contains(github.ref, '/tags/v') == true
         run: |
           GIT_DIFF=$(git diff origin/master)
-          echo "::set-env name=GIT_DIFF::${GIT_DIFF}"
+          echo "GIT_DIFF=${GIT_DIFF}" >> $GITHUB_ENV
       - name: Production -- Ignore Non-Release Tags and Branches
         if: contains(github.ref, '/tags/v') != true
         run: |
           GIT_DIFF="not a release"
-          echo "::set-env name=GIT_DIFF::${GIT_DIFF}"
+          echo "GIT_DIFF=${GIT_DIFF}" >> $GITHUB_ENV
 
       - name: Production -- Prepare Release Content
         if: env.GIT_DIFF == ''
         run: |
           NEWTAG=${GITHUB_REF#refs/tags/}
-          echo "::set-env name=NEWTAG::${NEWTAG}"
+          echo "NEWTAG=${NEWTAG}" >> $GITHUB_ENV
       - name: Production -- Generate Changelog
         if: env.GIT_DIFF == ''
         uses: scottbrenner/generate-changelog-action@master
@@ -121,4 +122,3 @@ jobs:
         env:
           WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           GIT_DIFF: ${{ env.GIT_DIFF }}
-  
