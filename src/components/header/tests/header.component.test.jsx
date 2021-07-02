@@ -124,8 +124,9 @@ describe("The Header Should Render Without Crashing", () => {
   describe("When on The Root Page", () => {
     it("when the contact link is clicked it modifies the history", () => {
       expect(history.length).toBe(1);
-      const contactDiv = utils.getByAltText(messages.HeaderAltContact)
-        .parentElement;
+      const contactDiv = utils.getByAltText(
+        messages.HeaderAltContact
+      ).parentElement;
       fireEvent.click(contactDiv);
       expect(history.length).toBe(2);
       expect(utils.getByText(messages.HeaderTop20)).toBeTruthy();
@@ -136,8 +137,9 @@ describe("The Header Should Render Without Crashing", () => {
   describe("When on The Root Page", () => {
     it("when the search link is clicked it modifies the history", () => {
       expect(history.length).toBe(1);
-      const searchDiv = utils.getByAltText(messages.HeaderAltSearch)
-        .parentElement;
+      const searchDiv = utils.getByAltText(
+        messages.HeaderAltSearch
+      ).parentElement;
       fireEvent.click(searchDiv);
       expect(history.length).toBe(2);
       expect(utils.getByText(messages.HeaderPromptUser)).toBeTruthy();

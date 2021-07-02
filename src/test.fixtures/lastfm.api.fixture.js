@@ -492,8 +492,7 @@ export const mockApiData = {
           },
         ],
         playcount: "912",
-        url:
-          "https://www.last.fm/music/Japandroids/Near+To+The+Wild+Heart+Of+Life",
+        url: "https://www.last.fm/music/Japandroids/Near+To+The+Wild+Heart+Of+Life",
         name: "Near To The Wild Heart Of Life",
         mbid: "55e6a6da-79bd-49cd-8c21-fdbf469b2589",
       },
@@ -565,8 +564,7 @@ export const mockApiData = {
           },
         ],
         playcount: "893",
-        url:
-          "https://www.last.fm/music/The+Stone+Roses/The+Complete+Stone+Roses",
+        url: "https://www.last.fm/music/The+Stone+Roses/The+Complete+Stone+Roses",
         name: "The Complete Stone Roses",
         mbid: "18a71057-e1f5-4622-a0e0-3a73b6ce0bd2",
       },
@@ -854,8 +852,7 @@ export const mockApiData = {
           },
         ],
         playcount: "623",
-        url:
-          "https://www.last.fm/music/Maybeshewill/I+Was+Here+for+a+Moment,+Then+I+Was+Gone",
+        url: "https://www.last.fm/music/Maybeshewill/I+Was+Here+for+a+Moment,+Then+I+Was+Gone",
         name: "I Was Here for a Moment, Then I Was Gone",
         mbid: "8558204b-7cf8-4840-885b-1d61d6ffc187",
       },
@@ -927,8 +924,7 @@ export const mockApiData = {
           },
         ],
         playcount: "605",
-        url:
-          "https://www.last.fm/music/Jimmy+Eat+World/Bleed+American+(Deluxe+Edition)",
+        url: "https://www.last.fm/music/Jimmy+Eat+World/Bleed+American+(Deluxe+Edition)",
         name: "Bleed American (Deluxe Edition)",
         mbid: "",
       },
@@ -1252,8 +1248,7 @@ export const mockApiData = {
           },
         ],
         playcount: "464",
-        url:
-          "https://www.last.fm/music/God+Is+An+Astronaut/Age+of+the+Fifth+Sun",
+        url: "https://www.last.fm/music/God+Is+An+Astronaut/Age+of+the+Fifth+Sun",
         name: "Age of the Fifth Sun",
         mbid: "a36ab113-612d-4e2d-92f0-47ffda893f6a",
       },
@@ -1361,8 +1356,7 @@ export const mockApiData = {
           },
         ],
         playcount: "442",
-        url:
-          "https://www.last.fm/music/The+Smashing+Pumpkins/Siamese+Dream+(Deluxe+Edition)",
+        url: "https://www.last.fm/music/The+Smashing+Pumpkins/Siamese+Dream+(Deluxe+Edition)",
         name: "Siamese Dream (Deluxe Edition)",
         mbid: "",
       },
@@ -1722,8 +1716,7 @@ export const mockApiData = {
           },
         ],
         playcount: "364",
-        url:
-          "https://www.last.fm/music/Matthew+Good+Band/The+Audio+Of+Being+(International+Version)",
+        url: "https://www.last.fm/music/Matthew+Good+Band/The+Audio+Of+Being+(International+Version)",
         name: "The Audio Of Being (International Version)",
         mbid: "",
       },
@@ -1939,8 +1932,7 @@ export const mockApiData = {
           },
         ],
         playcount: "349",
-        url:
-          "https://www.last.fm/music/Skyharbor/Blinding+White+Noise:+Illusion+&+Chaos",
+        url: "https://www.last.fm/music/Skyharbor/Blinding+White+Noise:+Illusion+&+Chaos",
         name: "Blinding White Noise: Illusion & Chaos",
         mbid: "dbeb945e-ca29-4368-8c8a-717d18da0dc1",
       },
