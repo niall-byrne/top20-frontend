@@ -14,20 +14,20 @@ jobs:
       - name: Install Node Modules
         run: |
           npm install
-      - name: Production -- Build 
+      - name: Production -- Build
         run: |
           npm run build
         env:
           SKIP_PREFLIGHT_CHECK: "true"
           REACT_APP_BACKEND: ${{ secrets.PROD_REACT_APP_BACKEND }}
           REACT_APP_UA_CODE: ${{ secrets.PROD_REACT_APP_UA_CODE }}
-      - name: Production -- Automated Deploy        
-        uses: w9jds/firebase-action@v1.5.0
+      - name: Production -- Automated Deploy
+        uses: w9jds/firebase-action@v2.0.0
         with:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: ${{ secrets.PROD_FIREBASE_PROJECT }} 
+          PROJECT_ID: ${{ secrets.PROD_FIREBASE_PROJECT }}
       - name: Production -- Report Success
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{"text":"Top20 Frontend: automated production deployment was successful!"}' "${WEBHOOK_URL}"

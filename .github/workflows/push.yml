@@ -40,7 +40,7 @@ jobs:
           REACT_APP_UA_CODE: ${{ secrets.STAGE_REACT_APP_UA_CODE }}
       - name: Stage -- Automated Deploy
         if: ${{ github.ref == 'refs/heads/develop' && github.event_name == 'push' }}
-        uses: w9jds/firebase-action@v1.5.0
+        uses: w9jds/firebase-action@v2.0.0
         with:
           args: deploy --only hosting
         env:
@@ -79,7 +79,7 @@ jobs:
           echo "NEWTAG=${NEWTAG}" >> $GITHUB_ENV
       - name: Production -- Generate Changelog
         if: env.GIT_DIFF == ''
-        uses: scottbrenner/generate-changelog-action@master
+        uses: scottbrenner/generate-changelog-action@v1.3.3
         id: Changelog
         env:
           REPO: ${{ github.repository }}
